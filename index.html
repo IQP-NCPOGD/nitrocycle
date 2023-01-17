@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>NitroCycle</title>
+
+		<link rel="stylesheet" href="styles/index.css"/>
+		<script type="text/javascript" src="scripts/index.js"></script>
+        
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		
+		<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ar.js@3.0.0/aframe/build/aframe-ar.min.js"></script>	
+	</head>
+	<body>
+		<a-scene embedded arjs>
+      <a-marker id="marker" type='pattern' url='assets/marker.patt'>
+        <a-box position="0 0.5 0" material="color: red"></a-box>
+      </a-marker>
+			<a-entity camera></a-entity>
+	    <a-entity light="type: ambient; color: #BBB"></a-entity>
+    </a-scene>
+
+		<div class='ui'>
+			<nav>
+				<h1>NitroCycle</h1>
+
+			</nav>
+		</div>
+
+	</body>
+
+</html>
