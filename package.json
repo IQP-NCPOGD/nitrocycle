@@ -19,8 +19,15 @@
   },
   "homepage": "https://github.com/IQP-NCPOGD/NitroCycle#readme",
   "dependencies": {
+    "@ar-js-org/ar.js": "^3.4.3",
+    "@artcom/react-three-arjs": "^0.5.2",
+    "@react-three/fiber": "^8.10.1",
+    "buffer": "^6.0.3",
+    "copy-webpack-plugin": "^11.0.0",
+    "core-js": "^3.27.2",
     "css-loader": "^6.7.3",
     "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "style-loader": "^3.3.1"
