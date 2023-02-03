@@ -1,24 +1,37 @@
-import React from 'react';
-import { render } from 'react-dom';
+import { ARCanvas, ARMarker } from "@artcom/react-three-arjs"
+import React from "react"
+import { createRoot } from "react-dom/client"
 
-import { ARCanvas, ARMarker } from "@artcom/react-three-arjs";
+function Box() {
+  return (
+    <mesh
+      onClick={e => {
+        window.alert("click")
+        console.log(e)
+      }}>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color={"hotpink"} />
+    </mesh>
+  )
+}
 
-render(
+createRoot(document.getElementById("root")).render(
   <ARCanvas
-    camera={ { position: [0, 0, 0] } }
-    onCreated={ ({ gl }) => {
+    gl={{ antialias: false, powerPreference: "default", physicallyCorrectLights: true }}
+    onCameraStreamReady={() => console.log("Camera stream ready")}
+    onCameraStreamError={() => console.error("Camera stream error")}
+    onCreated={({ gl }) => {
       gl.setSize(window.innerWidth, window.innerHeight)
-    } }>
+    }}>
     <ambientLight />
-    <pointLight position={ [10, 10, 0] }  />
+    <pointLight position={[10, 10, 0]} intensity={10.0} />
     <ARMarker
-      type={ "pattern" }
-      patternUrl={ "data/hiro.patt" }>
-      <mesh>
-        <boxBufferGeometry args={ [1, 1, 1] } />
-        <meshStandardMaterial color={ "green" } />
-      </mesh>
+      type={"pattern"}
+      patternUrl={"data/patt.hiro"}
+      onMarkerFound={() => {
+        console.log("Marker Found")
+      }}>
+      <Box />
     </ARMarker>
   </ARCanvas>,
-  document.getElementById("root")
-);
+)
