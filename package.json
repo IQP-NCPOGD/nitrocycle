@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "webpack serve --config webpack.config.js --mode=development",
+    "dev": "webpack serve --https --config webpack.config.js --mode=development",
     "build": "webpack --config webpack.config.js --mode=production",
     "deploy": "gh-pages -d dist"
   },

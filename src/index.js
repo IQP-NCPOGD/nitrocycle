@@ -7,10 +7,10 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 function Bloom(props) {
   const gltf = useLoader(GLTFLoader, 'data/models/bloom.gltf')
   return (
-    <primitive 
-    onClick={(event) => window.alert('click')}
-    scale={0.25}
-    object={gltf.scene} />
+    <primitive
+      onClick={(event) => window.alert('click')}
+      scale={0.25}
+      object={gltf.scene} />
   );
 }
 
@@ -25,7 +25,7 @@ function Box(props) {
     <mesh
       {...props}
       ref={ref}
-      scale={clicked ? 1.5 : 1}
+      scale={clicked ? 1 : 0.5}
       onClick={(event) => click(!clicked)}
       onPointerOver={(event) => hover(true)}
       onPointerOut={(event) => hover(false)}>
