@@ -8,7 +8,7 @@ export default function GUIComponent(props) {
     const [bloomVisible, setBloomVisible] = useState(false);
 
     useEffect(() => {
-        props.onMount({food, setFood, bloomVisible, setBloomVisible});
+        props.onMount({ food, setFood, bloomVisible, setBloomVisible });
     }, [props.onMount, food, bloomVisible]);
 
     console.log("Render GUI");
@@ -24,13 +24,13 @@ export default function GUIComponent(props) {
             <div className="buttons">
                 <button
                     className="say-hi-button"
-                    onClick={() => setFood((old)=>old+1)}>
+                    onClick={() => setFood((old) => old + 1)}>
                     Button
                 </button>
             </div>
 
             <div className="node-buttons">
-                {bloomVisible ? <button className="bloom-button">
+                {bloomVisible ? <button className="bloom-button" onClick={() => props.setBloomPurchased(true)}>
                     Bloom
                 </button> : ""}
             </div>

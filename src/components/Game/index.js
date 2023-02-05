@@ -6,11 +6,19 @@ import './styles.css'
 
 export default function Game(props) {
     let food = null;
-    let setFood = null;
     let bloomVisible = null;
+    let bloomPurchased = null;
+
+    let setFood = null;
     let setBloomVisible = null;
+    let setBloomPurchased = null;
 
     let bloomTimeout = null;
+
+    const onARMount = (dataFromAR) => {
+        bloomPurchased = dataFromAR.bloomPurchased;
+        setBloomPurchased = dataFromAR.setBloomPurchased;
+    }
 
     const onGUIMount = (dataFromGui) => {
         food = dataFromGui.food;
@@ -35,23 +43,25 @@ export default function Game(props) {
     //
 
     const ARprops = {
+        onMount: onARMount,
         plantFound,
         plantLost,
     }
 
     const GUIprops = {
         onMount: onGUIMount,
+        setBloomPurchased,
     }
 
     //
 
-    const ARComponentMemo = memo((ARprops) => <ARComponent {...ARprops}/>)
+    const ARComponentMemo = memo((ARprops) => <ARComponent {...ARprops} />)
 
     console.log("Render Game")
 
     return (
         <>
-            <ARComponentMemo {...ARprops}/>
+            <ARComponentMemo {...ARprops} />
 
             <GUIComponent
                 {...GUIprops}
