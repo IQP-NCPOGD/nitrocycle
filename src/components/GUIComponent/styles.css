@@ -1,0 +1,72 @@
+.stat-display {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  z-index: 10;
+  user-select: none;
+}
+
+.stat {
+  padding: 0.25em;
+  border-radius: 4px;
+  border: none;
+  background: white;
+  color: black;
+  width: 4em;
+  height: 2em;
+  user-select: none;
+}
+
+.buttons {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  user-select: none;
+}
+
+.say-hi-button {
+  padding: 0.25em;
+  border-radius: 4px;
+  border: none;
+  background: white;
+  color: black;
+  width: 4em;
+  height: 2em;
+  user-select: none;
+}
+
+.node-buttons {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: end;
+  z-index: 10;
+  user-select: none;
+}
+
+.bloom-button {
+  padding: 0.25em;
+  border-radius: 4px;
+  border: none;
+  background: salmon;
+  color: black;
+  width: 4em;
+  height: 2em;
+  user-select: none;
+}
