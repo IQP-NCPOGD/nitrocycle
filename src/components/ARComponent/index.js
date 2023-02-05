@@ -10,7 +10,6 @@ import { ModelContext } from "../Game"
 function Bloom(props) {
 
   const gltf = useLoader(GLTFLoader, 'data/models/bloom.gltf')
-  console.log("Render Bloom");
   return (
     <>
       {props.bloomPurchased ? <primitive
@@ -48,7 +47,7 @@ class ARComponent extends React.PureComponent {
   }
 
   render() {
-    console.log("Render ARComponent");
+    
     return (
       <ARCanvas
         gl={{ alpha: true, antialias: false, powerPreference: "default", physicallyCorrectLights: true, precision: "highp", logarithmicDepthBuffer: true }}
@@ -56,7 +55,8 @@ class ARComponent extends React.PureComponent {
         onCameraStreamError={() => console.error("Camera stream error")}
         onCreated={({ gl }) => {
           gl.setSize(window.innerWidth, window.innerHeight)
-        }}>
+        }}
+        resize={{ debounce: 500 }}>
 
         <ModelContext.Consumer>
           {({ bloomPurchased }) => {

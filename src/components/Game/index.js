@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react"
+import React, { useState, useCallback, useEffect } from "react"
 import ARComponent from "../ARComponent"
 import GUIComponent from "../GUIComponent"
 
@@ -7,25 +7,41 @@ import './styles.css'
 export const ModelContext = React.createContext();
 
 export function Game(props) {
+
+    // ---------- STATE ----------
+    
     const [food, setFood] = useState(0);
     const [bloomVisible, setBloomVisible] = useState(false);
     const [bloomPurchased, setBloomPurchased] = useState(false);
 
+    useEffect(() => {
+        /*
+        Currently only solution I know to fix rendering on state changes
+        This is because state change causes a re-render of the component
+
+        Dispatching the resize event fixes the canvas rendering,
+        so it should be called after any state changes
+        */
+        window.dispatchEvent(new Event('resize')); 
+    }, [food, bloomVisible, bloomPurchased])
+
+    // ---------- CALLBACKS ----------
+
     let bloomTimeout = null;
 
-    //
-
     const plantFound = useCallback(() => {
+        console.log("Marker Found");
         clearTimeout(bloomTimeout);
         setBloomVisible(true);
     }, []);
 
     const plantLost = useCallback(() => {
+        console.log("Marker Lost");
         clearTimeout(bloomTimeout);
         bloomTimeout = setTimeout(() => setBloomVisible(false), 2000);
     }, []);
 
-    //
+    // ---------- PROPS ----------
 
     const ARprops = {
         plantFound,
@@ -39,9 +55,7 @@ export function Game(props) {
         setBloomPurchased,
     }
 
-    //
-
-    console.log("Render Game")
+    // ---------- RENDER ----------
 
     return (
         <>

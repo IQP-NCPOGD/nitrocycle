@@ -4,7 +4,6 @@ import './styles.css'
 
 export default function GUIComponent(props) {
 
-    console.log("Render GUI");
     return (
         <div className="gui-controls">
 
