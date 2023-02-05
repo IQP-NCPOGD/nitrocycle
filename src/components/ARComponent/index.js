@@ -5,24 +5,19 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 import './styles.css'
 
+import { ModelContext } from "../Game"
+
 function Bloom(props) {
-
-  const [bloomPurchased, setBloomPurchased] = useState(false);
-
-  useEffect(() => {
-    props.onMount({ bloomPurchased, setBloomPurchased });
-  }, [props.onMount, bloomPurchased]);
 
   const gltf = useLoader(GLTFLoader, 'data/models/bloom.gltf')
   console.log("Render Bloom");
   return (
     <>
-      {bloomPurchased ? <primitive
+      {props.bloomPurchased ? <primitive
         // onClick={(event) => window.alert('click')}
         scale={0.25}
         object={gltf.scene} /> : <Box />}
     </>
-
   );
 }
 
@@ -47,53 +42,55 @@ function Box(props) {
   )
 }
 
-export default function ARComponent(props) {
-
-  let bloomPurchased = null;
-  let setBloomPurchased = null;
-
-  const onBloomMount = (dataFromBloom) => {
-    bloomPurchased = dataFromBloom.bloomPurchased;
-    setBloomPurchased = dataFromBloom.setBloomPurchased;
+class ARComponent extends React.PureComponent {
+  constructor(props) {
+    super(props);
   }
 
-  useEffect(() => {
-    props.onMount({ bloomPurchased, setBloomPurchased });
-  }, [props.onMount, bloomPurchased]);
+  render() {
+    console.log("Render ARComponent");
+    return (
+      <ARCanvas
+        gl={{ alpha: true, antialias: false, powerPreference: "default", physicallyCorrectLights: true, precision: "highp", logarithmicDepthBuffer: true }}
+        onCameraStreamReady={() => console.log("Camera stream ready")}
+        onCameraStreamError={() => console.error("Camera stream error")}
+        onCreated={({ gl }) => {
+          gl.setSize(window.innerWidth, window.innerHeight)
+        }}>
 
-  console.log("Render ARComponent");
-  return (
-    <ARCanvas
-      gl={{ alpha: true, antialias: false, powerPreference: "default", physicallyCorrectLights: true, precision: "highp", logarithmicDepthBuffer: true }}
-      onCameraStreamReady={() => console.log("Camera stream ready")}
-      onCameraStreamError={() => console.error("Camera stream error")}
-      onCreated={({ gl }) => {
-        gl.setSize(window.innerWidth, window.innerHeight)
-      }}>
+        <ModelContext.Consumer>
+          {({ bloomPurchased }) => {
+            return (
+              <>
+                <ambientLight />
+                <pointLight position={[10, 10, 0]} intensity={10.0} />
 
-      <ambientLight />
-      <pointLight position={[10, 10, 0]} intensity={10.0} />
+                <ARMarker
+                  params={{ smooth: true }}
+                  type={"pattern"}
+                  patternUrl={"data/patterns/patt.hiro"}
+                  onMarkerFound={this.props.plantFound}
+                  onMarkerLost={this.props.plantLost}>
 
-      <ARMarker
-        params={{ smooth: true }}
-        type={"pattern"}
-        patternUrl={"data/patterns/patt.hiro"}
-        onMarkerFound={() => props.plantFound()}
-        onMarkerLost={() => props.plantLost()}>
+                  <Bloom bloomPurchased={bloomPurchased} />
 
-        <Bloom onMount={onBloomMount} />
+                </ARMarker>
 
-      </ARMarker>
+                <ARMarker
+                  params={{ smooth: true }}
+                  type={"pattern"}
+                  patternUrl={"data/patterns/arjs.patt"}>
 
-      <ARMarker
-        params={{ smooth: true }}
-        type={"pattern"}
-        patternUrl={"data/patterns/arjs.patt"}>
+                  <Box />
 
-        <Box />
+                </ARMarker></>
+            );
+          }}
+        </ModelContext.Consumer>
 
-      </ARMarker>
-
-    </ARCanvas>
-  );
+      </ARCanvas>
+    );
+  }
 }
+
+export default ARComponent;

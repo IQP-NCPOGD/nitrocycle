@@ -1,32 +1,17 @@
-import React, { useState, useCallback, memo } from "react"
+import React, { useState, useCallback } from "react"
 import ARComponent from "../ARComponent"
 import GUIComponent from "../GUIComponent"
 
 import './styles.css'
 
-export default function Game(props) {
-    let food = null;
-    let bloomVisible = null;
-    let bloomPurchased = null;
+export const ModelContext = React.createContext();
 
-    let setFood = null;
-    let setBloomVisible = null;
-    let setBloomPurchased = null;
+export function Game(props) {
+    const [food, setFood] = useState(0);
+    const [bloomVisible, setBloomVisible] = useState(false);
+    const [bloomPurchased, setBloomPurchased] = useState(false);
 
     let bloomTimeout = null;
-
-    const onARMount = (dataFromAR) => {
-        bloomPurchased = dataFromAR.bloomPurchased;
-        setBloomPurchased = dataFromAR.setBloomPurchased;
-    }
-
-    const onGUIMount = (dataFromGui) => {
-        food = dataFromGui.food;
-        setFood = dataFromGui.setFood;
-
-        bloomVisible = dataFromGui.setBloomVisible;
-        setBloomVisible = dataFromGui.setBloomVisible;
-    }
 
     //
 
@@ -37,31 +22,32 @@ export default function Game(props) {
 
     const plantLost = useCallback(() => {
         clearTimeout(bloomTimeout);
-        bloomTimeout = setTimeout(() => setBloomVisible(false), 3000);
+        bloomTimeout = setTimeout(() => setBloomVisible(false), 2000);
     }, []);
 
     //
 
     const ARprops = {
-        onMount: onARMount,
         plantFound,
         plantLost,
     }
 
     const GUIprops = {
-        onMount: onGUIMount,
+        food,
+        bloomVisible,
+        setFood,
         setBloomPurchased,
     }
 
     //
 
-    const ARComponentMemo = memo((ARprops) => <ARComponent {...ARprops} />)
-
     console.log("Render Game")
 
     return (
         <>
-            <ARComponentMemo {...ARprops} />
+            <ModelContext.Provider value={{bloomPurchased}}>
+                <ARComponent {...ARprops} />
+            </ModelContext.Provider>
 
             <GUIComponent
                 {...GUIprops}
