@@ -11,10 +11,11 @@ export let setActiveMenu = undefined;
 export let getActiveMenu = undefined;
 
 export function MenuHandler(props) { 
-	const [activeMenu, sam] = useState(menus.none);
+	const [activeMenu, sam] = useState(menus.encyclopedia);
 	setActiveMenu = (menu) => {
 		console.log('setting active menu to: ', menu);
-	sam(menu);
+		
+		sam(menu);
 	};
 	getActiveMenu = () => activeMenu;
 
