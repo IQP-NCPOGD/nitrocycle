@@ -64,12 +64,6 @@ img {
     width: 100px;
 }
 
-.true-center {
-    width: 70%;
-    margin: auto;
-    padding: 10px 0 0 -10px 400px;
-  }
-
 .banner {
     position: absolute;
     background-color: black;
@@ -118,8 +112,4 @@ img {
   ul {
     padding: 0;
     list-style-type: none;
-  }
-
-  .tabContent {
-    display: all;
   }

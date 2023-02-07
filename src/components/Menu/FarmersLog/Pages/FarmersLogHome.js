@@ -7,7 +7,7 @@ function FarmersLogHome(props) {
     const [selectedIndex, setSelectedIndex] = useState(0);
 
     let tabArray = [
-        <div class="tabContent" id="resources">
+        <div>
             <button className="butt" type="button" onClick={props.update("Food")}>                            
                 <div className='banner'>
                     <h4>Food</h4>
@@ -35,7 +35,7 @@ function FarmersLogHome(props) {
         </div>,
 
 
-        <div className="tabContent" id="tiles">
+        <div>
             <button className="butt" type="button" onClick={props.update("Potato Plant")}>
                 <div className='banner'>
                     <h4>Potato Plant</h4>
@@ -55,15 +55,15 @@ function FarmersLogHome(props) {
             <img src="../../../../../data/images/potato.png" alt="buttonpng" border="0"/>
             </button>  
             <button className="butt" type="button" onClick={props.update("Nitrogen Fixator")}>
-                  <div className='banner'>
+                <div className='banner'>
                         <h4>Nitrogen Fixator</h4>
-                    </div> 
-                    <img src="../../../../../data/images/potato.png" alt="buttonpng" border="0"/>
-                </button>
-            </div>,
+                </div> 
+                <img src="../../../../../data/images/potato.png" alt="buttonpng" border="0"/>
+            </button>
+        </div>,
 
 
-            <div class="tabContent" id="resources">
+        <div>
             <button className="butt" type="button" onClick={props.update("Nitrogen Cycle")}>                            
                 <div className='banner'>
                     <h4>Nitrogen Cycle</h4>
