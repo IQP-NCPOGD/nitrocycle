@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { menus, setActiveMenu } from '..';
 import './././styles.css';
 
 import FarmersLogHome from './Pages/FarmersLogHome';
@@ -99,6 +100,7 @@ function FarmersLog(props) {
     return (
         <div className='main'>
             <div className='controls'>
+                <button onClick={() => setActiveMenu(menus.none)}>Close</button>
                 {(pageHistoryIndex > 0 && pageHistory.length > 1) ?
                     <span className='en-control' onClick={backPage}>←</span> 
                     : <span className='en-control-disabled'>←</span>}

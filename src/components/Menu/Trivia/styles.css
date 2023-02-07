@@ -1,7 +1,8 @@
 .main {
     padding: 0rem 2rem;
-    background-color: #A98467;
-    overflow: scroll;
+    display: flex;  
+    justify-content: center;  
+    align-items: center;  
 }
 
 .en-link {
@@ -48,7 +49,7 @@
      transition: transform .7s ease-in-out;
     margin-left: 20px;
     margin-right: 20px;
-    
+    margin-bottom: 20px;
  }
 
  .butt:hover {
@@ -82,36 +83,10 @@ img {
 
   * {box-sizing: border-box}
 
-  .tab {
-    float: left;
-    background-color: inherit;
-    width: 10%;
+  .Quiz {
+    text-align: center;
+  }
 
-  }
-  
-  .tab button {
-    display: block;
-    background-color: inherit;
-    color: black;
-    padding: 22px 16px;
-    width: 100%;
-    border: none;
-    outline: none;
-    text-align: left;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  
-  .tab button:hover {
-    background-color: #A98467;
-  }
-  
-  /* Create an active/current "tab button" class */
-  .tab button.active {
-    background-color: #DDE5B6;
-  }
-  
-  ul {
-    padding: 0;
-    list-style-type: none;
+  .Quiz-Answers {
+    max-width: 300px;
   }

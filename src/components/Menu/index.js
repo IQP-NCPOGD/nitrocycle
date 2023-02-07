@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react"
+import FarmersLog from "./FarmersLog/FarmersLog";
+import Shop from "./Shop";
+import Trivia from "./Trivia/Trivia";
 
 import './styles.css'
 
 export const menus = {
 	none: (<></>),
 	test: (<MenuComponent />),
-	log: (<MenuComponent />)
+	log: (<MenuComponent />),
+	farmersLog: (<FarmersLog></FarmersLog>),
+	shop: (<Shop></Shop>),
+	trivia: (<Trivia></Trivia>),
+
 }
 export let setActiveMenu = undefined;
 export let getActiveMenu = undefined;
@@ -19,7 +26,9 @@ export function MenuHandler(props) {
 	};
 	getActiveMenu = () => activeMenu;
 
-	return <div className="menu-handler">
+	let zIndex = getActiveMenu() == menus.none ? 5 : 15;
+	let backgroundColor = getActiveMenu() == menus.none ? undefined : "rgba(0,0,0,0.5)";
+	return <div className="menu-handler" style={{zIndex, backgroundColor}}>
 		{ activeMenu }
 	</div>;
 }
