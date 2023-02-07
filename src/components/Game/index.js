@@ -10,9 +10,10 @@ export function Game(props) {
 
     // ---------- STATE ----------
     
-    const [food, setFood] = useState(0);
+    const [food, setFood] = useState(1000);
+    const [ammonium, setAmmonium] = useState(0);
     const [bloomVisible, setBloomVisible] = useState(false);
-    const [bloomPurchased, setBloomPurchased] = useState(false);
+    const [bloomPurchased, setBloomPurchased] = useState(true);
 
     useEffect(() => {
         /*
@@ -51,6 +52,7 @@ export function Game(props) {
     const GUIprops = {
         food,
         bloomVisible,
+        ammonium,
         setFood,
         setBloomPurchased,
     }
