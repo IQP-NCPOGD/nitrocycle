@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react"
 import ARComponent from "../ARComponent"
 import GUIComponent from "../GUIComponent"
+import MenuHandler from "../Menu"
 
 import './styles.css'
 
@@ -55,6 +56,7 @@ export function Game(props) {
         setBloomPurchased,
     }
 
+		
     // ---------- RENDER ----------
 
     return (
@@ -66,6 +68,10 @@ export function Game(props) {
             <GUIComponent
                 {...GUIprops}
             />
+
+					
+            <MenuHandler/>
+
         </>
     );
 }
