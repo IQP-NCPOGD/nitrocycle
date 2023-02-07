@@ -71,8 +71,8 @@ export function Game(props) {
                 {...GUIprops}
             />
 
-					
             <MenuHandler/>
+					
 
         </>
     );

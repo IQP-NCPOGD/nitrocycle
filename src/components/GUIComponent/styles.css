@@ -1,4 +1,10 @@
 .gui {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+
   z-index: 10;
 }
 
@@ -31,18 +37,22 @@
 .stat {
   box-sizing: border-box;
   padding: 0.25em;
-  margin: 0.125em;
+	padding-left: 0.5em;
+  margin: 0.25em;
   border-radius: 5px;
   border: none;
-  background-color: white;
+  background-color: #ADC178;
   color: black;
   width: 100%;
   user-select: none;
 }
+.stat:nth-of-type(1) {
+	margin-bottom: 0;
+}
 
 .utility-buttons {
   display: flex;
-  flex-direction: column;
+  flex-flow: column wrap;
   justify-content: center;
   align-items: start;
   user-select: none;
@@ -51,15 +61,20 @@
 .utility-button {
   box-sizing: border-box;
   padding: 0.25em;
-  margin: 0.125em;
-  border-radius: 5px;
-  border: none;
-  background-color: white;
+  margin: 0.25em;
+  border-radius: 10px;
+  border: 2px solid #A98467;
+  background-color: #ADC178;
   color: black;
   user-select: none;
   height: 2.5em;
   width: 2.5em;
   cursor: pointer;
+  box-shadow: 0.25em 0.25em 5px #6C584C;
+}
+.utility-button:active {
+  border: 4px solid #A98467;
+  box-shadow: 0.125em 0.125em 1px #6C584C;
 }
 
 .node-buttons {

@@ -6,12 +6,16 @@
 	top: 0;
 	bottom: 0;
 
+	z-index: 5;
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: center;
 	align-items: center;
 }
 
+.menu-handler * {
+	z-index: 11;
+}
 
 
 
