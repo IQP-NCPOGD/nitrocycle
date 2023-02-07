@@ -5,13 +5,13 @@ import './styles.css'
 export const menus = {
 	none: (<></>),
 	test: (<MenuComponent />),
-	encyclopedia: (<MenuComponent />)
+	log: (<MenuComponent />)
 }
 export let setActiveMenu = undefined;
 export let getActiveMenu = undefined;
 
 export function MenuHandler(props) { 
-	const [activeMenu, sam] = useState(menus.encyclopedia);
+	const [activeMenu, sam] = useState(menus.log);
 	setActiveMenu = (menu) => {
 		console.log('setting active menu to: ', menu);
 		
@@ -33,7 +33,7 @@ export function MenuComponent(props) {
     );
 }
 
-export function EncyclopediaMenu(props) {
+export function LogMenu(props) {
 
     return (
         <MenuComponent />

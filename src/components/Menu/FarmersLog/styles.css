@@ -1,0 +1,125 @@
+.main {
+    padding: 0rem 2rem;
+}
+
+.en-link {
+    color: #3366cc;
+}
+
+.en-link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.en-link:active {
+    color:darkgreen;
+}
+
+.en-control {
+    color: black;
+    font-size:x-large;
+    user-select: none;
+}
+
+.en-control:hover {
+    cursor: pointer;
+    font-weight: bold;
+    color: blue;
+}
+
+.en-control:active {
+    color:darkgreen;
+}
+
+.en-control-disabled {
+    color: gray;
+    font-size:x-large;
+    user-select: none;
+}
+
+.butt {
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    appearance: none;
+    background-color: #A98467;
+     transition: transform .7s ease-in-out;
+    margin-left: 20px;
+    margin-right: 20px;
+    
+ }
+
+ .butt:hover {
+    filter: brightness(1.25);
+    scale: 110%;
+    box-shadow: 0 0 15px rgba(33,33,33,.6); 
+ }
+
+ .butt:active{
+    scale: 90%;
+ }
+
+img {
+    height: 100px;
+    width: 100px;
+}
+
+.true-center {
+    width: 70%;
+    margin: auto;
+    padding: 10px 0 0 -10px 400px;
+  }
+
+.banner {
+    position: absolute;
+    background-color: black;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    opacity: 70%;
+    width: 109px;
+    height: 35px;
+    color: white;
+    font-size: 12px;
+    line-height: 0px;
+    transform: translate(-4%, 200%);
+  }
+
+  * {box-sizing: border-box}
+
+  .tab {
+    float: left;
+    background-color: inherit;
+    width: 10%;
+
+  }
+  
+  .tab button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 22px 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .tab button:hover {
+    background-color: #A98467;
+  }
+  
+  /* Create an active/current "tab button" class */
+  .tab button.active {
+    background-color: #DDE5B6;
+  }
+  
+  ul {
+    padding: 0;
+    list-style-type: none;
+  }
+
+  .tabContent {
+    display: all;
+  }
