@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 
-import { setActiveMenu, getActiveMenu, menus } from '../Menu/index';
+import { setActiveMenu, getActiveMenu, menus } from '../Menu';
 
 import './styles.css'
 
@@ -22,8 +22,7 @@ export default function GUIComponent(props) {
                     Button
                 </button>
 			<button onClick={ () => {
-					console.log(menus);
-					setActiveMenu(getActiveMenu() == menus.test ? menus.none : menus.test)
+					setActiveMenu(getActiveMenu() == menus.encyclopedia ? menus.none : menus.encyclopedia)
 				}
 			}> 
 				modal
