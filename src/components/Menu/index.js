@@ -11,7 +11,7 @@ export let setActiveMenu = undefined;
 export let getActiveMenu = undefined;
 
 export function MenuHandler(props) { 
-	const [activeMenu, sam] = useState(menus.log);
+	const [activeMenu, sam] = useState(menus.none);
 	setActiveMenu = (menu) => {
 		console.log('setting active menu to: ', menu);
 		
