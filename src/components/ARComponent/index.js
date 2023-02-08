@@ -5,18 +5,40 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 import './styles.css'
 
-import { ModelContext } from "../Game"
+import { ModelContext, plantStateEnum } from "../Game"
+        
 
-function Bloom(props) {
-
-  const gltf = useLoader(GLTFLoader, 'data/models/bloom.gltf')
+function renderGLTFModel(gltfURL, scale) {
+  const gltf = useLoader(GLTFLoader, gltfURL);
   return (
-    <>
-      {props.bloomPurchased ? <primitive
-        // onClick={(event) => window.alert('click')}
-        scale={0.25}
-        object={gltf.scene} /> : <Box />}
-    </>
+    <primitive
+      scale={scale}
+      object={gltf.scene} />
+  );
+}
+
+function Plant(props) {
+
+  function getPlantModel(curPlantState) {
+    switch (curPlantState) {
+      case plantStateEnum.wilt:
+        return renderGLTFModel('data/models/wilt.gltf', 0.25);
+      case plantStateEnum.notpurchased:
+        return renderGLTFModel('data/models/question.gltf', 0.25);
+      case plantStateEnum.sprout:
+        return renderGLTFModel('data/models/sprout.gltf', 0.25);
+      case plantStateEnum.plant:
+        return renderGLTFModel('data/models/plant.gltf', 0.25);
+      case plantStateEnum.bloom:
+        return renderGLTFModel('data/models/bloom.gltf', 0.25);
+      default:
+        return renderGLTFModel('data/models/question.gltf', 0.25);
+
+    }
+  }
+
+  return (
+    getPlantModel(props.plantState)
   );
 }
 
@@ -47,7 +69,7 @@ class ARComponent extends React.PureComponent {
   }
 
   render() {
-    
+
     return (
       <ARCanvas
         gl={{ alpha: true, antialias: false, powerPreference: "default", physicallyCorrectLights: true, precision: "highp", logarithmicDepthBuffer: true }}
@@ -59,7 +81,7 @@ class ARComponent extends React.PureComponent {
         resize={{ debounce: 500 }}>
 
         <ModelContext.Consumer>
-          {({ bloomPurchased }) => {
+          {({ plantState }) => {
             return (
               <>
                 <ambientLight />
@@ -72,7 +94,7 @@ class ARComponent extends React.PureComponent {
                   onMarkerFound={this.props.plantFound}
                   onMarkerLost={this.props.plantLost}>
 
-                  <Bloom bloomPurchased={bloomPurchased} />
+                  <Plant plantState={plantState} />
 
                 </ARMarker>
 

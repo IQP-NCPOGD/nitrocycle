@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react"
+import React, { useState, useCallback, useEffect, useRef } from "react"
 import ARComponent from "../ARComponent"
 import GUIComponent from "../GUIComponent"
 import MenuHandler from "../Menu"
@@ -6,15 +6,40 @@ import MenuHandler from "../Menu"
 import './styles.css'
 
 export const ModelContext = React.createContext();
+export const GameStateContext = React.createContext();
+
+export const plantStateEnum = {
+    wilt: {
+        id: -1,
+        foodproduction: 2,
+    },
+    notpurchased: {
+        id: 0,
+        foodproduction: 0,
+    },
+    sprout: {
+        id: 1,
+        foodproduction: 5,
+    },
+    plant: {
+        id: 2,
+        foodproduction: 10,
+    },
+    bloom: {
+        id: 3,
+        foodproduction: 15,
+    },
+}
 
 export function Game(props) {
 
     // ---------- STATE ----------
     
     const [food, setFood] = useState(1000);
+    const foodRate = useRef(0);
     const [ammonium, setAmmonium] = useState(0);
-    const [bloomVisible, setBloomVisible] = useState(false);
-    const [bloomPurchased, setBloomPurchased] = useState(true);
+    const [plantVisible, setPlantVisible] = useState(false);
+    const [plantState, setPlantState] = useState(plantStateEnum.notpurchased);
 
     useEffect(() => {
         /*
@@ -24,23 +49,34 @@ export function Game(props) {
         Dispatching the resize event fixes the canvas rendering,
         so it should be called after any state changes
         */
-        window.dispatchEvent(new Event('resize')); 
-    }, [food, bloomVisible, bloomPurchased])
+        window.dispatchEvent(new Event('resize'));
+    }, [food, plantVisible, plantState])
+
+    // ---------- GAME LOGIC ----------
+
+    // add food every second
+    useEffect(() => {
+        setInterval(() => setFood( (old) => old + foodRate.current ), 1000);
+    }, []);
+
+    // update food production when plant changes
+    useEffect(() => {
+        foodRate.current = plantState.foodproduction;
+    }, [plantState])
 
     // ---------- CALLBACKS ----------
 
     let bloomTimeout = null;
 
     const plantFound = useCallback(() => {
-        console.log("Marker Found");
         clearTimeout(bloomTimeout);
-        setBloomVisible(true);
+        setPlantVisible(true);
     }, []);
 
     const plantLost = useCallback(() => {
-        console.log("Marker Lost");
+        window.dispatchEvent(new Event('resize'));
         clearTimeout(bloomTimeout);
-        bloomTimeout = setTimeout(() => setBloomVisible(false), 2000);
+        bloomTimeout = setTimeout(() => setPlantVisible(false), 2000);
     }, []);
 
     // ---------- PROPS ----------
@@ -52,10 +88,10 @@ export function Game(props) {
 
     const GUIprops = {
         food,
-        bloomVisible,
+        plantVisible,
         ammonium,
         setFood,
-        setBloomPurchased,
+        setPlantState,
     }
 
 		
@@ -63,7 +99,7 @@ export function Game(props) {
 
     return (
         <>
-            <ModelContext.Provider value={{bloomPurchased}}>
+            <ModelContext.Provider value={{plantState}}>
                 <ARComponent {...ARprops} />
             </ModelContext.Provider>
 
@@ -71,7 +107,9 @@ export function Game(props) {
                 {...GUIprops}
             />
 
-            <MenuHandler/>
+            <GameStateContext.Provider value={{food, ammonium, plantVisible, plantState, setFood, setAmmonium, setPlantVisible, setPlantState}}>
+                <MenuHandler/>
+            </GameStateContext.Provider>
 					
 
         </>

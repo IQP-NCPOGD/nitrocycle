@@ -35,7 +35,7 @@ export default function GUIComponent(props) {
 
             <div className="node-buttons bottom-right">
                 {
-                    props.bloomVisible ? <img src="data/images/plant.png" onClick={() => setActiveMenu(menus.plant)}></img> : ""
+                    props.plantVisible ? <img src="data/images/plant.png" onClick={() => setActiveMenu(menus.plantMenu)}></img> : ""
                 }
             </div>
 

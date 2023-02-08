@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react"
 import FarmersLog from "./FarmersLog/FarmersLog";
 import Shop from "./Shop";
 import Trivia from "./Trivia/Trivia";
+import PlantMenu from "./PlantMenu";
 
 import './styles.css'
+
 
 export const menus = {
 	none: (<></>),
@@ -12,6 +14,7 @@ export const menus = {
 	farmersLog: (<FarmersLog></FarmersLog>),
 	shop: (<Shop></Shop>),
 	trivia: (<Trivia></Trivia>),
+	plantMenu: (<PlantMenu></PlantMenu>),
 
 }
 export let setActiveMenu = undefined;
