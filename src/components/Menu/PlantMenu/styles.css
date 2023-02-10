@@ -1,4 +1,9 @@
 .plant-menu-main {
     background-color: #A98467;
     padding: 3em;
+    overflow: scroll;
+}
+
+ul {
+    list-style-type: square;
 }

@@ -5,7 +5,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 import './styles.css'
 
-import { ModelContext, plantStateEnum } from "../Game"
+import { ModelContext, plantTypeEnum } from "../Game"
         
 
 function renderGLTFModel(gltfURL, scale) {
@@ -21,15 +21,15 @@ function Plant(props) {
 
   function getPlantModel(curPlantState) {
     switch (curPlantState) {
-      case plantStateEnum.wilt:
+      case plantTypeEnum.wilt:
         return renderGLTFModel('data/models/wilt.gltf', 0.25);
-      case plantStateEnum.notpurchased:
+      case plantTypeEnum.notpurchased:
         return renderGLTFModel('data/models/question.gltf', 0.25);
-      case plantStateEnum.sprout:
+      case plantTypeEnum.sprout:
         return renderGLTFModel('data/models/sprout.gltf', 0.25);
-      case plantStateEnum.plant:
+      case plantTypeEnum.plant:
         return renderGLTFModel('data/models/plant.gltf', 0.25);
-      case plantStateEnum.bloom:
+      case plantTypeEnum.bloom:
         return renderGLTFModel('data/models/bloom.gltf', 0.25);
       default:
         return renderGLTFModel('data/models/question.gltf', 0.25);

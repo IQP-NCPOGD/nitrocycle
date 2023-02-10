@@ -8,25 +8,25 @@ import './styles.css'
 export const ModelContext = React.createContext();
 export const GameStateContext = React.createContext();
 
-export const plantStateEnum = {
+export const plantTypeEnum = {
     wilt: {
-        id: -1,
-        foodproduction: 2,
-    },
-    notpurchased: {
         id: 0,
-        foodproduction: 0,
+        name: "Wilt",
+        foodproduction: 2,
     },
     sprout: {
         id: 1,
+        name: "Sprout",
         foodproduction: 5,
     },
     plant: {
         id: 2,
+        name: "Plant",
         foodproduction: 10,
     },
     bloom: {
         id: 3,
+        name: "Bloom",
         foodproduction: 15,
     },
 }
@@ -36,7 +36,7 @@ const generateValidator = (currentRef, maxRef, setState) => {
         let nextVal = cb(currentRef.current);
         if(nextVal > maxRef.current) {
             setState((old) => maxRef.current);
-            return true;
+            return false;
         } else if (nextVal < 0) {
             return false;
         } else {
@@ -61,7 +61,7 @@ export function Game(props) {
     const [nitrogenRunoff, setNitrogenRunoff] = useState(0);
     const [maxNitrogenRunoff, setMaxNitrogenRunoff] = useState(5);
 
-    const [plantState, setPlantState] = useState(plantStateEnum.notpurchased);
+    const [plantState, setPlantState] = useState([plantTypeEnum.bloom]);
 
         // Refs
 
@@ -81,7 +81,7 @@ export function Game(props) {
 
         // Tile Visibility
 
-    const [plantVisible, setPlantVisible] = useState(false);
+    const [plantVisible, setPlantVisible] = useState(true);
 
     useEffect(() => {
         /*
@@ -101,9 +101,12 @@ export function Game(props) {
         setInterval(() => setFoodValidated( (old) => old + foodRateRef.current ), 1000);
     }, []);
 
-    // update food production when plant changes
+    // update food production when plants change
     useEffect(() => {
-        foodRateRef.current = plantState.foodproduction;
+        foodRateRef.current = 0;
+        plantState.map((plant) => {
+            foodRateRef.current += plant.foodproduction;
+        });
     }, [plantState])
 
     // ---------- CALLBACKS ----------
