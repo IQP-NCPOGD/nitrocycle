@@ -31,15 +31,57 @@ export const plantStateEnum = {
     },
 }
 
+const generateValidator = (currentRef, maxRef, setState) => {
+    return (cb) => {
+        let nextVal = cb(currentRef.current);
+        if(nextVal > maxRef.current) {
+            setState((old) => maxRef.current);
+            return true;
+        } else if (nextVal < 0) {
+            return false;
+        } else {
+            setState(cb);
+            return true;
+        }
+    }
+}
+
 export function Game(props) {
 
     // ---------- STATE ----------
     
-    const [food, setFood] = useState(1000);
-    const foodRate = useRef(0);
-    const [ammonium, setAmmonium] = useState(0);
-    const [plantVisible, setPlantVisible] = useState(false);
+        // Game Data
+
+    const [foodSecurityLevel, setFoodSecurityLevel] = useState(0);
+    
+    const [food, setFood] = useState(0);
+    const [maxFood, setMaxFood] = useState(200);
+    const [ammonium, setAmmonium] = useState(0);    
+    const [maxAmmonium, setMaxAmmonium] = useState(10);
+    const [nitrogenRunoff, setNitrogenRunoff] = useState(0);
+    const [maxNitrogenRunoff, setMaxNitrogenRunoff] = useState(5);
+
     const [plantState, setPlantState] = useState(plantStateEnum.notpurchased);
+
+        // Refs
+
+    const foodRef = useRef(food); foodRef.current = food;
+    const maxFoodRef = useRef(maxFood); maxFoodRef.current = maxFood;
+
+    const ammoniumRef = useRef(ammonium); ammoniumRef.current = ammonium;
+    const maxAmmoniumRef = useRef(maxAmmonium); maxAmmoniumRef.current = maxAmmonium;
+
+    const foodRateRef = useRef(0);
+    const ammoniumRate = useRef(0);
+
+        // Validators
+
+    const setFoodValidated = generateValidator(foodRef, maxFoodRef, setFood);
+    const setAmmoniumValidated = generateValidator(ammoniumRef, maxAmmoniumRef, setAmmonium);
+
+        // Tile Visibility
+
+    const [plantVisible, setPlantVisible] = useState(false);
 
     useEffect(() => {
         /*
@@ -56,12 +98,12 @@ export function Game(props) {
 
     // add food every second
     useEffect(() => {
-        setInterval(() => setFood( (old) => old + foodRate.current ), 1000);
+        setInterval(() => setFoodValidated( (old) => old + foodRateRef.current ), 1000);
     }, []);
 
     // update food production when plant changes
     useEffect(() => {
-        foodRate.current = plantState.foodproduction;
+        foodRateRef.current = plantState.foodproduction;
     }, [plantState])
 
     // ---------- CALLBACKS ----------
@@ -81,17 +123,25 @@ export function Game(props) {
 
     // ---------- PROPS ----------
 
+    const currentState = {
+        foodSecurityLevel, setFoodSecurityLevel,
+        food, setFoodValidated,
+        maxFood, setMaxFood,
+        ammonium, setAmmoniumValidated,
+        maxAmmonium, setMaxAmmonium,
+        nitrogenRunoff, setNitrogenRunoff,
+        maxNitrogenRunoff, setMaxNitrogenRunoff,
+        plantState, setPlantState,
+        plantVisible, setPlantVisible,
+    }
+
     const ARprops = {
         plantFound,
         plantLost,
     }
 
     const GUIprops = {
-        food,
-        plantVisible,
-        ammonium,
-        setFood,
-        setPlantState,
+        ...currentState
     }
 
 		
@@ -107,7 +157,7 @@ export function Game(props) {
                 {...GUIprops}
             />
 
-            <GameStateContext.Provider value={{food, ammonium, plantVisible, plantState, setFood, setAmmonium, setPlantVisible, setPlantState}}>
+            <GameStateContext.Provider value={{...currentState}}>
                 <MenuHandler/>
             </GameStateContext.Provider>
 					

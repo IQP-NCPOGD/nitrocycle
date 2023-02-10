@@ -11,10 +11,10 @@ export default function GUIComponent(props) {
 
             <div className="stat-display top-left">
                 <div className="stat">
-                    Food: {props.food}
+                    Food: {props.food} / {props.maxFood}
                 </div>
                 <div className="stat">
-                    Ammonium: {props.ammonium}
+                    Ammonium: {props.ammonium} / {props.maxAmmonium}
                 </div>
             </div>
 
