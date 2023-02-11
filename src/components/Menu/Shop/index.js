@@ -1,12 +1,23 @@
 import React, { useState } from 'react';
 import { menus, setActiveMenu } from '..';
 
-import { GameStateContext } from '../../Game';
+import { costPerAmmonium, GameStateContext } from '../../Game';
 
 import './styles.css';
 
 
 export default function Shop(props) {
+
+    const purchaseAmmonium = (value) => {
+        if(purchaseAmmoniumDisabled(value)) return;
+        value.setFoodValidated((old) => old - costPerAmmonium) ?
+            value.setAmmoniumValidated((old) => old + 1) :
+            window.alert(`You need ${costPerAmmonium - value.food} more food to purchase this.`)
+    }
+
+    const purchaseAmmoniumDisabled = (value) => {
+        return value.food < 100 || value.ammonium >= value.maxAmmonium
+    }
 
     return (
         <div className='shop-main'>
@@ -18,16 +29,11 @@ export default function Shop(props) {
                 <ul>
                     <li>
                         <GameStateContext.Consumer>
-                            {value => 
+                            {value =>
                                 <button
-                                    onClick={() => {
-                                        value.setFoodValidated((old) => old - 100) ?
-                                            value.setAmmoniumValidated((old) => old + 1) :
-                                            window.alert(`You need ${100 - value.food} more food to purchase this.`)
-                                    }
-                                    }
-                                    disabled={value.food < 100 || value.ammonium === value.maxAmmonium}
-                                >Purchase 1 Ammonium (100 food)</button>
+                                    onClick={() => purchaseAmmonium(value)}
+                                    disabled={purchaseAmmoniumDisabled(value)}
+                                >Purchase 1 Ammonium ({costPerAmmonium} food)</button>
                             }
                         </GameStateContext.Consumer>
 

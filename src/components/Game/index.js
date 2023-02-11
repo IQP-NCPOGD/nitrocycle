@@ -8,27 +8,46 @@ import './styles.css'
 export const ModelContext = React.createContext();
 export const GameStateContext = React.createContext();
 
+export const plantsPerPlot = 25;
+export const costPerPlant = 25;
+export const costPerAmmonium = 100;
+
 export const plantTypeEnum = {
     wilt: {
-        id: 0,
         name: "Wilt",
+        imgURL: "/data/images/wilt.png",
         foodproduction: 2,
     },
     sprout: {
-        id: 1,
         name: "Sprout",
+        imgURL: "/data/images/sprout.png",
         foodproduction: 5,
     },
     plant: {
-        id: 2,
         name: "Plant",
+        imgURL: "/data/images/plant.png",
         foodproduction: 10,
     },
     bloom: {
-        id: 3,
         name: "Bloom",
+        imgURL: "/data/images/bloom.png",
         foodproduction: 15,
     },
+}
+
+export const createPlant = () => {
+    let createdPlant = Object.create({
+        state: plantTypeEnum.sprout
+    })
+
+    // TODO: fix with proper solution
+    setTimeout(() => createdPlant.state = plantTypeEnum.plant, 10000);
+
+    return createdPlant;
+}
+
+export const calculateFoodPerMinute = (plantState) => {
+    return plantState.reduce((accumulator, plant) => accumulator + plant.state.foodproduction, 0)
 }
 
 const generateValidator = (currentRef, maxRef, setState) => {
@@ -46,6 +65,11 @@ const generateValidator = (currentRef, maxRef, setState) => {
     }
 }
 
+function useForceUpdate() {
+    const [value, setValue] = useState(0);
+    return () => setValue(value => value + 1);
+}
+
 export function Game(props) {
 
     // ---------- STATE ----------
@@ -61,7 +85,7 @@ export function Game(props) {
     const [nitrogenRunoff, setNitrogenRunoff] = useState(0);
     const [maxNitrogenRunoff, setMaxNitrogenRunoff] = useState(5);
 
-    const [plantState, setPlantState] = useState([plantTypeEnum.bloom]);
+    const [plantState, setPlantState] = useState([createPlant()]);
 
         // Refs
 
@@ -81,7 +105,7 @@ export function Game(props) {
 
         // Tile Visibility
 
-    const [plantVisible, setPlantVisible] = useState(true);
+    const [plantVisible, setPlantVisible] = useState(false);
 
     useEffect(() => {
         /*
@@ -103,10 +127,7 @@ export function Game(props) {
 
     // update food production when plants change
     useEffect(() => {
-        foodRateRef.current = 0;
-        plantState.map((plant) => {
-            foodRateRef.current += plant.foodproduction;
-        });
+        foodRateRef.current = calculateFoodPerMinute(plantState);
     }, [plantState])
 
     // ---------- CALLBACKS ----------

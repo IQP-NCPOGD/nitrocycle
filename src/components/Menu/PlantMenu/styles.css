@@ -4,6 +4,31 @@
     overflow: scroll;
 }
 
-ul {
-    list-style-type: square;
+.plant-grid {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.plant-grid p {
+    font-size: small;
+}
+
+.plant-elem {
+    background-color: #885a37;
+    border-width: 2px;
+    margin: 0.25em;
+    border-style: solid;
+    border-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.small-icon {
+    display: block;
+    width: 4em;
+    height: 4em;
 }
