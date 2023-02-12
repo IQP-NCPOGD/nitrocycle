@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { menus, setActiveMenu } from '..';
-import { calculateFoodPerMinute, costPerPlant, createPlant, GameStateContext, plantsPerPlot, plantTypeEnum } from '../../Game';
+import { calculateFoodPerMinute, costPerPlant, createPlant, fertilizePlant, GameStateContext, plantsPerPlot, plantTypeEnum } from '../../Game';
 
 import './styles.css';
 
@@ -10,12 +10,34 @@ export default function PlantMenu(props) {
     const purchasePlant = (value) => {
         if(purchasePlantDisabled(value)) return;
         if(value.setFoodValidated((old) => old - costPerPlant)) {
-            value.setPlantState((old) => [...old, createPlant()])
+            createPlant(value.setPlantState);
         }
     }
 
     const purchasePlantDisabled = (value) => {
-        return value.food < costPerPlant || value.plantState.length >= plantsPerPlot
+        return value.food < costPerPlant || Object.keys(value.plantState).length >= plantsPerPlot
+    }
+
+    const fertilizePlantClicked = (plant, value) => {
+        if(fertilizePlantDisabled(plant, value)) return;
+        value.setAmmoniumValidated((old) => old - plant.state.upgradeCost);
+        fertilizePlant(plant.id, value.setPlantState)
+    }
+
+    const fertilizePlantDisabled = (plant, value) => {
+        if(plant.state.upgradeCost !== undefined) {
+            return plant.state.upgradeCost > value.ammonium;
+        } else {
+            return true;
+        }
+    }
+
+    const getFertilizeButton = (plant, value) => {
+        if(plant.state.upgradeCost !== undefined) {
+            return <button disabled={fertilizePlantDisabled(plant, value)} onClick={() => fertilizePlantClicked(plant, value)}>Fertilize ({plant.state.upgradeCost})</button>
+        } else {
+            return "";
+        }
     }
 
     return (
@@ -27,22 +49,18 @@ export default function PlantMenu(props) {
                     </div>
                     <div>
                         <h3>Plant Plot</h3>
-                        <p>Plants: {value.plantState.length} / {plantsPerPlot}</p>
+                        <p>Plants: {Object.keys(value.plantState).length} / {plantsPerPlot}</p>
                         <p>Food Per Minute: {calculateFoodPerMinute(value.plantState)}</p>
                         {
-                            value.plantState.length === 0 ?
+                            Object.keys(value.plantState).length === 0 ?
                                 <p>No plants have been planted.</p>
                                 :
                                 <div className='plant-grid'>
-                                    {value.plantState.map((plant, index) =>
-                                        <div className='plant-elem'>
+                                    {Object.values(value.plantState).map((plant, index) =>
+                                        <div className='plant-elem' key={plant.id}>
                                             <p>{plant.state.name}</p>
                                             <img className='small-icon' src={plant.state.imgURL}></img>
-                                            {
-                                                (plant.state !== plantTypeEnum.bloom && plant.state !== plantTypeEnum.sprout) ?
-                                                    <button>Fertilize ({plant.state === plantTypeEnum.wilt ? 6 : 2})</button> :
-                                                    ""
-                                            }
+                                            {getFertilizeButton(plant, value)}
                                         </div>
                                     )}
                                 </div>

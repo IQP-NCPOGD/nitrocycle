@@ -17,6 +17,7 @@ export const plantTypeEnum = {
         name: "Wilt",
         imgURL: "/data/images/wilt.png",
         foodproduction: 2,
+        upgradeCost: 6,
     },
     sprout: {
         name: "Sprout",
@@ -27,6 +28,7 @@ export const plantTypeEnum = {
         name: "Plant",
         imgURL: "/data/images/plant.png",
         foodproduction: 10,
+        upgradeCost: 2,
     },
     bloom: {
         name: "Bloom",
@@ -35,19 +37,47 @@ export const plantTypeEnum = {
     },
 }
 
-export const createPlant = () => {
-    let createdPlant = Object.create({
-        state: plantTypeEnum.sprout
+let currentPlantId = 0;
+export const createPlant = (setPlantState) => {
+    let createdPlant = {
+        id: currentPlantId,
+        timeoutID: null,
+        state: plantTypeEnum.sprout,
+    }
+
+    createdPlant.timeoutID = setTimeout(() => setPlantState((oldest) => {
+        let id = createdPlant.id;
+        createdPlant.state = plantTypeEnum.plant;
+
+        createdPlant.timeoutID = setTimeout(() => setPlantState((old) => {
+            let id = createdPlant.id;
+            createdPlant.state = plantTypeEnum.wilt
+
+            return {...old, [id]: Object.create(createdPlant)}
+        }), 5000);
+
+        return {...oldest, [id]: Object.create(createdPlant)}
+    }), 10000);
+
+    setPlantState((old) => {
+        let id = createdPlant.id;
+        return {...old, [id]: Object.create(createdPlant)}
+    });
+
+    currentPlantId++;
+}
+
+export const fertilizePlant = (plantID, setPlantState) => {
+    setPlantState((old) => {
+        let oldPlant = old[plantID];
+        clearTimeout(oldPlant.timeoutID);
+        oldPlant.state = plantTypeEnum.bloom;
+        return {...old, [plantID]: oldPlant}
     })
-
-    // TODO: fix with proper solution
-    setTimeout(() => createdPlant.state = plantTypeEnum.plant, 10000);
-
-    return createdPlant;
 }
 
 export const calculateFoodPerMinute = (plantState) => {
-    return plantState.reduce((accumulator, plant) => accumulator + plant.state.foodproduction, 0)
+    return Object.values(plantState).reduce((accumulator, plant) => accumulator + plant.state.foodproduction, 0)
 }
 
 const generateValidator = (currentRef, maxRef, setState) => {
@@ -65,11 +95,6 @@ const generateValidator = (currentRef, maxRef, setState) => {
     }
 }
 
-function useForceUpdate() {
-    const [value, setValue] = useState(0);
-    return () => setValue(value => value + 1);
-}
-
 export function Game(props) {
 
     // ---------- STATE ----------
@@ -78,14 +103,14 @@ export function Game(props) {
 
     const [foodSecurityLevel, setFoodSecurityLevel] = useState(0);
     
-    const [food, setFood] = useState(0);
+    const [food, setFood] = useState(25);
     const [maxFood, setMaxFood] = useState(200);
     const [ammonium, setAmmonium] = useState(0);    
     const [maxAmmonium, setMaxAmmonium] = useState(10);
     const [nitrogenRunoff, setNitrogenRunoff] = useState(0);
     const [maxNitrogenRunoff, setMaxNitrogenRunoff] = useState(5);
 
-    const [plantState, setPlantState] = useState([createPlant()]);
+    const [plantState, setPlantState] = useState({});
 
         // Refs
 
@@ -105,7 +130,7 @@ export function Game(props) {
 
         // Tile Visibility
 
-    const [plantVisible, setPlantVisible] = useState(false);
+    const [plantVisible, setPlantVisible] = useState(true);
 
     useEffect(() => {
         /*
