@@ -12,6 +12,10 @@ export const plantsPerPlot = 25;
 export const costPerPlant = 25;
 export const costPerAmmonium = 100;
 
+const msToPlant = 10000;
+const msToWilt = 5000;
+const msToRemoval = 5000;
+
 export const plantTypeEnum = {
     wilt: {
         name: "Wilt",
@@ -49,15 +53,21 @@ export const createPlant = (setPlantState) => {
         let id = createdPlant.id;
         createdPlant.state = plantTypeEnum.plant;
 
-        createdPlant.timeoutID = setTimeout(() => setPlantState((old) => {
+        createdPlant.timeoutID = setTimeout(() => setPlantState((older) => {
             let id = createdPlant.id;
             createdPlant.state = plantTypeEnum.wilt
 
-            return {...old, [id]: Object.create(createdPlant)}
-        }), 5000);
+            createdPlant.timeoutID = setTimeout(() => setPlantState((old) => {
+                let id = createdPlant.id;
+                let {[id]: removedID, ...nextState} = old;
+                return nextState;
+            }), msToRemoval);
+
+            return {...older, [id]: Object.create(createdPlant)}
+        }), msToWilt);
 
         return {...oldest, [id]: Object.create(createdPlant)}
-    }), 10000);
+    }), msToPlant);
 
     setPlantState((old) => {
         let id = createdPlant.id;
