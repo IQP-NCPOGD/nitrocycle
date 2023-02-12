@@ -20,21 +20,22 @@ function renderGLTFModel(gltfURL, scale) {
 function Plant(props) {
 
   function getPlantModel(curPlantState) {
-    switch (curPlantState) {
-      case plantTypeEnum.wilt:
-        return renderGLTFModel('data/models/wilt.gltf', 0.25);
-      case plantTypeEnum.notpurchased:
-        return renderGLTFModel('data/models/question.gltf', 0.25);
-      case plantTypeEnum.sprout:
-        return renderGLTFModel('data/models/sprout.gltf', 0.25);
-      case plantTypeEnum.plant:
-        return renderGLTFModel('data/models/plant.gltf', 0.25);
-      case plantTypeEnum.bloom:
-        return renderGLTFModel('data/models/bloom.gltf', 0.25);
-      default:
-        return renderGLTFModel('data/models/question.gltf', 0.25);
+    // switch (curPlantState) {
+    //   case plantTypeEnum.wilt:
+    //     return renderGLTFModel('data/models/wilt.gltf', 0.25);
+    //   case plantTypeEnum.notpurchased:
+    //     return renderGLTFModel('data/models/question.gltf', 0.25);
+    //   case plantTypeEnum.sprout:
+    //     return renderGLTFModel('data/models/sprout.gltf', 0.25);
+    //   case plantTypeEnum.plant:
+    //     return renderGLTFModel('data/models/plant.gltf', 0.25);
+    //   case plantTypeEnum.bloom:
+    //     return renderGLTFModel('data/models/bloom.gltf', 0.25);
+    //   default:
+    //     return renderGLTFModel('data/models/question.gltf', 0.25);
 
-    }
+    // }
+    return renderGLTFModel('data/models/plant.gltf', 0.25);
   }
 
   return (
@@ -42,25 +43,8 @@ function Plant(props) {
   );
 }
 
-function Box(props) {
-  // This reference gives us direct access to the THREE.Mesh object
-  const ref = useRef()
-  // Hold state for hovered and clicked events
-  const [hovered, hover] = useState(false)
-  const [clicked, click] = useState(false)
-  // Return the view, these are regular Threejs elements expressed in JSX
-  return (
-    <mesh
-      {...props}
-      ref={ref}
-      scale={clicked ? 1 : 0.5}
-      onClick={(event) => click(!clicked)}
-      onPointerOver={(event) => hover(true)}
-      onPointerOut={(event) => hover(false)}>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
-    </mesh>
-  )
+function FoodSilo(props) {
+  return renderGLTFModel('data/models/silo.gltf', 0.5);
 }
 
 class ARComponent extends React.PureComponent {
@@ -81,7 +65,7 @@ class ARComponent extends React.PureComponent {
         resize={{ debounce: 500 }}>
 
         <ModelContext.Consumer>
-          {({ plantState }) => {
+          {({ plantState, foodSiloState }) => {
             return (
               <>
                 <ambientLight />
@@ -101,9 +85,11 @@ class ARComponent extends React.PureComponent {
                 <ARMarker
                   params={{ smooth: true }}
                   type={"pattern"}
-                  patternUrl={"data/patterns/arjs.patt"}>
+                  patternUrl={"data/patterns/arjs.patt"}
+                  onMarkerFound={this.props.foodSiloFound}
+                  onMarkerLost={this.props.foodSiloLost}>
 
-                  <Box />
+                  <FoodSilo />
 
                 </ARMarker></>
             );

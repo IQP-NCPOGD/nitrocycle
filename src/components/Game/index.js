@@ -8,10 +8,16 @@ import './styles.css'
 export const ModelContext = React.createContext();
 export const GameStateContext = React.createContext();
 
-export const plantsPerPlot = 25;
+export const plantsPerPlot = 16;
 export const costPerPlant = 25;
 export const costPerAmmonium = 100;
 
+export const foodSilosPerPlot = 4;
+export const costPerFoodSilo = 50;
+
+const defaultFoodStorage = 200;
+
+const msToDisplayMenu = 2000;
 const msToPlant = 10000;
 const msToWilt = 5000;
 const msToRemoval = 5000;
@@ -38,6 +44,44 @@ export const plantTypeEnum = {
         name: "Bloom",
         imgURL: "/data/images/bloom.png",
         foodproduction: 15,
+    },
+}
+
+export const foodSiloTypeEnum = {
+    1: {
+        level: 1,
+        name: "Silo (Lvl 1)",
+        imgURL: "/data/images/silo.png",
+        foodstorage: 200,
+        upgradeCost: 30,
+    },
+    2: {
+        level: 2,
+        name: "Silo (Lvl 2)",
+        imgURL: "/data/images/silo.png",
+        foodstorage: 400,
+        upgradeCost: 30,
+    },
+    3: {
+        level: 3,
+        name: "Silo (Lvl 3)",
+        imgURL: "/data/images/silo.png",
+        foodstorage: 600,
+        upgradeCost: 30,
+    },
+    4: {
+        level: 4,
+        name: "Silo (Lvl 4)",
+        imgURL: "/data/images/silo.png",
+        foodstorage: 800,
+        upgradeCost: 30,
+    },
+    5: {
+        level: 5,
+        name: "Silo (Lvl 5)",
+        imgURL: "/data/images/silo.png",
+        foodstorage: 1000,
+        upgradeCost: 30,
     },
 }
 
@@ -86,8 +130,37 @@ export const fertilizePlant = (plantID, setPlantState) => {
     })
 }
 
+let currentFoodSiloId = 0;
+export const createFoodSilo = (setFoodSiloState) => {
+    let createdFoodSilo = {
+        id: currentFoodSiloId,
+        timeoutID: null,
+        state: foodSiloTypeEnum[1],
+    }
+
+    setFoodSiloState((old) => {
+        let id = createdFoodSilo.id;
+        return {...old, [id]: Object.create(createdFoodSilo)}
+    });
+
+    currentFoodSiloId++;
+}
+
+export const upgradeFoodSilo = (foodSiloID, setFoodSiloState) => {
+    setFoodSiloState((old) => {
+        let oldSilo = old[foodSiloID];
+        clearTimeout(oldSilo.timeoutID);
+        oldSilo.state = oldSilo.state.level === 5 ? foodSiloTypeEnum[5] : foodSiloTypeEnum[oldSilo.state.level+1];
+        return {...old, [foodSiloID]: oldSilo}
+    })
+}
+
 export const calculateFoodPerMinute = (plantState) => {
     return Object.values(plantState).reduce((accumulator, plant) => accumulator + plant.state.foodproduction, 0)
+}
+
+export const calculateFoodStorage = (foodSiloState) => {
+    return Object.values(foodSiloState).reduce((accumulator, foodSilo) => accumulator + foodSilo.state.foodstorage, 0)
 }
 
 const generateValidator = (currentRef, maxRef, setState) => {
@@ -113,14 +186,15 @@ export function Game(props) {
 
     const [foodSecurityLevel, setFoodSecurityLevel] = useState(0);
     
-    const [food, setFood] = useState(25);
-    const [maxFood, setMaxFood] = useState(200);
+    const [food, setFood] = useState(200);
+    const [maxFood, setMaxFood] = useState(defaultFoodStorage);
     const [ammonium, setAmmonium] = useState(0);    
     const [maxAmmonium, setMaxAmmonium] = useState(10);
     const [nitrogenRunoff, setNitrogenRunoff] = useState(0);
     const [maxNitrogenRunoff, setMaxNitrogenRunoff] = useState(5);
 
     const [plantState, setPlantState] = useState({});
+    const [foodSiloState, setFoodSiloState] = useState({});
 
         // Refs
 
@@ -141,6 +215,7 @@ export function Game(props) {
         // Tile Visibility
 
     const [plantVisible, setPlantVisible] = useState(true);
+    const [foodSiloVisible, setFoodSiloVisible] = useState(true);
 
     useEffect(() => {
         /*
@@ -151,7 +226,7 @@ export function Game(props) {
         so it should be called after any state changes
         */
         window.dispatchEvent(new Event('resize'));
-    }, [food, plantVisible, plantState])
+    }, [food, plantVisible, plantState, foodSiloVisible, foodSiloState])
 
     // ---------- GAME LOGIC ----------
 
@@ -165,19 +240,36 @@ export function Game(props) {
         foodRateRef.current = calculateFoodPerMinute(plantState);
     }, [plantState])
 
+    // update max food storage when food silos change
+    useEffect(() => {
+        setMaxFood(defaultFoodStorage + calculateFoodStorage(foodSiloState));
+    }, [foodSiloState])
+
     // ---------- CALLBACKS ----------
 
-    let bloomTimeout = null;
+    let plantVisibleTimeout = null;
+    let foodSiloVisibleTimeout = null;
 
     const plantFound = useCallback(() => {
-        clearTimeout(bloomTimeout);
+        clearTimeout(plantVisibleTimeout);
         setPlantVisible(true);
     }, []);
 
     const plantLost = useCallback(() => {
         window.dispatchEvent(new Event('resize'));
-        clearTimeout(bloomTimeout);
-        bloomTimeout = setTimeout(() => setPlantVisible(false), 2000);
+        clearTimeout(plantVisibleTimeout);
+        plantVisibleTimeout = setTimeout(() => setPlantVisible(false), msToDisplayMenu);
+    }, []);
+
+    const foodSiloFound = useCallback(() => {
+        clearTimeout(foodSiloVisibleTimeout);
+        setFoodSiloVisible(true);
+    }, []);
+
+    const foodSiloLost = useCallback(() => {
+        window.dispatchEvent(new Event('resize'));
+        clearTimeout(foodSiloVisibleTimeout);
+        foodSiloVisibleTimeout = setTimeout(() => setFoodSiloVisible(false), msToDisplayMenu);
     }, []);
 
     // ---------- PROPS ----------
@@ -191,12 +283,14 @@ export function Game(props) {
         nitrogenRunoff, setNitrogenRunoff,
         maxNitrogenRunoff, setMaxNitrogenRunoff,
         plantState, setPlantState,
+        foodSiloState, setFoodSiloState,
         plantVisible, setPlantVisible,
+        foodSiloVisible, setFoodSiloVisible,
     }
 
     const ARprops = {
-        plantFound,
-        plantLost,
+        plantFound, plantLost,
+        foodSiloFound, foodSiloLost,
     }
 
     const GUIprops = {
@@ -208,7 +302,7 @@ export function Game(props) {
 
     return (
         <>
-            <ModelContext.Provider value={{plantState}}>
+            <ModelContext.Provider value={{plantState, foodSiloState}}>
                 <ARComponent {...ARprops} />
             </ModelContext.Provider>
 
