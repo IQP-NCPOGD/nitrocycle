@@ -1,92 +1,76 @@
 .main {
     padding: 0rem 2rem;
-    display: flex;  
-    justify-content: center;  
-    align-items: center;  
-}
-
-.en-link {
+    background-color: #A98467;
+  }
+  .en-link {
     color: #3366cc;
-}
-
-.en-link:hover {
+  }
+  
+  .en-link:hover {
     cursor: pointer;
     text-decoration: underline;
-}
-
-.en-link:active {
+  }
+  
+  .en-link:active {
     color:darkgreen;
-}
+  }
 
-.en-control {
-    color: black;
-    font-size:x-large;
-    user-select: none;
-}
-
-.en-control:hover {
-    cursor: pointer;
-    font-weight: bold;
-    color: blue;
-}
-
-.en-control:active {
-    color:darkgreen;
-}
-
-.en-control-disabled {
-    color: gray;
-    font-size:x-large;
-    user-select: none;
-}
-
-.butt {
+  .quiz-answers {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 10px;
+    padding: 10px;
+    grid-template-columns: 1fr 2fr;
+  }
+  
+  .pressable {
     border: none;
+    background: inherit;
     border-radius: 10px;
     cursor: pointer;
     appearance: none;
-    background-color: #A98467;
      transition: transform .7s ease-in-out;
     margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 20px;
- }
-
- .butt:hover {
-    filter: brightness(1.25);
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    max-width: 75px;
+    max-height: 75px;
+  }
+  
+  .pressable:hover {
+    filter: brightness(1.15);
     scale: 110%;
-    box-shadow: 0 0 15px rgba(33,33,33,.6); 
- }
-
- .butt:active{
+  }
+  
+  .pressable:active{
     scale: 90%;
- }
-
-img {
-    height: 100px;
-    width: 100px;
-}
-
-.banner {
+  }
+  
+  .item-name {
     position: absolute;
     background-color: black;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-radius: 10px;
     opacity: 70%;
-    width: 109px;
+    width: 50px;
     height: 35px;
     color: white;
-    font-size: 12px;
-    line-height: 0px;
-    transform: translate(-4%, 200%);
+    font-size: 8px;
+    transform: translate(0%, 100%);
   }
-
+  
+  img {
+  max-width: 50px;
+  max-height: 50px;
+  }
+  
   * {box-sizing: border-box}
-
-  .Quiz {
-    text-align: center;
+  
+  ul {
+    padding: 0;
+    list-style-type: none;
   }
-
-  .Quiz-Answers {
+  
+  .main-container {
     max-width: 300px;
   }

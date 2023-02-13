@@ -86,7 +86,7 @@ function FarmersLogHome(props) {
 
     return (
             <div className='main'>
-                <ul className='main-container'>
+                <ul>
                     <ul>
                         <h1>Farmer's Log Table of Contents</h1>
                         <p>Welcome to the Farmer's Log.</p>
