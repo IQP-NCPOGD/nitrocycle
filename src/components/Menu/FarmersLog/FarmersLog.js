@@ -99,6 +99,7 @@ function FarmersLog(props) {
 
     return (
         <div className='main'>
+            <ul>
             <div className='controls'>
                 <button onClick={() => setActiveMenu(menus.none)}>Close</button>
                 {(pageHistoryIndex > 0 && pageHistory.length > 1) ?
@@ -110,6 +111,8 @@ function FarmersLog(props) {
                     <span className='en-control-disabled'>→</span>}
             </div>
             {getCurrentPage()}
+            </ul>
+
         </div>
     );
 }
