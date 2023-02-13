@@ -148,3 +148,39 @@ ul {
   padding: 0;
   list-style-type: none;
 }
+
+.pressable {
+	border: none;
+	background: inherit;
+	border-radius: 10px;
+	cursor: pointer;
+	appearance: none;
+	 transition: transform .7s ease-in-out;
+	margin-left: 20px;
+	margin-right: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	max-width: 75px;
+	max-height: 75px;
+  }
+  
+  .pressable:hover {
+	filter: brightness(1.15);
+	scale: 110%;
+  }
+  
+  .pressable:active{
+	scale: 90%;
+  }
+  
+  .item-name {
+	position: absolute;
+	background-color: black;
+	border-radius: 10px;
+	opacity: 70%;
+	width: 50px;
+	height: 35px;
+	color: white;
+	font-size: 8px;
+	transform: translate(0%, 100%);
+  }

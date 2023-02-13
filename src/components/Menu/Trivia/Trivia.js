@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { menus, setActiveMenu } from '..';
 
-import '../img-button.css';
+import '../FarmersLog/farmers-log-styles.css';
 
 const Trivia = (props) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -66,9 +66,9 @@ const Trivia = (props) => {
     ]
   
 	return (
-        <div className="menu-main">
+        <div className="main">
             <div className='controls'>
-                <button onClick={() => setActiveMenu(menus.none)}>Close</button>
+                <button className='escape' onClick={() => setActiveMenu(menus.none)}>Close</button>
             </div>
             <ul>
                 <h1>Trivia</h1>
