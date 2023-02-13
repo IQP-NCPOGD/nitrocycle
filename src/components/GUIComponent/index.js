@@ -38,10 +38,13 @@ export default function GUIComponent(props) {
                     props.plantVisible ? <img src="data/images/plant.png" onClick={() => setActiveMenu(menus.plantMenu)}></img> : ""
                 }
                 {
-                    props.foodSiloVisible ? <img src="data/images/silo.png" onClick={() => setActiveMenu(menus.foodSiloMenu)}></img> : ""
+                    props.foodSiloVisible ? <img src="data/images/food-silo.png" onClick={() => setActiveMenu(menus.foodSiloMenu)}></img> : ""
                 }
                 {
-                    props.ammoniumSiloVisible ? <img src="data/images/ammonium.png" onClick={() => setActiveMenu(menus.ammoniumSiloMenu)}></img> : ""
+                    props.ammoniumSiloVisible ? <img src="data/images/ammonium-silo.png" onClick={() => setActiveMenu(menus.ammoniumSiloMenu)}></img> : ""
+                }
+                {
+                    props.fixatorVisible ? <img src="data/images/nitrogen-fixator.png" onClick={() => setActiveMenu(menus.fixatorMenu)}></img> : ""
                 }
             </div>
 

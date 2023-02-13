@@ -51,6 +51,10 @@ function AmmoniumSilo(props) {
   return renderGLTFModel('data/models/ammonium.gltf', 0.5);
 }
 
+function Fixator(props) {
+  return renderGLTFModel('data/models/denitrifier.gltf', 0.25);
+}
+
 class ARComponent extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -105,6 +109,17 @@ class ARComponent extends React.PureComponent {
                   onMarkerLost={this.props.ammoniumSiloLost}>
 
                   <AmmoniumSilo />
+
+                </ARMarker>
+                
+                <ARMarker
+                  params={{ smooth: true }}
+                  type={"pattern"}
+                  patternUrl={"data/patterns/fixator.patt"}
+                  onMarkerFound={this.props.fixatorFound}
+                  onMarkerLost={this.props.fixatorLost}>
+
+                  <Fixator />
 
                 </ARMarker></>
             );

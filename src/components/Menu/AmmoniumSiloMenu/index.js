@@ -20,20 +20,20 @@ export default function AmmoniumSiloMenu(props) {
 
     const maintainAmmoniumSiloClicked = (ammoniumSilo, value) => {
         if(maintainAmmoniumSiloDisabled(ammoniumSilo, value)) return;
-        value.setFoodValidated((old) => old - ammoniumSilo.state.upgradeCost);
+        value.setFoodValidated((old) => old - ammoniumSilo.state.maintenanceCost);
         maintainAmmoniumSilo(ammoniumSilo.id, value.setAmmoniumSiloState)
     }
 
     const maintainAmmoniumSiloDisabled = (ammoniumSilo, value) => {
-        if(ammoniumSilo.state.upgradeCost !== undefined && ammoniumSilo.state !== ammoniumSiloTypeEnum.safe) {
-            return ammoniumSilo.state.upgradeCost > value.food;
+        if(ammoniumSilo.state.maintenanceCost !== undefined && ammoniumSilo.state !== ammoniumSiloTypeEnum.safe) {
+            return ammoniumSilo.state.maintenanceCost > value.food;
         } else {
             return true;
         }
     }
 
     const getMaintenanceButton = (ammoniumSilo, value) => {
-        if(ammoniumSilo.state.upgradeCost !== undefined && ammoniumSilo.state !== ammoniumSiloTypeEnum.safe) {
+        if(ammoniumSilo.state.maintenanceCost !== undefined && ammoniumSilo.state !== ammoniumSiloTypeEnum.safe) {
             return <button disabled={maintainAmmoniumSiloDisabled(ammoniumSilo, value)} onClick={() => maintainAmmoniumSiloClicked(ammoniumSilo, value)}>Maintenance ({ammoniumSilo.state.maintenanceCost})</button>
         } else {
             return "";

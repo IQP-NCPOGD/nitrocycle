@@ -1,0 +1,36 @@
+.tab {
+  float: left;
+  background-color: inherit;
+  width: 100px;
+
+}
+
+.tab button {
+  display: block;
+  background-color: #A98467;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
+.tabule:hover {
+  background-color: #CB9E7C;
+}
+
+.tabule:active {
+  background-color: #8E6F56;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}

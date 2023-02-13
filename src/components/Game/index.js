@@ -18,6 +18,9 @@ export const costPerFoodSilo = 50;
 export const ammoniumSilosPerPlot = 3;
 export const costPerAmmoniumSilo = 75;
 
+export const fixatorsPerPlot = 2;
+export const costPerFixator = 100;
+
 const defaultFoodStorage = 200;
 const defaultAmmoniumStorage = 10;
 
@@ -27,8 +30,8 @@ const msToPlant = 10000;
 const msToWilt = 5000;
 const msToRemoval = 5000;
 
-const msToMaintainAmmoniumSilo = 300000;
-const msToExplode = 60000;
+const msToMaintainAmmoniumSilo = 5000;
+const msToExplode = 10000;
 
 export const plantTypeEnum = {
     wilt: {
@@ -104,6 +107,14 @@ export const ammoniumSiloTypeEnum = {
         imgURL: "/data/images/ammonium.png",
         ammoniumstorage: 10,
         maintenanceCost: 50,
+    }
+}
+
+export const fixatorTypeEnum = {
+    normal: {
+        name: "Nitrogen Fixator",
+        imgURL: "/data/images/denitrifier.png",
+        ammoniumproduction: 1,
     }
 }
 
@@ -185,21 +196,66 @@ export const createAmmoniumSilo = (setAmmoniumSiloState) => {
         state: ammoniumSiloTypeEnum.safe,
     }
 
-    setAmmoniumSiloState((old) => {
+    createdAmmoniumSilo.timeoutID = setTimeout(() => setAmmoniumSiloState((older) => {
         let id = createdAmmoniumSilo.id;
-        return { ...old, [id]: Object.create(createdAmmoniumSilo) }
+        createdAmmoniumSilo.state = ammoniumSiloTypeEnum.risk;
+
+        createdAmmoniumSilo.timeoutID = setTimeout(() => setAmmoniumSiloState((old) => {
+            let id = createdAmmoniumSilo.id;
+            let { [id]: removedID, ...nextState } = old;
+            return nextState;
+        }), msToExplode);
+        
+        return {...older, [id]: Object.create(createdAmmoniumSilo)}
+
+    }), msToMaintainAmmoniumSilo);
+
+    setAmmoniumSiloState((oldest) => {
+        let id = createdAmmoniumSilo.id;
+        return { ...oldest, [id]: Object.create(createdAmmoniumSilo) }
     })
 
     currentAmmoniumSiloId++;
 }
 
 export const maintainAmmoniumSilo = (ammoniumSiloID, setAmmoniumSiloState) => {
-    setAmmoniumSiloState((old) => {
-        let oldSilo = old[ammoniumSiloID];
+    setAmmoniumSiloState((oldest) => {
+        let oldSilo = oldest[ammoniumSiloID];
         clearTimeout(oldSilo.timeoutID);
         oldSilo.state = ammoniumSiloTypeEnum.safe;
-        return { ...old, [ammoniumSiloID]: oldSilo }
+
+        oldSilo.timeoutID = setTimeout(() => setAmmoniumSiloState((older) => {
+            let id = oldSilo.id;
+            oldSilo.state = ammoniumSiloTypeEnum.risk;
+    
+            oldSilo.timeoutID = setTimeout(() => setAmmoniumSiloState((old) => {
+                let id = oldSilo.id;
+                let { [id]: removedID, ...nextState } = old;
+                return nextState;
+            }), msToExplode);
+            
+            return {...older, [id]: Object.create(oldSilo)}
+    
+        }), msToMaintainAmmoniumSilo);
+
+        return { ...oldest, [ammoniumSiloID]: oldSilo }
     })
+}
+
+let currentFixatorId = 0;
+export const createFixator = (setFixatorState) => {
+    let createdFixator = {
+        id: currentFixatorId,
+        timeoutID: null,
+        state: fixatorTypeEnum.normal,
+    }
+
+    setFixatorState((old) => {
+        let id = createdFixator.id;
+        return {...old, [id]: Object.create(createdFixator)}
+    })
+
+    currentFixatorId++;
 }
 
 export const calculateFoodPerMinute = (plantState) => {
@@ -212,6 +268,10 @@ export const calculateFoodStorage = (foodSiloState) => {
 
 export const calculateAmmoniumStorage = (ammoniumSiloState) => {
     return Object.values(ammoniumSiloState).reduce((accumulator, ammoniumSilo) => accumulator + ammoniumSilo.state.ammoniumstorage, 0);
+}
+
+export const calculateAmmoniumPerMinute = (fixatorState) => {
+    return Object.values(fixatorState).reduce((accumulator, fixator) => accumulator + fixator.state.ammoniumproduction, 0);
 }
 
 const generateValidator = (currentRef, maxRef, setState) => {
@@ -247,6 +307,7 @@ export function Game(props) {
     const [plantState, setPlantState] = useState({});
     const [foodSiloState, setFoodSiloState] = useState({});
     const [ammoniumSiloState, setAmmoniumSiloState] = useState({});
+    const [fixatorState, setFixatorState] = useState({});
 
     // Refs
 
@@ -257,7 +318,7 @@ export function Game(props) {
     const maxAmmoniumRef = useRef(maxAmmonium); maxAmmoniumRef.current = maxAmmonium;
 
     const foodRateRef = useRef(0);
-    const ammoniumRate = useRef(0);
+    const ammoniumRateRef = useRef(0);
 
     // Validators
 
@@ -269,6 +330,7 @@ export function Game(props) {
     const [plantVisible, setPlantVisible] = useState(true);
     const [foodSiloVisible, setFoodSiloVisible] = useState(true);
     const [ammoniumSiloVisible, setAmmoniumSiloVisible] = useState(true);
+    const [fixatorVisible, setFixatorVisible] = useState(true);
 
     useEffect(() => {
         /*
@@ -279,19 +341,27 @@ export function Game(props) {
         so it should be called after any state changes
         */
         window.dispatchEvent(new Event('resize'));
-    }, [food, plantVisible, plantState, foodSiloVisible, foodSiloState, ammoniumSiloVisible, ammoniumSiloState])
+    }, [food, ammonium, plantVisible, plantState, foodSiloVisible, foodSiloState, ammoniumSiloVisible, ammoniumSiloState, fixatorVisible, fixatorState])
 
     // ---------- GAME LOGIC ----------
 
-    // add food every second
+    // add food and ammonium every second
     useEffect(() => {
-        setInterval(() => setFoodValidated((old) => old + foodRateRef.current), 1000);
+        setInterval(() => {
+            setFoodValidated((old) => old + foodRateRef.current)
+            setAmmoniumValidated((old) => old + ammoniumRateRef.current)
+        }, 1000);
     }, []);
 
     // update food production when plants change
     useEffect(() => {
         foodRateRef.current = calculateFoodPerMinute(plantState);
     }, [plantState])
+
+    // update ammonium production when fixators change
+    useEffect(() => {
+        ammoniumRateRef.current = calculateAmmoniumPerMinute(fixatorState);
+    }, [fixatorState])
 
     // update max food storage when food silos change
     useEffect(() => {
@@ -322,10 +392,12 @@ export function Game(props) {
     let plantVisibleTimeout = null;
     let foodSiloVisibleTimeout = null;
     let ammoniumSiloVisibleTimeout = null;
+    let fixatorVisibleTimeout = null;
 
     const [plantFound, plantLost] = generateMarkerCallbacks(plantVisibleTimeout, setPlantVisible);
     const [foodSiloFound, foodSiloLost] = generateMarkerCallbacks(foodSiloVisibleTimeout, setFoodSiloVisible);
     const [ammoniumSiloFound, ammoniumSiloLost] = generateMarkerCallbacks(ammoniumSiloVisibleTimeout, setAmmoniumSiloVisible);
+    const [fixatorFound, fixatorLost] = generateMarkerCallbacks(fixatorVisibleTimeout, setFixatorVisible);
 
     // ---------- PROPS ----------
 
@@ -340,15 +412,18 @@ export function Game(props) {
         plantState, setPlantState,
         foodSiloState, setFoodSiloState,
         ammoniumSiloState, setAmmoniumSiloState,
+        fixatorState, setFixatorState,
         plantVisible, setPlantVisible,
         foodSiloVisible, setFoodSiloVisible,
         ammoniumSiloVisible, setAmmoniumSiloVisible,
+        fixatorVisible, setFixatorVisible,
     }
 
     const ARprops = {
         plantFound, plantLost,
         foodSiloFound, foodSiloLost,
         ammoniumSiloFound, ammoniumSiloLost,
+        fixatorFound, fixatorLost,
     }
 
     const GUIprops = {
@@ -360,7 +435,7 @@ export function Game(props) {
 
     return (
         <>
-            <ModelContext.Provider value={{ plantState, foodSiloState }}>
+            <ModelContext.Provider value={{ plantState, foodSiloState, ammoniumSiloState, fixatorState }}>
                 <ARComponent {...ARprops} />
             </ModelContext.Provider>
 

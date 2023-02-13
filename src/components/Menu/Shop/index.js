@@ -3,7 +3,7 @@ import { menus, setActiveMenu } from '..';
 
 import { costPerAmmonium, GameStateContext } from '../../Game';
 
-import './styles.css';
+import '../styles.css';
 
 
 export default function Shop(props) {
@@ -20,7 +20,7 @@ export default function Shop(props) {
     }
 
     return (
-        <div className='shop-main'>
+        <div className='main'>
             <div className='controls'>
                 <button onClick={() => setActiveMenu(menus.none)}>Close</button>
             </div>
