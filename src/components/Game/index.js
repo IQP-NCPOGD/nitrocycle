@@ -62,35 +62,35 @@ export const foodSiloTypeEnum = {
     1: {
         level: 1,
         name: "Silo (Lvl 1)",
-        imgURL: "/data/images/silo.png",
+        imgURL: "/data/images/food-silo.png",
         foodstorage: 200,
         upgradeCost: 30,
     },
     2: {
         level: 2,
         name: "Silo (Lvl 2)",
-        imgURL: "/data/images/silo.png",
+        imgURL: "/data/images/food-silo.png",
         foodstorage: 400,
         upgradeCost: 30,
     },
     3: {
         level: 3,
         name: "Silo (Lvl 3)",
-        imgURL: "/data/images/silo.png",
+        imgURL: "/data/images/food-silo.png",
         foodstorage: 600,
         upgradeCost: 30,
     },
     4: {
         level: 4,
         name: "Silo (Lvl 4)",
-        imgURL: "/data/images/silo.png",
+        imgURL: "/data/images/food-silo.png",
         foodstorage: 800,
         upgradeCost: 30,
     },
     5: {
         level: 5,
         name: "Silo (Lvl 5)",
-        imgURL: "/data/images/silo.png",
+        imgURL: "/data/images/food-silo.png",
         foodstorage: 1000,
         upgradeCost: 30,
     },
@@ -99,12 +99,12 @@ export const foodSiloTypeEnum = {
 export const ammoniumSiloTypeEnum = {
     safe: {
         name: "Ammonium Silo",
-        imgURL: "/data/images/ammonium.png",
+        imgURL: "/data/images/ammonium-silo.png",
         ammoniumstorage: 10,
     },
     risk: {
         name: "Ammonium Silo (NEEDS MAINTENANCE)",
-        imgURL: "/data/images/ammonium.png",
+        imgURL: "/data/images/ammonium-silo.png",
         ammoniumstorage: 10,
         maintenanceCost: 50,
     }
@@ -113,7 +113,7 @@ export const ammoniumSiloTypeEnum = {
 export const fixatorTypeEnum = {
     normal: {
         name: "Nitrogen Fixator",
-        imgURL: "/data/images/denitrifier.png",
+        imgURL: "/data/images/nitrogen-fixator.png",
         ammoniumproduction: 1,
     }
 }

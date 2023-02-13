@@ -56,6 +56,10 @@
 .grid-item > button:active {
   background-color: #DDE5B6;
 }
+.grid-item > button:disabled {
+  background-color: gray;
+  opacity: 0.5;
+}
 
 .icon {
     display: block;
@@ -97,6 +101,10 @@
 }
 .menu button:active {
   background-color: #DDE5B6;
+}
+.menu button:disabled {
+  background-color: gray;
+  opacity: 0.5;
 }
 
 .menu button.close {
