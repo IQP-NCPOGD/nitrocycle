@@ -7,8 +7,8 @@ function Denitrification(props) {
     return (
         <div className='main'>
             <ul>
-                <h1>Denitrification</h1>
-                <p>This is the page for Denitrification.</p>
+                <h1>(De)Nitrification</h1>
+                <p>This is the page for (De)Nitrification.</p>
                 <div class='true-center'>
                     <button class="pressable" type="button" onClick={props.update("Home")}>
                         <div class='item-name'>

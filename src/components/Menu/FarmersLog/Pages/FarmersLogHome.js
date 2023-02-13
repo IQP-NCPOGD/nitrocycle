@@ -25,13 +25,13 @@ function FarmersLogHome(props) {
                 <div className='item-name'>
                     <h4>Nitrogen</h4>
                 </div> 
-                <img src="../../../../../data/images/potato.png" alt="buttonpng" border="0"/>
+                <img src="../../../../../data/images/nitrogen.png" alt="buttonpng" border="0"/>
             </button>
             <button className="pressable" type="button" onClick={props.update("Nitrogen Runoff")}>
                 <div className='item-name'>
                     <h4>Nitrogen Runoff</h4>
                 </div> 
-                <img src="../../../../../data/images/potato.png" alt="buttonpng" border="0"/>
+                <img src="../../../../../data/images/nitrogenrunoff.png" alt="buttonpng" border="0"/>
             </button>
         </div>,
 
@@ -47,19 +47,19 @@ function FarmersLogHome(props) {
                 <div className='item-name'>
                     <h4>Food Silo</h4>
                 </div> 
-                <img src="../../../../../data/images/potato.png" alt="buttonpng" border="0"/>
+                <img src="../../../../../data/images/food-silo.png" alt="buttonpng" border="0"/>
             </button>
                 <button className="pressable" type="button" onClick={props.update("Ammonium Silo")}>
                 <div className='item-name'>
                     <h4>Ammonium Silo</h4>
                 </div> 
-            <img src="../../../../../data/images/potato.png" alt="buttonpng" border="0"/>
+            <img src="../../../../../data/images/ammonium-silo.png" alt="buttonpng" border="0"/>
             </button>  
             <button className="pressable" type="button" onClick={props.update("Nitrogen Fixator")}>
                 <div className='item-name'>
                         <h4>Nitrogen Fixator</h4>
                 </div> 
-                <img src="../../../../../data/images/potato.png" alt="buttonpng" border="0"/>
+                <img src="../../../../../data/images/nitrogen-fixator.png" alt="buttonpng" border="0"/>
             </button>
         </div>,
 
@@ -69,19 +69,19 @@ function FarmersLogHome(props) {
                 <div className='item-name'>
                     <h4>Nitrogen Cycle</h4>
                 </div> 
-                <img src="../../../../../data/images/potato.png" alt="buttonpng" border="0"/>
+                <img src="../../../../../data/images/nitrogen-cycle.png" alt="buttonpng" border="0"/>
             </button>
             <button className="pressable" type="button" onClick={props.update("Nitrogen Fixation")}>                            
                 <div className='item-name'>
                     <h4>Nitrogen Fixation</h4>
                 </div> 
-                <img src="../../../../../data/images/potato.png" alt="buttonpng" border="0"/>
+                <img src="../../../../../data/images/nitrogen-fixation.png" alt="buttonpng" border="0"/>
             </button>
             <button className="pressable" type="button" onClick={props.update("Denitrification")}>
                 <div className='item-name'>
-                    <h4>Denitrification</h4>
+                    <h4>(De)Nitrification</h4>
                 </div> 
-                <img src="../../../../../data/images/potato.png" alt="buttonpng" border="0"/>
+                <img src="../../../../../data/images/denitrification-nitrification.png" alt="buttonpng" border="0"/>
             </button>
         </div>];
 
