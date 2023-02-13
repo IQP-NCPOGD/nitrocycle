@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { menus, setActiveMenu } from '..';
-import './styles.css';
+import '../styles.css';
 
 const Trivia = (props) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -66,16 +66,15 @@ const Trivia = (props) => {
   
 	return (
         <div className="main">
-            <button className='close-button' onClick={() => setActiveMenu(menus.none)}>Close</button>
+            <div className='controls'>
+                <button onClick={() => setActiveMenu(menus.none)}>Close</button>
+            </div>
             <h1>Trivia</h1>
             <p>Welcome to the Trivia.</p>
             <p>Answer Trivia Questions to earn Food!</p>
             <h4>{quizArray[selectedIndex][0]}</h4>
-            <div className='quiz'>
-                
-
-                {quizArray[selectedIndex][1]}
-                
+            <div>
+                {quizArray[selectedIndex][1]} 
             </div>
         </div>
 	);

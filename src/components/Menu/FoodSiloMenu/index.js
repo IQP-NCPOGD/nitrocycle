@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { menus, setActiveMenu } from '..';
 import { calculateFoodStorage, costPerFoodSilo, createFoodSilo, foodSilosPerPlot, foodSiloTypeEnum, GameStateContext, upgradeFoodSilo } from '../../Game';
 
-import './styles.css';
+import '../styles.css';
 
 
 export default function FoodSiloMenu(props) {
@@ -43,7 +43,7 @@ export default function FoodSiloMenu(props) {
     return (
         <GameStateContext.Consumer>
             {value =>
-                <div className='foodsilo-menu-main'>
+                <div className='menu-main'>
                     <div className='controls'>
                         <button onClick={() => setActiveMenu(menus.none)}>Close</button>
                     </div>
@@ -55,9 +55,9 @@ export default function FoodSiloMenu(props) {
                             Object.keys(value.foodSiloState).length === 0 ?
                                 <p>No food silos have been placed.</p>
                                 :
-                                <div className='foodsilo-grid'>
+                                <div className='grid'>
                                     {Object.values(value.foodSiloState).map((foodSilo, index) =>
-                                        <div className='foodsilo-elem' key={foodSilo.id}>
+                                        <div className='elem' key={foodSilo.id}>
                                             <p>{foodSilo.state.name}</p>
                                             <img className='medium-icon' src={foodSilo.state.imgURL}></img>
                                             {getUpgradeButton(foodSilo, value)}

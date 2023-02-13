@@ -1,7 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 
-import '../styles.css';
+import '../farmers-log-styles.css';
+import '../../styles.css';
 
 function FarmersLogHome(props) {
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -88,7 +89,7 @@ function FarmersLogHome(props) {
             <div className='main'>
                 <ul>
                     <ul>
-                        <h1>Farmer's Log Table of Contents</h1>
+                        <h1 className='test'>Farmer's Log Table of Contents</h1>
                         <p>Welcome to the Farmer's Log.</p>
                         <p>Here is a list of all the current pages:</p>
                     </ul>

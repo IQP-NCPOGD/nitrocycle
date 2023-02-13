@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { menus, setActiveMenu } from '..';
 import { calculateAmmoniumPerMinute, costPerFixator, createFixator, fixatorsPerPlot, GameStateContext } from '../../Game';
 
-import './styles.css';
+import '../styles.css';
 
 
 export default function FixatorMenu(props) {
@@ -21,7 +21,7 @@ export default function FixatorMenu(props) {
     return (
         <GameStateContext.Consumer>
             {value =>
-                <div className='fixator-menu-main'>
+                <div className='menu-main'>
                     <div className='controls'>
                         <button onClick={() => setActiveMenu(menus.none)}>Close</button>
                     </div>
@@ -33,9 +33,9 @@ export default function FixatorMenu(props) {
                             Object.keys(value.fixatorState).length === 0 ?
                                 <p>No nitrogen fixators have been placed.</p>
                                 :
-                                <div className='fixator-grid'>
+                                <div className='grid'>
                                     {Object.values(value.fixatorState).map((fixator, index) =>
-                                        <div className='fixator-elem' key={fixator.id}>
+                                        <div className='elem' key={fixator.id}>
                                             <p>{fixator.state.name}</p>
                                             <img className='small-icon' src={fixator.state.imgURL}></img>
                                         </div>

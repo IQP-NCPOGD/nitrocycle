@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { menus, setActiveMenu } from '..';
 import { calculateFoodPerMinute, costPerPlant, createPlant, fertilizePlant, GameStateContext, plantsPerPlot, plantTypeEnum } from '../../Game';
 
-import './styles.css';
+import '../styles.css';
 
 
 export default function PlantMenu(props) {
@@ -43,7 +43,7 @@ export default function PlantMenu(props) {
     return (
         <GameStateContext.Consumer>
             {value =>
-                <div className='plant-menu-main'>
+                <div className='menu-main'>
                     <div className='controls'>
                         <button onClick={() => setActiveMenu(menus.none)}>Close</button>
                     </div>
@@ -55,9 +55,9 @@ export default function PlantMenu(props) {
                             Object.keys(value.plantState).length === 0 ?
                                 <p>No plants have been planted.</p>
                                 :
-                                <div className='plant-grid'>
+                                <div className='grid'>
                                     {Object.values(value.plantState).map((plant, index) =>
-                                        <div className='plant-elem' key={plant.id}>
+                                        <div className='elem' key={plant.id}>
                                             <p>{plant.state.name}</p>
                                             <img className='small-icon' src={plant.state.imgURL}></img>
                                             {getFertilizeButton(plant, value)}

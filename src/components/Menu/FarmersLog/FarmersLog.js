@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { menus, setActiveMenu } from '..';
-import './././styles.css';
+import './farmers-log-styles.css';
+import '../styles.css';
+
 
 import FarmersLogHome from './Pages/FarmersLogHome';
 
