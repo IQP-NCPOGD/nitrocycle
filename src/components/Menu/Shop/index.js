@@ -20,7 +20,7 @@ export default function Shop(props) {
     }
 
     return (
-        <div className='main'>
+        <div className='menu-main'>
             <div className='controls'>
                 <button onClick={() => setActiveMenu(menus.none)}>Close</button>
             </div>
