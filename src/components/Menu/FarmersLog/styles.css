@@ -3,7 +3,7 @@
   background-color: #A98467;
 }
 
-.controls {
+.main .controls {
   margin-right: 15px;
 }
 
@@ -107,10 +107,6 @@
   transform: translate(0%, 100%);
 }
 
-img {
-max-width: 50px;
-max-height: 50px;
-}
 
 * {box-sizing: border-box}
 

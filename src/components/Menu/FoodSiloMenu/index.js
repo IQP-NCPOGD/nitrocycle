@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { menus, setActiveMenu } from '..';
 import { calculateFoodStorage, costPerFoodSilo, createFoodSilo, foodSilosPerPlot, foodSiloTypeEnum, GameStateContext, upgradeFoodSilo } from '../../Game';
 
-import './styles.css';
+import '../menu.css';
 
 
 export default function FoodSiloMenu(props) {
@@ -43,34 +43,27 @@ export default function FoodSiloMenu(props) {
     return (
         <GameStateContext.Consumer>
             {value =>
-                <div className='foodsilo-menu-main'>
-                    <div className='controls'>
-                        <button onClick={() => setActiveMenu(menus.none)}>Close</button>
-                    </div>
-                    <div>
-                        <h3>Food Silo Plot</h3>
-                        <p>Silos: {Object.keys(value.foodSiloState).length} / {foodSilosPerPlot}</p>
-                        <p>Extra Food Capacity: {calculateFoodStorage(value.foodSiloState)} Food</p>
-                        {
-                            Object.keys(value.foodSiloState).length === 0 ?
-                                <p>No food silos have been placed.</p>
-                                :
-                                <div className='foodsilo-grid'>
-                                    {Object.values(value.foodSiloState).map((foodSilo, index) =>
-                                        <div className='foodsilo-elem' key={foodSilo.id}>
-                                            <p>{foodSilo.state.name}</p>
-                                            <img className='medium-icon' src={foodSilo.state.imgURL}></img>
-                                            {getUpgradeButton(foodSilo, value)}
-                                        </div>
-                                    )}
-                                </div>
-                        }
-
-                        <p>
-                            <button disabled={purchaseFoodSiloDisabled(value)} onClick={() => purchaseFoodSilo(value)}>Purchase Food Silo ({costPerFoodSilo} Food)</button>
-                        </p>
-
-                    </div>
+                <div className='menu'>
+                  <h2>Food Silo Plot</h2>
+                  <p>Silos: {Object.keys(value.foodSiloState).length} / {foodSilosPerPlot}</p>
+                  <p>Extra Food Capacity: {calculateFoodStorage(value.foodSiloState)} Food</p>
+                  { Object.keys(value.foodSiloState).length === 0 ?
+                      <p>No food silos have been placed.</p>
+                    :
+                      <div className='menu-grid'>
+                      { Object.values(value.foodSiloState).map((foodSilo, index) =>
+                          <div className='grid-item' key={foodSilo.id}>
+                            <p>{foodSilo.state.name}</p>
+                            <img className='icon big' src={foodSilo.state.imgURL}></img>
+                            {getUpgradeButton(foodSilo, value)}
+                          </div>
+                      ) }
+                      </div>
+                  }
+                  <div className='controls'>
+                    <button disabled={purchaseFoodSiloDisabled(value)} onClick={() => purchaseFoodSilo(value)}>Purchase Food Silo ({costPerFoodSilo} Food)</button>
+                    <button className='close' onClick={() => setActiveMenu(menus.none)}>Close</button>
+                  </div>
                 </div>
             }
         </GameStateContext.Consumer>

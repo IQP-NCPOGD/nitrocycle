@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { menus, setActiveMenu } from '..';
 import { ammoniumSilosPerPlot, ammoniumSiloTypeEnum, calculateAmmoniumStorage, costPerAmmoniumSilo, createAmmoniumSilo, GameStateContext, maintainAmmoniumSilo } from '../../Game';
 
-import './styles.css';
+import '../menu.css';
 
 
 export default function AmmoniumSiloMenu(props) {
@@ -43,33 +43,27 @@ export default function AmmoniumSiloMenu(props) {
     return (
         <GameStateContext.Consumer>
             {value =>
-                <div className='ammoniumsilo-menu-main'>
-                    <div className='controls'>
-                        <button onClick={() => setActiveMenu(menus.none)}>Close</button>
-                    </div>
-                    <div>
-                        <h3>Ammonium Silo Plot</h3>
+                <div className='menu'>
+                        <h2>Ammonium Silo Plot</h2>
                         <p>Silos: {Object.keys(value.ammoniumSiloState).length} / {ammoniumSilosPerPlot}</p>
                         <p>Extra Ammonium Capacity: {calculateAmmoniumStorage(value.ammoniumSiloState)} Ammonium</p>
                         {
                             Object.keys(value.ammoniumSiloState).length === 0 ?
                                 <p>No ammonium silos have been placed.</p>
                                 :
-                                <div className='ammoniumsilo-grid'>
+                                <div className='menu-grid'>
                                     {Object.values(value.ammoniumSiloState).map((ammoniumSilo, index) =>
-                                        <div className='ammoniumsilo-elem' key={ammoniumSilo.id}>
+                                        <div className='grid-item' key={ammoniumSilo.id}>
                                             <p>{ammoniumSilo.state.name}</p>
-                                            <img className='medium-icon' src={ammoniumSilo.state.imgURL}></img>
+                                            <img className='icon big' src={ammoniumSilo.state.imgURL}></img>
                                             {getMaintenanceButton(ammoniumSilo, value)}
                                         </div>
                                     )}
                                 </div>
                         }
-
-                        <p>
-                            <button disabled={purchaseAmmoniumSiloDisabled(value)} onClick={() => purchaseAmmoniumSilo(value)}>Purchase Ammonium Silo ({costPerAmmoniumSilo} Food)</button>
-                        </p>
-
+                    <div className='controls'>
+                      <button disabled={purchaseAmmoniumSiloDisabled(value)} onClick={() => purchaseAmmoniumSilo(value)}>Purchase Ammonium Silo ({costPerAmmoniumSilo} Food)</button>
+                      <button className='close' onClick={() => setActiveMenu(menus.none)}>Close</button>
                     </div>
                 </div>
             }

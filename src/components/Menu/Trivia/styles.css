@@ -58,12 +58,7 @@
     font-size: 8px;
     transform: translate(0%, 100%);
   }
-  
-  img {
-  max-width: 50px;
-  max-height: 50px;
-  }
-  
+   
   * {box-sizing: border-box}
   
   ul {
