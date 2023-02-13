@@ -1,15 +1,26 @@
 .plant-menu-main {
+    margin: 0.5em;
+    padding: 1em;
+    margin-top: 8em;
+    margin-bottom: 8em;
+    overflow-y: scroll;
+    
+    border: solid 1rem #6C584CC0;
+    border-radius: 2rem;
     background-color: #A98467;
-    padding: 3em;
-    overflow: scroll;
+
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+
 }
 
 .plant-grid {
     color: white;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
 }
 
 .plant-grid p {
@@ -17,6 +28,9 @@
 }
 
 .plant-elem {
+    flex: 0 1 min-content;
+    
+
     background-color: #885a37;
     border-width: 2px;
     margin: 0.25em;
@@ -27,8 +41,50 @@
     align-items: center;
 }
 
+.plant-elem > button {
+  flex: 1 0 auto;
+  border: none;
+  background-color: #ADC178;
+  color: #231E1A;
+}
+
+.plant-elem > button:active {
+  background-color: #DDE5B6;
+}
+
 .small-icon {
     display: block;
     width: 4em;
     height: 4em;
+}
+
+.controls {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 0.25em;
+  padding-top: 1em;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.controls > * {
+  padding: 0.25em;
+}
+
+.controls button {
+  flex: 1 1 auto;
+
+  border: none;
+  border-radius: 0.5em;
+  background-color: #ADC178;
+  padding: 0.5em;
+  font-size: 1em;
+}
+.controls > button:active {
+  background-color: #DDE5B6;
+}
+.controls .close {
+  flex: 0  0 auto;
+
+  background-color: #B33F62;
+  color:#291720;
 }
