@@ -3,7 +3,7 @@ import { menus, setActiveMenu } from '..';
 
 import { costPerAmmonium, GameStateContext } from '../../Game';
 
-import '../styles.css';
+import '../menu.css';
 
 
 export default function Shop(props) {

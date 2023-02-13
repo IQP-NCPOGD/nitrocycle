@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import { menus, setActiveMenu } from '..';
-import '../styles.css';
 
 const Trivia = (props) => {
     const [selectedIndex, setSelectedIndex] = useState(0);

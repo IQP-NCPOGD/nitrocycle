@@ -4,7 +4,7 @@ import Shop from "./Shop";
 import Trivia from "./Trivia/Trivia";
 import PlantMenu from "./PlantMenu";
 
-import './styles.css'
+import './menu.css'
 import FoodSiloMenu from "./FoodSiloMenu";
 import AmmoniumSiloMenu from "./AmmoniumSiloMenu";
 import FixatorMenu from "./FixatorMenu";

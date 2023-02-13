@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { menus, setActiveMenu } from '..';
 import { ammoniumSilosPerPlot, ammoniumSiloTypeEnum, calculateAmmoniumStorage, costPerAmmoniumSilo, createAmmoniumSilo, GameStateContext, maintainAmmoniumSilo } from '../../Game';
 
-import '../styles.css';
+import '../menu.css';
 
 
 export default function AmmoniumSiloMenu(props) {
@@ -55,11 +55,11 @@ export default function AmmoniumSiloMenu(props) {
                             Object.keys(value.ammoniumSiloState).length === 0 ?
                                 <p>No ammonium silos have been placed.</p>
                                 :
-                                <div className='grid'>
+                                <div className='menu-grid'>
                                     {Object.values(value.ammoniumSiloState).map((ammoniumSilo, index) =>
-                                        <div className='elem' key={ammoniumSilo.id}>
+                                        <div className='menu-grid-item' key={ammoniumSilo.id}>
                                             <p>{ammoniumSilo.state.name}</p>
-                                            <img className='medium-icon' src={ammoniumSilo.state.imgURL}></img>
+                                            <img className='icon big' src={ammoniumSilo.state.imgURL}></img>
                                             {getMaintenanceButton(ammoniumSilo, value)}
                                         </div>
                                     )}

@@ -1,3 +1,174 @@
+.main {
+	padding: 0rem 2rem;
+	background-color: #A98467;
+  }
+
+.menu-handler {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+
+	z-index: 5;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.controls {
+	margin-right: 15px;
+  }
+  
+  .controls button {
+	box-sizing: border-box;
+	padding: 0.25em;
+	margin: 0.25em;
+	border-radius: 10px;
+	border: 2px solid #A98467;
+	background-color: #ADC178;
+	color: black;
+	user-select: none;
+	height: 2.5em;
+	width: 3.5em;
+	cursor: pointer;
+	box-shadow: 0.25em 0.25em 5px #6C584C;
+	margin-right: 15px;
+  }
+
+.controls button:active {
+    border: 4px solid #A98467;
+    box-shadow: 0.125em 0.125em 1px #6C584C;
+}
+
+  .en-link {
+	color: #3366cc;
+  }
+  
+  .en-link:hover {
+	cursor: pointer;
+	text-decoration: underline;
+  }
+  
+  .en-link:active {
+	color:darkgreen;
+  }
+  
+  .en-control {
+	color: black;
+	font-size:x-large;
+	user-select: none;
+  }
+  
+  .en-control:hover {
+	cursor: pointer;
+	font-weight: bold;
+	color: blue;
+  }
+  
+  .en-control:active {
+	color:darkgreen;
+  }
+  
+  .en-control-disabled {
+	color: gray;
+	font-size:x-large;
+	user-select: none;
+  }
+  
+  .tiles {
+	display: grid;
+	grid-template-columns: auto auto auto;
+	grid-gap: 10px;
+	padding: 10px;
+	grid-template-columns: 1fr 2fr;
+  }
+  
+  .pressable {
+	border: none;
+	background: inherit;
+	border-radius: 10px;
+	cursor: pointer;
+	appearance: none;
+	 transition: transform .7s ease-in-out;
+	margin-left: 20px;
+	margin-right: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	max-width: 75px;
+	max-height: 75px;
+  }
+  
+  .pressable:hover {
+	filter: brightness(1.15);
+	scale: 110%;
+  }
+  
+  .pressable:active{
+	scale: 90%;
+  }
+  
+  .item-name {
+	position: absolute;
+	background-color: black;
+	border-radius: 10px;
+	opacity: 70%;
+	width: 50px;
+	height: 35px;
+	color: white;
+	font-size: 8px;
+	transform: translate(0%, 100%);
+  }
+  
+  img {
+  max-width: 50px;
+  max-height: 50px;
+  }
+  
+  * {box-sizing: border-box}
+
+  .menu-main {
+    background-color: #A98467;
+    padding: 3em;
+    overflow: scroll;
+}
+
+.grid {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.grid p {
+    font-size: small;
+}
+
+.elem {
+    background-color: #885a37;
+    border-width: 2px;
+    margin: 0.25em;
+    border-style: solid;
+    border-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.small-icon {
+    display: block;
+    width: 4em;
+    height: 4em;
+}
+
+.medium-icon {
+    display: block;
+    width: 8em;
+    height: 8em;
+}
+
 .tab {
   float: left;
   background-color: inherit;

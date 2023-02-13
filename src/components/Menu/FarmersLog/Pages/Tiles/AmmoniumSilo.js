@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-import '../../../styles.css';
+import '../../farmers-log-styles.css';
 
 function AmmoniumSilo(props) {
 
