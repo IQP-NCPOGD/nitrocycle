@@ -43,6 +43,9 @@ export default function GUIComponent(props) {
                 {
                     props.ammoniumSiloVisible ? <img src="data/images/ammonium.png" onClick={() => setActiveMenu(menus.ammoniumSiloMenu)}></img> : ""
                 }
+                {
+                    props.fixatorVisible ? <img src="data/images/denitrifier.png" onClick={() => setActiveMenu(menus.fixatorMenu)}></img> : ""
+                }
             </div>
 
         </div>

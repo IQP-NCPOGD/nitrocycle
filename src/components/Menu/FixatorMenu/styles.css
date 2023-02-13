@@ -1,0 +1,34 @@
+.fixator-menu-main {
+    background-color: #A98467;
+    padding: 3em;
+    overflow: scroll;
+}
+
+.fixator-grid {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.fixator-grid p {
+    font-size: small;
+}
+
+.fixator-elem {
+    background-color: #885a37;
+    border-width: 2px;
+    margin: 0.25em;
+    border-style: solid;
+    border-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.small-icon {
+    display: block;
+    width: 4em;
+    height: 4em;
+}
