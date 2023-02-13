@@ -5,7 +5,6 @@ import '../../farmers-log-styles.css';
 function Ammonium(props) {
 
     return (
-        <div className='main'>
             <ul>
                 <h1>Ammonium</h1>
                 <p>This is the page for Ammonium.</p>
@@ -18,7 +17,6 @@ function Ammonium(props) {
                     </button>
                 </div>
             </ul>
-        </div>
     );
 }
 

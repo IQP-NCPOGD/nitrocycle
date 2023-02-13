@@ -6,7 +6,6 @@ import '../../farmers-log-styles.css';
 function NitrogenRunoff(props) {
 
     return (
-        <div className='main'>
             <ul>
                 <h1>Nitrogen Runoff</h1>
                 <p>This is the page for the Nitrogen Runoff.</p>
@@ -19,7 +18,6 @@ function NitrogenRunoff(props) {
                     </button>
                 </div>
             </ul>
-        </div>
     );
 }
 

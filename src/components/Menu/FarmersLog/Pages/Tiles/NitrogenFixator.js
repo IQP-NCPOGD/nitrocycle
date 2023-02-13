@@ -5,7 +5,6 @@ import '../../farmers-log-styles.css';
 function NitrogenFixator(props) {
 
     return (
-        <div className='main'>
             <ul>
                 <h1>Nitrogen Fixator</h1>
                 <p>This is the page for the Nitrogen Fixator.</p>
@@ -18,7 +17,6 @@ function NitrogenFixator(props) {
                     </button>
                 </div>
             </ul>
-        </div>
     );
 }
 

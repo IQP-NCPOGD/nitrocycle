@@ -1,6 +1,21 @@
 .main {
-	padding: 0rem 2rem;
-	background-color: #A98467;
+  text-align: center;
+
+  margin: 0.5em;
+  padding: 1em;
+  margin-top: 8em;
+  margin-bottom: 8em;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  width: calc(100% - 1em); 
+    
+  border: solid 1rem #6C584CC0;
+  border-radius: 2rem;
+  background-color: #A98467;
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
   }
 
 .menu-handler {
@@ -17,30 +32,34 @@
 	align-items: center;
 }
 
-.controls {
+  .controls {
 	margin-right: 15px;
   }
   
   .controls button {
-	box-sizing: border-box;
-	padding: 0.25em;
-	margin: 0.25em;
-	border-radius: 10px;
-	border: 2px solid #A98467;
-	background-color: #ADC178;
-	color: black;
-	user-select: none;
-	height: 2.5em;
-	width: 3.5em;
-	cursor: pointer;
-	box-shadow: 0.25em 0.25em 5px #6C584C;
-	margin-right: 15px;
+    flex: 1 0 auto;
+
+    height: fit-content;
+    width: 100%;
+  
+    border: none;
+    border-radius: 0.5em;
+    background-color: #ADC178;
+    padding: 0.5em;
+    font-size: 1em;
   }
 
 .controls button:active {
-    border: 4px solid #A98467;
-    box-shadow: 0.125em 0.125em 1px #6C584C;
+  background-color: #DDE5B6;
 }
+  .controls button.close {
+    flex: 0 1 auto;
+
+    width: min-content;
+    padding: 1rem;
+    background-color: #B33F62;
+    color:#291720;
+  }
 
   .en-link {
 	color: #3366cc;
@@ -128,46 +147,6 @@
   
   * {box-sizing: border-box}
 
-  .menu-main {
-    background-color: #A98467;
-    padding: 3em;
-    overflow: scroll;
-}
-
-.grid {
-    color: white;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-}
-
-.grid p {
-    font-size: small;
-}
-
-.elem {
-    background-color: #885a37;
-    border-width: 2px;
-    margin: 0.25em;
-    border-style: solid;
-    border-color: black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.small-icon {
-    display: block;
-    width: 4em;
-    height: 4em;
-}
-
-.medium-icon {
-    display: block;
-    width: 8em;
-    height: 8em;
-}
 
 .tab {
   float: left;

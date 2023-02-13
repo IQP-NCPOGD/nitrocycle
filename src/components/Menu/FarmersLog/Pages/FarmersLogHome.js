@@ -30,7 +30,7 @@ function FarmersLogHome(props) {
                 <div className='item-name'>
                     <h4>Nitrogen Runoff</h4>
                 </div> 
-                <img src="../../../../../data/images/nitrogenrunoff.png" alt="buttonpng" border="0"/>
+                <img src="../../../../../data/images/nitrogen-runoff.png" alt="buttonpng" border="0"/>
             </button>
         </div>,
 
@@ -85,10 +85,9 @@ function FarmersLogHome(props) {
         </div>];
 
     return (
-            <div className='main'>
                 <ul>
                     <ul>
-                        <h1 className='test'>Farmer's Log Table of Contents</h1>
+                        <h1>Farmer's Log Table of Contents</h1>
                         <p>Welcome to the Farmer's Log.</p>
                         <p>Here is a list of all the current pages:</p>
                     </ul>
@@ -102,7 +101,6 @@ function FarmersLogHome(props) {
                         </div>
 
                 </ul>
-            </div> 
     );
 }
 

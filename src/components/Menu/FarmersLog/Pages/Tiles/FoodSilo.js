@@ -6,7 +6,6 @@ import '../../farmers-log-styles.css';
 function FoodSilo(props) {
 
     return (
-        <div className='main'>
             <ul>
                 <h1>Food Silo</h1>
                 <p>This is the page for the Food Silo.</p>
@@ -19,7 +18,6 @@ function FoodSilo(props) {
                     </button>
                 </div>
             </ul>
-        </div>
     );
 }
 

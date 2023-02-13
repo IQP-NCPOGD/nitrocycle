@@ -102,15 +102,17 @@ function FarmersLog(props) {
         <div className='main'>
             <ul>
             <div className='controls'>
-                <button onClick={() => setActiveMenu(menus.none)}>Close</button>
-                {(pageHistoryIndex > 0 && pageHistory.length > 1) ?
-                    <span className='en-control' onClick={backPage}>←</span> 
-                    : <span className='en-control-disabled'>←</span>}
-
-                {(pageHistoryIndex < pageHistory.length - 1 && pageHistory.length > 1) ?
-                    <span className='en-control' onClick={forwardPage}>→</span> :
-                    <span className='en-control-disabled'>→</span>}
+                    <button onClick={() => setActiveMenu(menus.none)}>Close</button>
             </div>
+            <div>
+                        {(pageHistoryIndex > 0 && pageHistory.length > 1) ?
+                            <span className='en-control' onClick={backPage}>←</span> 
+                            : <span className='en-control-disabled'>←</span>}
+
+                        {(pageHistoryIndex < pageHistory.length - 1 && pageHistory.length > 1) ?
+                            <span className='en-control' onClick={forwardPage}>→</span> :
+                            <span className='en-control-disabled'>→</span>}
+            </div>  
             {getCurrentPage()}
             </ul>
 

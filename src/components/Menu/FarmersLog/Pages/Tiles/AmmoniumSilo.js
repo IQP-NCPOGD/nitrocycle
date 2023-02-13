@@ -6,7 +6,6 @@ import '../../farmers-log-styles.css';
 function AmmoniumSilo(props) {
 
     return (
-        <div className='main'>
             <ul>
                 <h1>Ammonium Silo</h1>
                 <p>This is the page for the Ammonium Silo.</p>
@@ -19,7 +18,6 @@ function AmmoniumSilo(props) {
                     </button>
                 </div>
             </ul>
-        </div>
 
     );
 }

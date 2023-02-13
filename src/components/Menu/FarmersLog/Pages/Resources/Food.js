@@ -5,7 +5,6 @@ import '../../farmers-log-styles.css';
 function Food(props) {
 
     return (
-        <div className='main'>
             <ul>
                 <h1>Food</h1>
                 <p>This is the page for Food.</p>
@@ -18,7 +17,6 @@ function Food(props) {
                     </button>
                 </div>
             </ul>
-        </div>
     );
 }
 

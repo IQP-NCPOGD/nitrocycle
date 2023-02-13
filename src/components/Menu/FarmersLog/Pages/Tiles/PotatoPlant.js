@@ -5,7 +5,6 @@ import '../../farmers-log-styles.css';
 function PotatoPlant(props) {
 
     return (
-        <div className='main'>
             <ul>
                 <h1>Potato Plant</h1>
                 <p>This is the page for the Potato Plant.</p>
@@ -18,7 +17,6 @@ function PotatoPlant(props) {
                     </button>
                 </div>
             </ul>
-        </div>
     );
 }
 

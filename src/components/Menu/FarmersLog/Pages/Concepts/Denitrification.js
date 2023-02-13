@@ -5,7 +5,6 @@ import '../../farmers-log-styles.css';
 function Denitrification(props) {
 
     return (
-        <div className='main'>
             <ul>
                 <h1>(De)Nitrification</h1>
                 <p>This is the page for (De)Nitrification.</p>
@@ -18,7 +17,6 @@ function Denitrification(props) {
                     </button>
                 </div>
             </ul>
-        </div>
     );
 }
 

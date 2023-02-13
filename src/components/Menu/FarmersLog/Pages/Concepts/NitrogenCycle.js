@@ -5,7 +5,6 @@ import '../../farmers-log-styles.css';
 function NitrogenCycle(props) {
 
     return (
-        <div className='main'>
             <ul>
                 <h1>Nitrogen Cycle</h1>
                 <p>This is the page for the Nitrogen Cycle.</p>
@@ -18,7 +17,6 @@ function NitrogenCycle(props) {
                     </button>
                 </div>
             </ul>
-        </div>
     );
 }
 
