@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 
 import '../farmers-log-styles.css';
+import '../../img-button.css';
 
 function FarmersLogHome(props) {
     const [selectedIndex, setSelectedIndex] = useState(0);

@@ -102,7 +102,7 @@ function FarmersLog(props) {
         <div className='main'>
             <ul>
             <div className='controls'>
-                    <button onClick={() => setActiveMenu(menus.none)}>Close</button>
+                    <button className='escape' onClick={() => setActiveMenu(menus.none)}>Close</button>
             </div>
             <div>
                         {(pageHistoryIndex > 0 && pageHistory.length > 1) ?
