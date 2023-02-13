@@ -47,6 +47,10 @@ function FoodSilo(props) {
   return renderGLTFModel('data/models/silo.gltf', 0.5);
 }
 
+function AmmoniumSilo(props) {
+  return renderGLTFModel('data/models/ammonium.gltf', 0.5);
+}
+
 class ARComponent extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -90,6 +94,17 @@ class ARComponent extends React.PureComponent {
                   onMarkerLost={this.props.foodSiloLost}>
 
                   <FoodSilo />
+
+                </ARMarker>
+                
+                <ARMarker
+                  params={{ smooth: true }}
+                  type={"pattern"}
+                  patternUrl={"data/patterns/nh3.patt"}
+                  onMarkerFound={this.props.ammoniumSiloFound}
+                  onMarkerLost={this.props.ammoniumSiloLost}>
+
+                  <AmmoniumSilo />
 
                 </ARMarker></>
             );

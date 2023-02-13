@@ -6,6 +6,7 @@ import PlantMenu from "./PlantMenu";
 
 import './styles.css'
 import FoodSiloMenu from "./FoodSiloMenu";
+import AmmoniumSiloMenu from "./AmmoniumSiloMenu";
 
 
 export const menus = {
@@ -17,6 +18,7 @@ export const menus = {
 	trivia: (<Trivia></Trivia>),
 	plantMenu: (<PlantMenu></PlantMenu>),
 	foodSiloMenu:(<FoodSiloMenu></FoodSiloMenu>),
+	ammoniumSiloMenu:(<AmmoniumSiloMenu></AmmoniumSiloMenu>),
 }
 export let setActiveMenu = undefined;
 export let getActiveMenu = undefined;

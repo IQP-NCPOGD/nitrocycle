@@ -40,6 +40,9 @@ export default function GUIComponent(props) {
                 {
                     props.foodSiloVisible ? <img src="data/images/silo.png" onClick={() => setActiveMenu(menus.foodSiloMenu)}></img> : ""
                 }
+                {
+                    props.ammoniumSiloVisible ? <img src="data/images/ammonium.png" onClick={() => setActiveMenu(menus.ammoniumSiloMenu)}></img> : ""
+                }
             </div>
 
         </div>

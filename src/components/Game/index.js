@@ -15,12 +15,20 @@ export const costPerAmmonium = 100;
 export const foodSilosPerPlot = 4;
 export const costPerFoodSilo = 50;
 
+export const ammoniumSilosPerPlot = 3;
+export const costPerAmmoniumSilo = 75;
+
 const defaultFoodStorage = 200;
+const defaultAmmoniumStorage = 10;
 
 const msToDisplayMenu = 2000;
+
 const msToPlant = 10000;
 const msToWilt = 5000;
 const msToRemoval = 5000;
+
+const msToMaintainAmmoniumSilo = 300000;
+const msToExplode = 60000;
 
 export const plantTypeEnum = {
     wilt: {
@@ -85,6 +93,20 @@ export const foodSiloTypeEnum = {
     },
 }
 
+export const ammoniumSiloTypeEnum = {
+    safe: {
+        name: "Ammonium Silo",
+        imgURL: "/data/images/ammonium.png",
+        ammoniumstorage: 10,
+    },
+    risk: {
+        name: "Ammonium Silo (NEEDS MAINTENANCE)",
+        imgURL: "/data/images/ammonium.png",
+        ammoniumstorage: 10,
+        maintenanceCost: 50,
+    }
+}
+
 let currentPlantId = 0;
 export const createPlant = (setPlantState) => {
     let createdPlant = {
@@ -103,19 +125,19 @@ export const createPlant = (setPlantState) => {
 
             createdPlant.timeoutID = setTimeout(() => setPlantState((old) => {
                 let id = createdPlant.id;
-                let {[id]: removedID, ...nextState} = old;
+                let { [id]: removedID, ...nextState } = old;
                 return nextState;
             }), msToRemoval);
 
-            return {...older, [id]: Object.create(createdPlant)}
+            return { ...older, [id]: Object.create(createdPlant) }
         }), msToWilt);
 
-        return {...oldest, [id]: Object.create(createdPlant)}
+        return { ...oldest, [id]: Object.create(createdPlant) }
     }), msToPlant);
 
     setPlantState((old) => {
         let id = createdPlant.id;
-        return {...old, [id]: Object.create(createdPlant)}
+        return { ...old, [id]: Object.create(createdPlant) }
     });
 
     currentPlantId++;
@@ -126,7 +148,7 @@ export const fertilizePlant = (plantID, setPlantState) => {
         let oldPlant = old[plantID];
         clearTimeout(oldPlant.timeoutID);
         oldPlant.state = plantTypeEnum.bloom;
-        return {...old, [plantID]: oldPlant}
+        return { ...old, [plantID]: oldPlant }
     })
 }
 
@@ -140,7 +162,7 @@ export const createFoodSilo = (setFoodSiloState) => {
 
     setFoodSiloState((old) => {
         let id = createdFoodSilo.id;
-        return {...old, [id]: Object.create(createdFoodSilo)}
+        return { ...old, [id]: Object.create(createdFoodSilo) }
     });
 
     currentFoodSiloId++;
@@ -150,8 +172,33 @@ export const upgradeFoodSilo = (foodSiloID, setFoodSiloState) => {
     setFoodSiloState((old) => {
         let oldSilo = old[foodSiloID];
         clearTimeout(oldSilo.timeoutID);
-        oldSilo.state = oldSilo.state.level === 5 ? foodSiloTypeEnum[5] : foodSiloTypeEnum[oldSilo.state.level+1];
-        return {...old, [foodSiloID]: oldSilo}
+        oldSilo.state = oldSilo.state.level === 5 ? foodSiloTypeEnum[5] : foodSiloTypeEnum[oldSilo.state.level + 1];
+        return { ...old, [foodSiloID]: oldSilo }
+    })
+}
+
+let currentAmmoniumSiloId = 0;
+export const createAmmoniumSilo = (setAmmoniumSiloState) => {
+    let createdAmmoniumSilo = {
+        id: currentAmmoniumSiloId,
+        timeoutID: null,
+        state: ammoniumSiloTypeEnum.safe,
+    }
+
+    setAmmoniumSiloState((old) => {
+        let id = createdAmmoniumSilo.id;
+        return { ...old, [id]: Object.create(createdAmmoniumSilo) }
+    })
+
+    currentAmmoniumSiloId++;
+}
+
+export const maintainAmmoniumSilo = (ammoniumSiloID, setAmmoniumSiloState) => {
+    setAmmoniumSiloState((old) => {
+        let oldSilo = old[ammoniumSiloID];
+        clearTimeout(oldSilo.timeoutID);
+        oldSilo.state = ammoniumSiloTypeEnum.safe;
+        return { ...old, [ammoniumSiloID]: oldSilo }
     })
 }
 
@@ -163,10 +210,14 @@ export const calculateFoodStorage = (foodSiloState) => {
     return Object.values(foodSiloState).reduce((accumulator, foodSilo) => accumulator + foodSilo.state.foodstorage, 0)
 }
 
+export const calculateAmmoniumStorage = (ammoniumSiloState) => {
+    return Object.values(ammoniumSiloState).reduce((accumulator, ammoniumSilo) => accumulator + ammoniumSilo.state.ammoniumstorage, 0);
+}
+
 const generateValidator = (currentRef, maxRef, setState) => {
     return (cb) => {
         let nextVal = cb(currentRef.current);
-        if(nextVal > maxRef.current) {
+        if (nextVal > maxRef.current) {
             setState((old) => maxRef.current);
             return false;
         } else if (nextVal < 0) {
@@ -181,22 +232,23 @@ const generateValidator = (currentRef, maxRef, setState) => {
 export function Game(props) {
 
     // ---------- STATE ----------
-    
-        // Game Data
+
+    // Game Data
 
     const [foodSecurityLevel, setFoodSecurityLevel] = useState(0);
-    
+
     const [food, setFood] = useState(200);
     const [maxFood, setMaxFood] = useState(defaultFoodStorage);
-    const [ammonium, setAmmonium] = useState(0);    
-    const [maxAmmonium, setMaxAmmonium] = useState(10);
+    const [ammonium, setAmmonium] = useState(0);
+    const [maxAmmonium, setMaxAmmonium] = useState(defaultAmmoniumStorage);
     const [nitrogenRunoff, setNitrogenRunoff] = useState(0);
     const [maxNitrogenRunoff, setMaxNitrogenRunoff] = useState(5);
 
     const [plantState, setPlantState] = useState({});
     const [foodSiloState, setFoodSiloState] = useState({});
+    const [ammoniumSiloState, setAmmoniumSiloState] = useState({});
 
-        // Refs
+    // Refs
 
     const foodRef = useRef(food); foodRef.current = food;
     const maxFoodRef = useRef(maxFood); maxFoodRef.current = maxFood;
@@ -207,15 +259,16 @@ export function Game(props) {
     const foodRateRef = useRef(0);
     const ammoniumRate = useRef(0);
 
-        // Validators
+    // Validators
 
     const setFoodValidated = generateValidator(foodRef, maxFoodRef, setFood);
     const setAmmoniumValidated = generateValidator(ammoniumRef, maxAmmoniumRef, setAmmonium);
 
-        // Tile Visibility
+    // Tile Visibility
 
     const [plantVisible, setPlantVisible] = useState(true);
     const [foodSiloVisible, setFoodSiloVisible] = useState(true);
+    const [ammoniumSiloVisible, setAmmoniumSiloVisible] = useState(true);
 
     useEffect(() => {
         /*
@@ -226,13 +279,13 @@ export function Game(props) {
         so it should be called after any state changes
         */
         window.dispatchEvent(new Event('resize'));
-    }, [food, plantVisible, plantState, foodSiloVisible, foodSiloState])
+    }, [food, plantVisible, plantState, foodSiloVisible, foodSiloState, ammoniumSiloVisible, ammoniumSiloState])
 
     // ---------- GAME LOGIC ----------
 
     // add food every second
     useEffect(() => {
-        setInterval(() => setFoodValidated( (old) => old + foodRateRef.current ), 1000);
+        setInterval(() => setFoodValidated((old) => old + foodRateRef.current), 1000);
     }, []);
 
     // update food production when plants change
@@ -245,32 +298,34 @@ export function Game(props) {
         setMaxFood(defaultFoodStorage + calculateFoodStorage(foodSiloState));
     }, [foodSiloState])
 
+    // update max ammonium storage when ammonium silos change
+    useEffect(() => {
+        setMaxAmmonium(defaultAmmoniumStorage + calculateAmmoniumStorage(ammoniumSiloState));
+    }, [ammoniumSiloState])
+
     // ---------- CALLBACKS ----------
+
+    const generateMarkerCallbacks = (timeoutID, setVisibleState) => {
+        return [
+            useCallback(() => {
+                clearTimeout(timeoutID);
+                setVisibleState(true);
+            }, []),
+            useCallback(() => {
+                window.dispatchEvent(new Event('resize'));
+                clearTimeout(timeoutID);
+                timeoutID = setTimeout(() => setVisibleState(false), msToDisplayMenu);
+            }, [])
+        ];
+    }
 
     let plantVisibleTimeout = null;
     let foodSiloVisibleTimeout = null;
+    let ammoniumSiloVisibleTimeout = null;
 
-    const plantFound = useCallback(() => {
-        clearTimeout(plantVisibleTimeout);
-        setPlantVisible(true);
-    }, []);
-
-    const plantLost = useCallback(() => {
-        window.dispatchEvent(new Event('resize'));
-        clearTimeout(plantVisibleTimeout);
-        plantVisibleTimeout = setTimeout(() => setPlantVisible(false), msToDisplayMenu);
-    }, []);
-
-    const foodSiloFound = useCallback(() => {
-        clearTimeout(foodSiloVisibleTimeout);
-        setFoodSiloVisible(true);
-    }, []);
-
-    const foodSiloLost = useCallback(() => {
-        window.dispatchEvent(new Event('resize'));
-        clearTimeout(foodSiloVisibleTimeout);
-        foodSiloVisibleTimeout = setTimeout(() => setFoodSiloVisible(false), msToDisplayMenu);
-    }, []);
+    const [plantFound, plantLost] = generateMarkerCallbacks(plantVisibleTimeout, setPlantVisible);
+    const [foodSiloFound, foodSiloLost] = generateMarkerCallbacks(foodSiloVisibleTimeout, setFoodSiloVisible);
+    const [ammoniumSiloFound, ammoniumSiloLost] = generateMarkerCallbacks(ammoniumSiloVisibleTimeout, setAmmoniumSiloVisible);
 
     // ---------- PROPS ----------
 
@@ -284,25 +339,28 @@ export function Game(props) {
         maxNitrogenRunoff, setMaxNitrogenRunoff,
         plantState, setPlantState,
         foodSiloState, setFoodSiloState,
+        ammoniumSiloState, setAmmoniumSiloState,
         plantVisible, setPlantVisible,
         foodSiloVisible, setFoodSiloVisible,
+        ammoniumSiloVisible, setAmmoniumSiloVisible,
     }
 
     const ARprops = {
         plantFound, plantLost,
         foodSiloFound, foodSiloLost,
+        ammoniumSiloFound, ammoniumSiloLost,
     }
 
     const GUIprops = {
         ...currentState
     }
 
-		
+
     // ---------- RENDER ----------
 
     return (
         <>
-            <ModelContext.Provider value={{plantState, foodSiloState}}>
+            <ModelContext.Provider value={{ plantState, foodSiloState }}>
                 <ARComponent {...ARprops} />
             </ModelContext.Provider>
 
@@ -310,10 +368,10 @@ export function Game(props) {
                 {...GUIprops}
             />
 
-            <GameStateContext.Provider value={{...currentState}}>
-                <MenuHandler/>
+            <GameStateContext.Provider value={{ ...currentState }}>
+                <MenuHandler />
             </GameStateContext.Provider>
-					
+
 
         </>
     );
