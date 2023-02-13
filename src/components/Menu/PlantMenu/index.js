@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, Text } from 'react';
 import { menus, setActiveMenu } from '..';
 import { calculateFoodPerMinute, costPerPlant, createPlant, fertilizePlant, GameStateContext, plantsPerPlot, plantTypeEnum } from '../../Game';
 
 import './styles.css';
-
-
 export default function PlantMenu(props) {
+  
 
     const purchasePlant = (value) => {
         if(purchasePlantDisabled(value)) return;
@@ -42,37 +41,36 @@ export default function PlantMenu(props) {
 
     return (
         <GameStateContext.Consumer>
-            {value =>
+            { value =>
                 <div className='plant-menu-main'>
-                    <div className='controls'>
-                        <button onClick={() => setActiveMenu(menus.none)}>Close</button>
-                    </div>
-                    <div>
-                        <h3>Plant Plot</h3>
-                        <p>Plants: {Object.keys(value.plantState).length} / {plantsPerPlot}</p>
-                        <p>Food Per Minute: {calculateFoodPerMinute(value.plantState)}</p>
-                        {
-                            Object.keys(value.plantState).length === 0 ?
-                                <p>No plants have been planted.</p>
-                                :
-                                <div className='plant-grid'>
-                                    {Object.values(value.plantState).map((plant, index) =>
-                                        <div className='plant-elem' key={plant.id}>
-                                            <p>{plant.state.name}</p>
-                                            <img className='small-icon' src={plant.state.imgURL}></img>
-                                            {getFertilizeButton(plant, value)}
-                                        </div>
-                                    )}
-                                </div>
-                        }
-
-                        <p>
-                            <button disabled={purchasePlantDisabled(value)} onClick={() => purchasePlant(value)}>Purchase Plant ({costPerPlant} Food)</button>
-                        </p>
-
-                    </div>
+                  <h2>Plant Plot</h2>
+                  <p>Active Plants: {Object.keys(value.plantState).length} / {plantsPerPlot}</p>
+                  <p>Food Per Minute: {calculateFoodPerMinute(value.plantState)}</p>
+                  { Object.keys(value.plantState).length === 0 ?
+                      <p>No plants have been planted.</p>
+                    :
+                      <div className='plant-grid'>
+                        { Object.values(value.plantState).map((plant, index) =>
+                            <div className='plant-elem' key={plant.id}>
+                              <p>{plant.state.name}</p>
+                              <img className='small-icon' src={plant.state.imgURL}></img>
+                              {getFertilizeButton(plant, value)}
+                            </div>
+                        ) }
+                      </div>
+                  }
+                  <div className='controls'>
+                    <button disabled={purchasePlantDisabled(value)} 
+                            onClick={() => purchasePlant(value)}>
+                      Purchase Plant ({costPerPlant} Food)
+                    </button>
+                    <button className='close' onClick={() => setActiveMenu(menus.none)}>Close</button>
+                  </div>                            
                 </div>
             }
         </GameStateContext.Consumer>
     );
 }
+
+
+
