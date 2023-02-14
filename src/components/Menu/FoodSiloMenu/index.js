@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { menus, setActiveMenu } from '..';
-import { calculateFoodStorage, costPerFoodSilo, createFoodSilo, foodSilosPerPlot, foodSiloTypeEnum, GameStateContext, upgradeFoodSilo } from '../../Game';
+import { calculateFoodStorage, costPerFoodSilo, createFoodSilo, foodSilosPerPlot, foodSiloTypeEnum, GameStateContext, upgradeFoodSilo, foodSiloUpgradeLevel } from '../../Game';
 
 import '../menu.css';
 
@@ -33,7 +33,10 @@ export default function FoodSiloMenu(props) {
     }
 
     const getUpgradeButton = (foodSilo, value) => {
-        if(foodSilo.state.upgradeCost !== undefined && foodSilo.state !== foodSiloTypeEnum[5]) {
+        if(value.foodSecurityLevel < foodSiloUpgradeLevel) {
+            return <button disabled>Food Security Level {foodSiloUpgradeLevel} Required</button>
+        }
+        else if(foodSilo.state.upgradeCost !== undefined && foodSilo.state !== foodSiloTypeEnum[5]) {
             return <button disabled={upgradeFoodSiloDisabled(foodSilo, value)} onClick={() => upgradeFoodSiloClicked(foodSilo, value)}>Upgrade ({foodSilo.state.upgradeCost})</button>
         } else {
             return "";

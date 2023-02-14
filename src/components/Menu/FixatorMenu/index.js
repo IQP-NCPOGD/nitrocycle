@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { menus, setActiveMenu } from '..';
-import { calculateAmmoniumPerMinute, costPerFixator, createFixator, fixatorsPerPlot, GameStateContext } from '../../Game';
+import { calculateAmmoniumPerMinute, costPerFixator, createFixator, fixatorsPerPlot, GameStateContext, nitrogenFixatorLevel } from '../../Game';
 
 import '../menu.css';
 
@@ -41,7 +41,12 @@ export default function FixatorMenu(props) {
                         }
 
                     <div className='controls'>
+                        {
+                            value.foodSecurityLevel < nitrogenFixatorLevel ?
+                            <button disabled>Food Security Level {nitrogenFixatorLevel} Required</button>
+                            :
                             <button disabled={purchaseFixatorDisabled(value)} onClick={() => purchaseFixator(value)}>Purchase Nitrogen Fixator ({costPerFixator} Food)</button>
+                        }
                         <button className='close' onClick={() => setActiveMenu(menus.none)}>Close</button>
                     </div>
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { menus, setActiveMenu } from '..';
-import { ammoniumSilosPerPlot, ammoniumSiloTypeEnum, calculateAmmoniumStorage, costPerAmmoniumSilo, createAmmoniumSilo, GameStateContext, maintainAmmoniumSilo } from '../../Game';
+import { ammoniumSiloLevel, ammoniumSilosPerPlot, ammoniumSiloTypeEnum, calculateAmmoniumStorage, costPerAmmoniumSilo, createAmmoniumSilo, GameStateContext, maintainAmmoniumSilo } from '../../Game';
 
 import '../menu.css';
 
@@ -62,7 +62,12 @@ export default function AmmoniumSiloMenu(props) {
                                 </div>
                         }
                     <div className='controls'>
-                      <button disabled={purchaseAmmoniumSiloDisabled(value)} onClick={() => purchaseAmmoniumSilo(value)}>Purchase Ammonium Silo ({costPerAmmoniumSilo} Food)</button>
+                      {
+                        value.foodSecurityLevel < ammoniumSiloLevel ?
+                        <button disabled>Food Security Level {ammoniumSiloLevel} Required</button>
+                        :
+                        <button disabled={purchaseAmmoniumSiloDisabled(value)} onClick={() => purchaseAmmoniumSilo(value)}>Purchase Ammonium Silo ({costPerAmmoniumSilo} Food)</button>
+                        }
                       <button className='close' onClick={() => setActiveMenu(menus.none)}>Close</button>
                     </div>
                 </div>

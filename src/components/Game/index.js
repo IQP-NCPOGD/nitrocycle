@@ -21,6 +21,12 @@ export const costPerAmmoniumSilo = 75;
 export const fixatorsPerPlot = 2;
 export const costPerFixator = 100;
 
+export const foodSecurityLevelCosts = [0, 100, 500, 2000, 10000]
+export const foodSiloUpgradeLevel = 1;
+export const ammoniumMerchantLevel = 1;
+export const ammoniumSiloLevel = 1;
+export const nitrogenFixatorLevel = 2;
+
 const defaultFoodStorage = 200;
 const defaultAmmoniumStorage = 10;
 
@@ -272,6 +278,10 @@ export const calculateAmmoniumStorage = (ammoniumSiloState) => {
 
 export const calculateAmmoniumPerMinute = (fixatorState) => {
     return Object.values(fixatorState).reduce((accumulator, fixator) => accumulator + fixator.state.ammoniumproduction, 0);
+}
+
+export const calculateAmmoniumEmergency = (ammoniumSiloState) => {
+    return Object.values(ammoniumSiloState).filter((ammoniumSilo) => ammoniumSilo.state === ammoniumSiloTypeEnum.risk).length > 0
 }
 
 const generateValidator = (currentRef, maxRef, setState) => {

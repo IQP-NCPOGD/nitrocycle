@@ -77,7 +77,7 @@
   width: 100%;
 
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   gap: 0.25em;
   padding-top: 1em;
   align-items: center;
