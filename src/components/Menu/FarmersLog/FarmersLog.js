@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { menus, setActiveMenu } from '..';
-import './farmers-log-styles.css';
-import '../styles.css';
-
+import '../menu.css';
 
 import FarmersLogHome from './Pages/FarmersLogHome';
 
@@ -100,21 +98,20 @@ function FarmersLog(props) {
     };
 
     return (
-        <div className='main'>
-            <ul>
-            <div className='controls'>
-                <button onClick={() => setActiveMenu(menus.none)}>Close</button>
-                {(pageHistoryIndex > 0 && pageHistory.length > 1) ?
-                    <span className='en-control' onClick={backPage}>←</span> 
-                    : <span className='en-control-disabled'>←</span>}
-
-                {(pageHistoryIndex < pageHistory.length - 1 && pageHistory.length > 1) ?
-                    <span className='en-control' onClick={forwardPage}>→</span> :
-                    <span className='en-control-disabled'>→</span>}
-            </div>
+        <div className='menu'>
             {getCurrentPage()}
-            </ul>
-
+            <div className='controls'>
+                    <button className='close' onClick={() => setActiveMenu(menus.none)}>Close</button>
+            </div>
+            
+            <div>
+            {(pageHistoryIndex > 0 && pageHistory.length > 1) ?
+                <span className='en-control' onClick={backPage}>←</span> 
+                : <span className='en-control-disabled'>←</span>}
+            {(pageHistoryIndex < pageHistory.length - 1 && pageHistory.length > 1) ?
+                <span className='en-control' onClick={forwardPage}>→</span>
+                : <span className='en-control-disabled'>→</span>}
+            </div>
         </div>
     );
 }
