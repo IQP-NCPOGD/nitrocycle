@@ -69,6 +69,10 @@
   background-color: #8E6F56;
 }
 
+.tab button:focus {
+  background-color: #8E6F56;
+}
+
 ul {
   padding: 0;
   list-style-type: none;
