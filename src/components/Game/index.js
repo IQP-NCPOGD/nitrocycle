@@ -30,6 +30,10 @@ export const ammoniumMerchantLevel = 1;
 export const ammoniumSiloLevel = 1;
 export const nitrogenFixatorLevel = 2;
 
+export const baseTriviaReward = 1000;
+export const baseTriviaPunishment = 500;
+export const msToNewTriviaQuestion = 1000;
+
 const defaultFoodStorage = 200000;
 const defaultAmmoniumStorage = 10;
 
@@ -355,6 +359,10 @@ export function Game(props) {
     const [ammoniumSiloVisible, setAmmoniumSiloVisible] = useState(true);
     const [fixatorVisible, setFixatorVisible] = useState(true);
 
+    // Trivia
+    const [currentQuestion, setCurrentQuestion] = useState(1);
+    const [triviaCombo, setTriviaCombo] = useState(0);
+
     useEffect(() => {
         /*
         Currently only solution I know to fix rendering on state changes
@@ -441,6 +449,8 @@ export function Game(props) {
         ammoniumSiloVisible, setAmmoniumSiloVisible,
         fixatorVisible, setFixatorVisible,
         statsExtended, setStatsExtended,
+        currentQuestion, setCurrentQuestion,
+        triviaCombo, setTriviaCombo,
     }
 
     const ARprops = {
