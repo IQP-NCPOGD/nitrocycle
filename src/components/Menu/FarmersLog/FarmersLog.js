@@ -6,7 +6,6 @@ import FarmersLogHome from './Pages/FarmersLogHome';
 
 import Food from './Pages/Resources/Food';
 import Ammonium from './Pages/Resources/Ammonium';
-import Nitrogen from './Pages/Resources/Nitrogen';
 import NitrogenRunoff from './Pages/Resources/NitrogenRunoff';
 
 import PotatoPlant from './Pages/Tiles/PotatoPlant';
@@ -71,8 +70,6 @@ function FarmersLog(props) {
                     return (<Food update={pushPage} />);   
             case "Ammonium":
                 return (<Ammonium update={pushPage} />);
-            case "Nitrogen":
-                return (<Nitrogen update={pushPage} />);
             case "Nitrogen Runoff":
                 return (<NitrogenRunoff update={pushPage} />);
             
@@ -89,7 +86,7 @@ function FarmersLog(props) {
                     return (<NitrogenCycle update={pushPage} />);   
             case "Nitrogen Fixation":
                     return (<NitrogenFixation update={pushPage} />);       
-            case "Denitrification":
+            case "(De)Nitrification":
                     return (<Denitrification update={pushPage} />);   
                      
             default:

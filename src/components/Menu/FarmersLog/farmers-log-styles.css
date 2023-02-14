@@ -55,7 +55,6 @@
   float: left;
   background-color: inherit;
   width: 100px;
-
 }
 
 .tab button {
@@ -73,8 +72,7 @@
   border-bottom-left-radius: 10px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
-  margin-left: 10px;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .tab button:hover {
@@ -89,3 +87,46 @@ ul {
   padding: 0;
   list-style-type: none;
 }
+
+.page {
+  flex: 1 1 max-content;
+
+  display: grid;
+  grid-template: min-content 1fr 1fr / 1fr 1fr;
+  gap: 1rem;
+
+  align-content: center;
+  justify-content: center;
+}
+
+.page h4 {
+  grid-area: 1 / 1 / span 1 / span 2;
+}
+
+.page button {
+  padding: 1rem;
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-content: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+.page button h5 {
+  padding: 0;
+  margin: 0;
+  flex: 1 1 auto;
+}
+.page button img{
+  flex: 1 1 auto;
+
+  background-size: contain;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+

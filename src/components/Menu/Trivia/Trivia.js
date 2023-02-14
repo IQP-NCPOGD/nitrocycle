@@ -42,7 +42,7 @@ const questions = [
         src: '/data/images/nitrogen-fixation.png'
       },
       {
-        answer: 'Denitrification',
+        answer: '(De)Nitrification',
         src: '/data/images/denitrification-nitrification.png'
       }
     ]
