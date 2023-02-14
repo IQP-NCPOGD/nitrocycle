@@ -1,3 +1,119 @@
+.main {
+  text-align: center;
+
+  margin: 0.5em;
+  padding: 1em;
+  margin-top: 8em;
+  margin-bottom: 8em;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  width: calc(100% - 1em); 
+    
+  border: solid 1rem #6C584CC0;
+  border-radius: 2rem;
+  background-color: #A98467;
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  }
+
+.menu-handler {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+
+	z-index: 5;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+}
+
+  .controls {
+	margin-right: 15px;
+  }
+  
+  .escape {
+    flex: 1 0 auto;
+
+    height: fit-content;
+    width: 100%;
+  
+    border: none;
+    border-radius: 0.5em;
+    background-color: #ADC178;
+    padding: 0.5em;
+    font-size: 1em;
+  }
+
+.escape:active {
+  background-color: #DDE5B6;
+}
+  .escape.close {
+    flex: 0 1 auto;
+
+    width: min-content;
+    padding: 1rem;
+    background-color: #B33F62;
+    color:#291720;
+  }
+
+  .en-link {
+	color: #3366cc;
+  }
+  
+  .en-link:hover {
+	cursor: pointer;
+	text-decoration: underline;
+  }
+  
+  .en-link:active {
+	color:darkgreen;
+  }
+  
+  .en-control {
+	color: black;
+	font-size:x-large;
+	user-select: none;
+  }
+  
+  .en-control:hover {
+	cursor: pointer;
+	font-weight: bold;
+	color: blue;
+  }
+  
+  .en-control:active {
+	color:darkgreen;
+  }
+  
+  .en-control-disabled {
+	color: gray;
+	font-size:x-large;
+	user-select: none;
+  }
+  
+  .tiles {
+	display: grid;
+  justify-items: center;
+	grid-template-columns: auto auto auto;
+	grid-gap: 10px;
+	padding: 10px;
+	grid-template-columns: 1fr 2fr;
+  margin-bottom: 25px;
+  }
+  
+  img {
+  max-width: 50px;
+  max-height: 50px;
+  }
+  
+  * {box-sizing: border-box}
+
+
 .tab {
   float: left;
   background-color: inherit;
@@ -34,3 +150,39 @@ ul {
   padding: 0;
   list-style-type: none;
 }
+
+.pressable {
+	border: none;
+	background: inherit;
+	border-radius: 10px;
+	cursor: pointer;
+	appearance: none;
+	 transition: transform .7s ease-in-out;
+	margin-left: 20px;
+	margin-right: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	max-width: 75px;
+	max-height: 75px;
+  }
+  
+  .pressable:hover {
+	filter: brightness(1.15);
+	scale: 110%;
+  }
+  
+  .pressable:active{
+	scale: 90%;
+  }
+  
+  .item-name {
+	position: absolute;
+	background-color: black;
+	border-radius: 10px;
+	opacity: 70%;
+	width: 50px;
+	height: 35px;
+	color: white;
+	font-size: 8px;
+	transform: translate(0%, 100%);
+  }
