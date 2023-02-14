@@ -76,53 +76,7 @@
 	font-size:x-large;
 	user-select: none;
   }
-  
-  .tiles {
-	display: grid;
-	grid-template-columns: auto auto auto;
-	grid-gap: 10px;
-	padding: 10px;
-	grid-template-columns: 1fr 2fr;
-  }
-  
-  .pressable {
-	border: none;
-	background: inherit;
-	border-radius: 10px;
-	cursor: pointer;
-	appearance: none;
-	 transition: transform .7s ease-in-out;
-	margin-left: 20px;
-	margin-right: 10px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	max-width: 75px;
-	max-height: 75px;
-  }
-  
-  .pressable:hover {
-	filter: brightness(1.15);
-	scale: 110%;
-  }
-  
-  .pressable:active{
-	scale: 90%;
-  }
-  
-  .item-name {
-	position: absolute;
-	background-color: black;
-	border-radius: 10px;
-	opacity: 70%;
-	width: 50px;
-	height: 35px;
-	color: white;
-	font-size: 8px;
-	transform: translate(0%, 100%);
-  }
-  
  
-  
   * {box-sizing: border-box}
 
   .menu-main {

@@ -7,7 +7,7 @@ function Food(props) {
     return (
             <ul>
                 <h1>Food</h1>
-                <p>This is the page for Food.</p>
+                <p>The main currency of this game. Use food to purchase various things that will allow you to progress through the game!</p>
                 <button className='escape' onClick={props.update("Home")}>
                         <h4>Home</h4>
                 </button>
