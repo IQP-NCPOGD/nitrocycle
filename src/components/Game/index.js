@@ -22,6 +22,7 @@ export const fixatorsPerPlot = 2;
 export const costPerFixator = 100;
 
 export const foodSecurityLevelCosts = [0, 100, 500, 2000, 10000]
+export const foodSecurityLevelMaxNRO = [5, 10, 15, 20, 25]
 export const foodSiloUpgradeLevel = 1;
 export const ammoniumMerchantLevel = 1;
 export const ammoniumSiloLevel = 1;
@@ -312,7 +313,7 @@ export function Game(props) {
     const [ammonium, setAmmonium] = useState(0);
     const [maxAmmonium, setMaxAmmonium] = useState(defaultAmmoniumStorage);
     const [nitrogenRunoff, setNitrogenRunoff] = useState(0);
-    const [maxNitrogenRunoff, setMaxNitrogenRunoff] = useState(5);
+    const [maxNitrogenRunoff, setMaxNitrogenRunoff] = useState(foodSecurityLevelMaxNRO[0]);
 
     const [plantState, setPlantState] = useState({});
     const [foodSiloState, setFoodSiloState] = useState({});
@@ -329,6 +330,9 @@ export function Game(props) {
     const ammoniumRef = useRef(ammonium); ammoniumRef.current = ammonium;
     const maxAmmoniumRef = useRef(maxAmmonium); maxAmmoniumRef.current = maxAmmonium;
 
+    const nitrogenRunoffRef = useRef(nitrogenRunoff); nitrogenRunoffRef.current = nitrogenRunoff;
+    const maxNitrogenRunoffRef = useRef(maxNitrogenRunoff); maxNitrogenRunoffRef.current = maxNitrogenRunoff;
+
     const foodRateRef = useRef(0);
     const ammoniumRateRef = useRef(0);
 
@@ -336,6 +340,7 @@ export function Game(props) {
 
     const setFoodValidated = generateValidator(foodRef, maxFoodRef, setFood);
     const setAmmoniumValidated = generateValidator(ammoniumRef, maxAmmoniumRef, setAmmonium);
+    const setNitrogenRunoffValidated = generateValidator(nitrogenRunoffRef, maxNitrogenRunoffRef, setNitrogenRunoff);
 
     // Tile Visibility
 
@@ -419,7 +424,7 @@ export function Game(props) {
         maxFood, setMaxFood,
         ammonium, setAmmoniumValidated,
         maxAmmonium, setMaxAmmonium,
-        nitrogenRunoff, setNitrogenRunoff,
+        nitrogenRunoff, setNitrogenRunoffValidated,
         maxNitrogenRunoff, setMaxNitrogenRunoff,
         plantState, setPlantState,
         foodSiloState, setFoodSiloState,
