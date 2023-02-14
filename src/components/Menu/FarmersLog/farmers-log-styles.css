@@ -1,41 +1,8 @@
-  .en-link {
-	color: #3366cc;
-  }
-  
-  .en-link:hover {
-	cursor: pointer;
-	text-decoration: underline;
-  }
-  
-  .en-link:active {
-	color:darkgreen;
-  }
-  
-  .en-control {
-	color: black;
-	font-size:x-large;
-	user-select: none;
-  }
-  
-  .en-control:hover {
-	cursor: pointer;
-	font-weight: bold;
-	color: blue;
-  }
-  
-  .en-control:active {
-	color:darkgreen;
-  }
-  
-  .en-control-disabled {
-	color: gray;
-	font-size:x-large;
-	user-select: none;
-  }
+
 
   img {
-  max-width: 50px;
-  max-height: 50px;
+    max-width: 50px;
+    max-height: 50px;
   }
   
   * {box-sizing: border-box}
@@ -43,13 +10,18 @@
 
 .tab {
   background-color: inherit;
-  margin-bottom: 10px;
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: stretch;
+  align-content: center;
 }
 
 .tab button {
-  background-color: #A98467;
+  background-image: linear-gradient(180deg, #8B6E5Aee 0%, #A98467ff 20%);
+  border: #8B6E5A solid 1px;
+  border-bottom: none;
   color: black;
-  border: none;
   outline: none;
   text-align: center;
   cursor: pointer;
@@ -58,19 +30,12 @@
   border-top-right-radius: 10px;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
-  width: 30%;
-}
 
-.tab button:hover {
-  background-color: #CB9E7C;
-}
 
+}
+.tab button:focus,
 .tab button:active {
-  background-color: #8E6F56;
-}
-
-.tab button:focus {
-  background-color: #8E6F56;
+  background-image: linear-gradient(180deg, #8B6E5Aee 0%, #A98467ff 100%);
 }
 
 ul {
@@ -82,11 +47,15 @@ ul {
   flex: 1 1 max-content;
 
   display: grid;
-  grid-template: min-content 1fr 1fr / 1fr 1fr;
-  gap: 1rem;
+  grid-template-columns: 1fr 1fr ;
+  gap: 0.25em;
 
   align-content: center;
   justify-content: center;
+  
+  border: #8B6E5A solid 1px;
+  border-top: none;
+  padding: 1em;
 }
 
 .page h4 {
@@ -94,7 +63,6 @@ ul {
 }
 
 .page button {
-  padding: 1rem;
 
   display: flex;
   flex-flow: column nowrap;

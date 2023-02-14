@@ -60,7 +60,7 @@ const pages = [
   
   const FarmersLogPages = (props) => {
     const page = pages[props.pagesIndex];
-    return (<div className='page'>
+    return (<div className='page home'>
       {
         page.tab.map(page => 
         (<button  onClick={props.update(page.page)}>
