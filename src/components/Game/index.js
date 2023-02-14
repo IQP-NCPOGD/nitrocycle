@@ -32,7 +32,7 @@ export const nitrogenFixatorLevel = 2;
 
 export const baseTriviaReward = 1000;
 export const baseTriviaPunishment = 500;
-export const msToNewTriviaQuestion = 1000;
+export const msToNewTriviaQuestion = 10000;
 
 const defaultFoodStorage = 200000;
 const defaultAmmoniumStorage = 10;
