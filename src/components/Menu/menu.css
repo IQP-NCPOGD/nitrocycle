@@ -114,6 +114,8 @@
   padding: 1rem;
   background-color: #B33F62;
   color:#291720;
+
+  margin: auto;
 }
 
 .menu button.close:active {

@@ -3,7 +3,7 @@ import { menus, setActiveMenu } from '..';
 
 import { costPerAmmonium, GameStateContext } from '../../Game';
 
-import '../styles.css';
+import '../menu.css';
 
 
 export default function Shop(props) {
@@ -20,12 +20,9 @@ export default function Shop(props) {
     }
 
     return (
-        <div className='main'>
-            <div className='controls'>
-                <button onClick={() => setActiveMenu(menus.none)}>Close</button>
-            </div>
-            <div>
-                <p>This is the shop page</p>
+        <div className='menu'>
+            <h2>The Shop</h2>
+                <p>Welcome to the shop! You can use the resources you gather to buy tools and speed up production!</p>
                 <ul>
                     <li>
                         <GameStateContext.Consumer>
@@ -39,6 +36,8 @@ export default function Shop(props) {
 
                     </li>
                 </ul>
+            <div className='controls'>
+                <button className='close' onClick={() => setActiveMenu(menus.none)}>Close</button>
             </div>
         </div>
     );

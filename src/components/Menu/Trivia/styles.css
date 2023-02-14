@@ -1,71 +1,43 @@
-.main {
-    padding: 0rem 2rem;
-    background-color: #A98467;
-  }
-  .en-link {
-    color: #3366cc;
-  }
-  
-  .en-link:hover {
-    cursor: pointer;
-    text-decoration: underline;
-  }
-  
-  .en-link:active {
-    color:darkgreen;
-  }
 
-  .quiz-answers {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    grid-gap: 10px;
-    padding: 10px;
-    grid-template-columns: 1fr 2fr;
-  }
-  
-  .pressable {
-    border: none;
-    background: inherit;
-    border-radius: 10px;
-    cursor: pointer;
-    appearance: none;
-     transition: transform .7s ease-in-out;
-    margin-left: 20px;
-    margin-right: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    max-width: 75px;
-    max-height: 75px;
-  }
-  
-  .pressable:hover {
-    filter: brightness(1.15);
-    scale: 110%;
-  }
-  
-  .pressable:active{
-    scale: 90%;
-  }
-  
-  .item-name {
-    position: absolute;
-    background-color: black;
-    border-radius: 10px;
-    opacity: 70%;
-    width: 50px;
-    height: 35px;
-    color: white;
-    font-size: 8px;
-    transform: translate(0%, 100%);
-  }
-   
-  * {box-sizing: border-box}
-  
-  ul {
-    padding: 0;
-    list-style-type: none;
-  }
-  
-  .main-container {
-    max-width: 300px;
-  }
+.question {
+  flex: 1 1 max-content;
+
+  display: grid;
+  grid-template: min-content 1fr 1fr / 1fr 1fr;
+  gap: 1rem;
+
+  align-content: center;
+  justify-content: center;
+}
+
+.question h4 {
+  grid-area: 1 / 1 / span 1 / span 2;
+}
+
+.question button {
+  padding: 1rem;
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-content: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+.question button h5 {
+  padding: 0;
+  margin: 0;
+  flex: 1 1 auto;
+}
+.question button img{
+  flex: 1 1 auto;
+
+  background-size: contain;
+  width: 100%;
+  height:100%;
+}
+
+
+
+

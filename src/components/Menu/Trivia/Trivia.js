@@ -1,80 +1,79 @@
-import React from 'react';
+import React, {Text} from 'react';
 import { useState } from 'react';
 import { menus, setActiveMenu } from '..';
-import '../styles.css';
+import '../menu.css';
+import './styles.css';
+
+const questions = [
+  {
+    question: "Which of the following is a pollutant?",
+    answers: [
+      {
+        answer: 'Food',
+        src: '/data/images/plant.png'
+      },
+      {
+        answer: 'Ammonium',
+        src: '/data/images/ammonium_chemical.png'
+      },
+      {
+        answer: 'Nitrogen',
+        src: '/data/images/nitrogen.png'
+      },
+      {
+        answer: 'Nitrogen Runoff',
+        src: '/data/images/nitrogen-runoff.png'
+      }
+    ]
+  }, 
+  {
+    question: "Which of the following is the microbial process of reducing nitrate and nitrite to gaseous forms of nitrogen?",
+    answers: [
+      {
+        answer: 'Potato Plant',
+        src: '/data/images/plant.png'
+      },
+      {
+        answer: 'Nitrogen Cycle',
+        src: '/data/images/nitrogen-cycle.png'
+      },
+      {
+        answer: 'Nitrogen Fixation',
+        src: '/data/images/nitrogen-fixation.png'
+      },
+      {
+        answer: 'Denitrification',
+        src: '/data/images/denitrification-nitrification.png'
+      }
+    ]
+  }
+];
+
+const TriviaQuestion = (props) => {
+  const question = questions[props.questionIndex];
+  return (<div className='question'>
+    <h4>{question.question}</h4>
+    {
+      question.answers.map(answer => 
+      (<button>
+        <h5>{answer.answer}</h5>
+        <img src={answer.src}/>
+      </button>))
+    }
+  </div>);
+}
 
 const Trivia = (props) => {
-    const [selectedIndex, setSelectedIndex] = useState(0);
-
-    let quizArray = [
-        ["Which of the following is a pollutant?",
-        <div className='tiles'>
-            <button className='pressable' type="button">                            
-                <div className='item-name'>
-                    <h4>Food</h4>
-                </div> 
-                <img src="/data/images/potato.png" alt="buttonpng" border="0"/>
-            </button>
-            <button className='pressable' type="button">                            
-                <div className='item-name'>
-                    <h4>Ammonium</h4>
-                </div> 
-                <img src="/data/images/ammonium.png" alt="buttonpng" border="0"/>
-            </button>
-            <button className='pressable' type="button">
-                <div className='item-name'>
-                    <h4>Nitrogen</h4>
-                </div> 
-                <img src="../../../../logo192.png" alt="buttonpng" border="0"/>
-            </button>
-            <button className='pressable' type="button" onClick={() => setSelectedIndex(1)}>
-                <div className='item-name'>
-                    <h4>Nitrogen Runoff</h4>
-                </div> 
-                <img src="../../../../logo192.png" alt="buttonpng" border="0"/>
-            </button>
-        </div>],
-        ["Which of the following is the microbial process of reducing nitrate and nitrite to gaseous forms of nitrogen?",
-        <div className='tiles'>
-            <button className='pressable' type="button">                            
-                <div className='item-name'>
-                    <h4>Potato Plant</h4>
-                </div> 
-                <img src="/data/images/plant.png" alt="buttonpng" border="0"/>
-            </button>
-            <button className='pressable' type="button">                            
-                <div className='item-name'>
-                    <h4>Nitrogen Cycle</h4>
-                </div> 
-                <img src="../../../../logo192.png" alt="buttonpng" border="0"/>
-            </button>
-            <button className='pressable' type="button">
-                <div className='item-name'>
-                    <h4>Nitrogen Fixation</h4>
-                </div> 
-                <img src="../../../../logo192.png" alt="buttonpng" border="0"/>
-            </button>
-            <button className='pressable' type="button" onClick={() => setSelectedIndex(1)}>
-                <div className='item-name'>
-                    <h4>Denitrification</h4>
-                </div> 
-                <img src="../../../../logo192.png" alt="buttonpng" border="0"/>
-            </button>
-        </div>]
-
-    ]
-  
+ 
 	return (
-        <div className="main">
+        <div className="menu">
+            
+            <h2>Trivia</h2>
+            <p>Welcome to the Trivia. Answer Trivia Questions to earn Food!</p>
+            
+            <TriviaQuestion questionIndex={Math.floor(Math.random() * questions.length)}/>
             <div className='controls'>
-                <button onClick={() => setActiveMenu(menus.none)}>Close</button>
-            </div>
-            <h1>Trivia</h1>
-            <p>Welcome to the Trivia.</p>
-            <p>Answer Trivia Questions to earn Food!</p>
-            <h4>{quizArray[selectedIndex][0]}</h4>
-            <div>
-                {quizArray[selectedIndex][1]} 
+                <button className='close' onClick={() => setActiveMenu(menus.none)}>Close</button>
             </div>
         </div>
 	);
