@@ -78,7 +78,7 @@ function FarmersLogHome(props) {
         <div>
             <h2>Farmer's Log</h2>
                 <p>Welcome to the Farmer's Log. Here is a list of all the current pages:</p>
-                    <div className="tab">
+                    <div className='tab'>
                         <button onClick={() => setSelectedIndex(0)}>Resources</button>
                         <button onClick={() => setSelectedIndex(1)}>Tile</button>
                         <button onClick={() => setSelectedIndex(2)}>Concepts</button>

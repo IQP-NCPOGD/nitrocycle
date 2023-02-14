@@ -32,17 +32,7 @@
 	font-size:x-large;
 	user-select: none;
   }
-  
-  .tiles {
-	display: grid;
-  justify-items: center;
-	grid-template-columns: auto auto auto;
-	grid-gap: 10px;
-	padding: 10px;
-	grid-template-columns: 1fr 2fr;
-  margin-bottom: 25px;
-  }
-  
+
   img {
   max-width: 50px;
   max-height: 50px;
@@ -52,27 +42,23 @@
 
 
 .tab {
-  float: left;
   background-color: inherit;
-  width: 100px;
+  margin-bottom: 10px;
 }
 
 .tab button {
-  display: block;
   background-color: #A98467;
   color: black;
-  padding: 22px 16px;
-  width: 100%;
   border: none;
   outline: none;
-  text-align: left;
+  text-align: center;
   cursor: pointer;
   transition: 0.3s;
   border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  border-top-right-radius: 0px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
-  margin-right: 10px;
+  width: 30%;
 }
 
 .tab button:hover {
