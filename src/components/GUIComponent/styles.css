@@ -42,18 +42,15 @@
 
 .stat {
   box-sizing: border-box;
-  padding: 0.25em;
-	padding-left: 0.5em;
-  margin: 0.25em;
+  padding: 0.35em 0.5em;
+  margin: 0.125em 0.25em;
   border-radius: 5px;
   border: none;
   background-color: #ADC178;
   color: black;
   width: 100%;
   user-select: none;
-}
-.stat:nth-of-type(1) {
-	margin-bottom: 0;
+  line-height: 1.2em;
 }
 
 .utility-buttons {

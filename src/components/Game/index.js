@@ -319,6 +319,8 @@ export function Game(props) {
     const [ammoniumSiloState, setAmmoniumSiloState] = useState({});
     const [fixatorState, setFixatorState] = useState({});
 
+    const [statsExtended, setStatsExtended] = useState(true);
+
     // Refs
 
     const foodRef = useRef(food); foodRef.current = food;
@@ -427,6 +429,7 @@ export function Game(props) {
         foodSiloVisible, setFoodSiloVisible,
         ammoniumSiloVisible, setAmmoniumSiloVisible,
         fixatorVisible, setFixatorVisible,
+        statsExtended, setStatsExtended,
     }
 
     const ARprops = {
