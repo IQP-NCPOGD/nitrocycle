@@ -20,6 +20,7 @@ export default function PlantMenu(props) {
     const fertilizePlantClicked = (plant, value) => {
         if(fertilizePlantDisabled(plant, value)) return;
         value.setAmmoniumValidated((old) => old - plant.state.upgradeCost);
+        if(!value.setNitrogenRunoffValidated( (old) => old + plant.state.nroProduced )) setActiveMenu(menus.gameOverMenu)
         fertilizePlant(plant.id, value.setPlantState)
     }
 

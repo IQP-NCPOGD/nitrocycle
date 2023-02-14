@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect, useRef } from "react"
 import ARComponent from "../ARComponent"
 import GUIComponent from "../GUIComponent"
-import MenuHandler from "../Menu"
+import MenuHandler, { setActiveMenu } from "../Menu"
 
 import './styles.css'
 
@@ -17,9 +17,11 @@ export const costPerFoodSilo = 50;
 
 export const ammoniumSilosPerPlot = 3;
 export const costPerAmmoniumSilo = 75;
+const nroProducedSiloExplode = 6;
 
 export const fixatorsPerPlot = 2;
 export const costPerFixator = 100;
+export const nroProducedFixator = 1;
 
 export const foodSecurityLevelCosts = [0, 100, 500, 2000, 10000]
 export const foodSecurityLevelMaxNRO = [5, 10, 15, 20, 25]
@@ -28,7 +30,7 @@ export const ammoniumMerchantLevel = 1;
 export const ammoniumSiloLevel = 1;
 export const nitrogenFixatorLevel = 2;
 
-const defaultFoodStorage = 200;
+const defaultFoodStorage = 200000;
 const defaultAmmoniumStorage = 10;
 
 const msToDisplayMenu = 2000;
@@ -46,6 +48,7 @@ export const plantTypeEnum = {
         imgURL: "/data/images/wilt.png",
         foodproduction: 2,
         upgradeCost: 6,
+        nroProduced: 2,
     },
     sprout: {
         name: "Sprout",
@@ -57,6 +60,7 @@ export const plantTypeEnum = {
         imgURL: "/data/images/plant.png",
         foodproduction: 10,
         upgradeCost: 2,
+        nroProduced: 1,
     },
     bloom: {
         name: "Bloom",
@@ -196,7 +200,7 @@ export const upgradeFoodSilo = (foodSiloID, setFoodSiloState) => {
 }
 
 let currentAmmoniumSiloId = 0;
-export const createAmmoniumSilo = (setAmmoniumSiloState) => {
+export const createAmmoniumSilo = (setAmmoniumSiloState, setNitrogenRunoffValidated) => {
     let createdAmmoniumSilo = {
         id: currentAmmoniumSiloId,
         timeoutID: null,
@@ -210,6 +214,7 @@ export const createAmmoniumSilo = (setAmmoniumSiloState) => {
         createdAmmoniumSilo.timeoutID = setTimeout(() => setAmmoniumSiloState((old) => {
             let id = createdAmmoniumSilo.id;
             let { [id]: removedID, ...nextState } = old;
+            if(!setNitrogenRunoffValidated( (old) => old + nroProducedSiloExplode )) setActiveMenu(menus.gameOverMenu)
             return nextState;
         }), msToExplode);
         
@@ -225,7 +230,7 @@ export const createAmmoniumSilo = (setAmmoniumSiloState) => {
     currentAmmoniumSiloId++;
 }
 
-export const maintainAmmoniumSilo = (ammoniumSiloID, setAmmoniumSiloState) => {
+export const maintainAmmoniumSilo = (ammoniumSiloID, setAmmoniumSiloState, setNitrogenRunoffValidated) => {
     setAmmoniumSiloState((oldest) => {
         let oldSilo = oldest[ammoniumSiloID];
         clearTimeout(oldSilo.timeoutID);
@@ -238,6 +243,7 @@ export const maintainAmmoniumSilo = (ammoniumSiloID, setAmmoniumSiloState) => {
             oldSilo.timeoutID = setTimeout(() => setAmmoniumSiloState((old) => {
                 let id = oldSilo.id;
                 let { [id]: removedID, ...nextState } = old;
+                if(!setNitrogenRunoffValidated( (old) => old + nroProducedSiloExplode )) setActiveMenu(menus.gameOverMenu)
                 return nextState;
             }), msToExplode);
             
@@ -308,7 +314,7 @@ export function Game(props) {
 
     const [foodSecurityLevel, setFoodSecurityLevel] = useState(0);
 
-    const [food, setFood] = useState(200);
+    const [food, setFood] = useState(200000);
     const [maxFood, setMaxFood] = useState(defaultFoodStorage);
     const [ammonium, setAmmonium] = useState(0);
     const [maxAmmonium, setMaxAmmonium] = useState(defaultAmmoniumStorage);

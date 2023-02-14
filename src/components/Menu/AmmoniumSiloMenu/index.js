@@ -10,7 +10,7 @@ export default function AmmoniumSiloMenu(props) {
     const purchaseAmmoniumSilo = (value) => {
         if(purchaseAmmoniumSiloDisabled(value)) return;
         if(value.setFoodValidated((old) => old - costPerAmmoniumSilo)) {
-            createAmmoniumSilo(value.setAmmoniumSiloState);
+            createAmmoniumSilo(value.setAmmoniumSiloState, value.setNitrogenRunoffValidated);
         }
     }
 
@@ -21,7 +21,7 @@ export default function AmmoniumSiloMenu(props) {
     const maintainAmmoniumSiloClicked = (ammoniumSilo, value) => {
         if(maintainAmmoniumSiloDisabled(ammoniumSilo, value)) return;
         value.setFoodValidated((old) => old - ammoniumSilo.state.maintenanceCost);
-        maintainAmmoniumSilo(ammoniumSilo.id, value.setAmmoniumSiloState)
+        maintainAmmoniumSilo(ammoniumSilo.id, value.setAmmoniumSiloState, value.setNitrogenRunoffValidated)
     }
 
     const maintainAmmoniumSiloDisabled = (ammoniumSilo, value) => {

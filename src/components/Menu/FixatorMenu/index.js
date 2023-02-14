@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { menus, setActiveMenu } from '..';
-import { calculateAmmoniumPerMinute, costPerFixator, createFixator, fixatorsPerPlot, GameStateContext, nitrogenFixatorLevel } from '../../Game';
+import { calculateAmmoniumPerMinute, costPerFixator, createFixator, fixatorsPerPlot, GameStateContext, nitrogenFixatorLevel, nroProducedFixator } from '../../Game';
 
 import '../menu.css';
 
@@ -10,6 +10,7 @@ export default function FixatorMenu(props) {
     const purchaseFixator = (value) => {
         if (purchaseFixatorDisabled(value)) return;
         if (value.setFoodValidated((old) => old - costPerFixator)) {
+            if(!value.setNitrogenRunoffValidated( (old) => old + nroProducedFixator )) setActiveMenu(menus.gameOverMenu)
             createFixator(value.setFixatorState);
         }
     }

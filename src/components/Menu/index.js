@@ -8,6 +8,7 @@ import './styles.css'
 import FoodSiloMenu from "./FoodSiloMenu";
 import AmmoniumSiloMenu from "./AmmoniumSiloMenu";
 import FixatorMenu from "./FixatorMenu";
+import GameOverMenu from "./GameOverMenu";
 
 
 export const menus = {
@@ -21,6 +22,7 @@ export const menus = {
 	foodSiloMenu:(<FoodSiloMenu></FoodSiloMenu>),
 	ammoniumSiloMenu:(<AmmoniumSiloMenu></AmmoniumSiloMenu>),
 	fixatorMenu: (<FixatorMenu></FixatorMenu>),
+	gameOverMenu: (<GameOverMenu></GameOverMenu>),
 }
 export let setActiveMenu = undefined;
 export let getActiveMenu = undefined;
