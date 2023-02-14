@@ -76,7 +76,12 @@ const TriviaQuestion = (props) => {
           
           return (
             <>
-            {value.currentQuestion === -1 ? <h2>Correct!</h2> : <h2>Incorrect</h2>}
+            {
+              value.currentQuestion === -1 ? 
+              <h2>Correct! +{((value.triviaCombo) * baseTriviaReward)} Food</h2> 
+              : 
+              <h2>Incorrect -{baseTriviaPunishment} Food</h2>
+            }
             <p>Come back in a minute for another question and chance to win food!</p>
             </>
           );
