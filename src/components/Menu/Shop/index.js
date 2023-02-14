@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { menus, setActiveMenu } from '..';
 
-import { costPerAmmonium, foodSecurityLevelCosts, GameStateContext, ammoniumMerchantLevel } from '../../Game';
+import { costPerAmmonium, foodSecurityLevelCosts, GameStateContext, ammoniumMerchantLevel, foodSecurityLevelMaxNRO } from '../../Game';
 
 import '../menu.css';
 
@@ -20,6 +20,7 @@ const getFSLButton = (level, value) => {
 
                 if(value.setFoodValidated((old) => old - upgradeCost)) {
                     value.setFoodSecurityLevel(level);
+                    value.setMaxNitrogenRunoff(foodSecurityLevelMaxNRO[level]);
                     if(level === 4) {
                         startConfetti();
                         setTimeout(() => stopConfetti(), 10000);
