@@ -281,7 +281,7 @@ export const createFixator = (setFixatorState) => {
 }
 
 export const calculateFoodPerMinute = (plantState) => {
-    return Object.values(plantState).reduce((accumulator, plant) => accumulator + plant.state.foodproduction, 0)
+    return Object.values(plantState).reduce((accumulator, plant) => accumulator + plant.state.foodproduction, 0) * collectionMultiplier;
 }
 
 export const calculateFoodStorage = (foodSiloState) => {
@@ -293,7 +293,7 @@ export const calculateAmmoniumStorage = (ammoniumSiloState) => {
 }
 
 export const calculateAmmoniumPerMinute = (fixatorState) => {
-    return Object.values(fixatorState).reduce((accumulator, fixator) => accumulator + fixator.state.ammoniumproduction, 0);
+    return Object.values(fixatorState).reduce((accumulator, fixator) => accumulator + fixator.state.ammoniumproduction, 0) * collectionMultiplier;
 }
 
 export const calculateAmmoniumEmergency = (ammoniumSiloState) => {
@@ -393,12 +393,12 @@ export function Game(props) {
 
     // update food production when plants change ( rate per second )
     useEffect(() => {
-        foodRateRef.current = (calculateFoodPerMinute(plantState))/60 * collectionMultiplier;
+        foodRateRef.current = (calculateFoodPerMinute(plantState))/60;
     }, [plantState])
 
     // update ammonium production when fixators change ( rate per second )
     useEffect(() => {
-        ammoniumRateRef.current = (calculateAmmoniumPerMinute(fixatorState))/60 * collectionMultiplier;
+        ammoniumRateRef.current = (calculateAmmoniumPerMinute(fixatorState))/60;
     }, [fixatorState])
 
     // update max food storage when food silos change
