@@ -8,7 +8,7 @@ import './styles.css'
 export const ModelContext = React.createContext();
 export const GameStateContext = React.createContext();
 
-const collectionMultiplier = 1;
+const collectionMultiplier = 4;
 const defaultTileVisibility = false;
 
 export const plantsPerPlot = 16;
