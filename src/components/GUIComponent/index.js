@@ -21,7 +21,7 @@ export default function GUIComponent(props) {
                                 Ammonium: {Math.round((props.ammonium + Number.EPSILON) * 100) / 100} / {props.maxAmmonium}
                             </div>
                             <div className="stat">
-                                Nitrogen Runoff: {Math.round((props.maxNitrogenRunoff + Number.EPSILON) * 100) / 100} / {props.maxNitrogenRunoff}
+                                Nitrogen Runoff: {Math.round((props.nitrogenRunoff + Number.EPSILON) * 100) / 100} / {props.maxNitrogenRunoff}
                             </div>
                         </>
                         :
