@@ -12,16 +12,16 @@ export default function GUIComponent(props) {
 
             <div className="stat-display top-left">
                 <div className="stat" onClick={() => props.setStatsExtended((old) => !old)}>
-                    Food: {props.food} / {props.maxFood} <span style={{ float: 'right' }}> {props.statsExtended ? "⬇️" : "⬆️"}</span>
+                    Food: {Math.round((props.food + Number.EPSILON) * 100) / 100} / {props.maxFood} <span style={{ float: 'right' }}> {props.statsExtended ? "⬇️" : "⬆️"}</span>
                 </div>
                 {
                     props.statsExtended ?
                         <>
                             <div className="stat">
-                                Ammonium: {props.ammonium} / {props.maxAmmonium}
+                                Ammonium: {Math.round((props.ammonium + Number.EPSILON) * 100) / 100} / {props.maxAmmonium}
                             </div>
                             <div className="stat">
-                                Nitrogen Runoff: {props.nitrogenRunoff} / {props.maxNitrogenRunoff}
+                                Nitrogen Runoff: {Math.round((props.maxNitrogenRunoff + Number.EPSILON) * 100) / 100} / {props.maxNitrogenRunoff}
                             </div>
                         </>
                         :
