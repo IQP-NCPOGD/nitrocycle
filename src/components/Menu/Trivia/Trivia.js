@@ -24,7 +24,7 @@ const questions = [
       {
         answer: 'Nitrogen Runoff',
         src: '/data/images/nitrogen-runoff.png',
-        correct: true,
+        correct: true
       }
     ]
   },
@@ -46,10 +46,76 @@ const questions = [
       {
         answer: '(De)Nitrification',
         src: '/data/images/denitrification-nitrification.png',
-        correct: true,
+        correct: true
       }
     ]
-  }
+  },
+  {
+    question: "Which of the following is could explode if not properly maintained?",
+    answers: [
+      {
+        answer: 'Ammonium Silo',
+        src: '/data/images/ammonium-silo.png',
+        correct: true
+      },
+      {
+        answer: 'Food Silo',
+        src: '/data/images/food-Silo.png'
+      },
+      {
+        answer: 'Potato Plant',
+        src: '/data/images/plant.png'
+      },
+      {
+        answer: 'Food',
+        src: '/data/images/potato.png'
+      }
+    ]
+  },
+  {
+    question: "Which of the following is the cycle in which nitrogen is converted between its various chemical forms?",
+    answers: [
+      {
+        answer: '(De)Nitrification',
+        src: '/data/images/denitrification-nitrification.png',
+      },
+      {
+        answer: 'Nitrogen Cycle',
+        src: '/data/images/nitrogen-cycle.png',
+        correct: true
+      },
+      {
+        answer: 'Nitrogen Runoff',
+        src: '/data/images/nitrogen-runoff.png'
+      },
+      {
+        answer: 'Food Silo',
+        src: '/data/images/food-Silo.png'
+      }
+    ]
+  },
+  {
+    question: "Which of the following is can be eaten by humans and used to increase food security in developing countries?",
+    answers: [
+      {
+        answer: '(De)Nitrification',
+        src: '/data/images/denitrification-nitrification.png',
+      },
+      {
+        answer: 'Ammonium',
+        src: '/data/images/ammonium-chemical.png'
+      },
+      {
+        answer: 'Nitrogen Runoff',
+        src: '/data/images/nitrogen-runoff.png'
+      },
+      {
+        answer: 'Food',
+        src: '/data/images/potato.png',
+        correct: true
+      }
+    ]
+  },
 ];
 
 const checkAnswer = (correct, value) => {
