@@ -9,6 +9,7 @@ import FoodSiloMenu from "./FoodSiloMenu";
 import AmmoniumSiloMenu from "./AmmoniumSiloMenu";
 import FixatorMenu from "./FixatorMenu";
 import GameOverMenu from "./GameOverMenu";
+import SkillTree from "./SkillTree";
 
 
 export const menus = {
@@ -23,6 +24,7 @@ export const menus = {
 	ammoniumSiloMenu:(<AmmoniumSiloMenu></AmmoniumSiloMenu>),
 	fixatorMenu: (<FixatorMenu></FixatorMenu>),
 	gameOverMenu: (<GameOverMenu></GameOverMenu>),
+	skillTree: (<SkillTree></SkillTree>),
 }
 export let setActiveMenu = undefined;
 export let getActiveMenu = undefined;
