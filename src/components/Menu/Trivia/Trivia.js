@@ -60,7 +60,7 @@ const questions = [
       },
       {
         answer: 'Food Silo',
-        src: '/data/images/food-Silo.png'
+        src: '/data/images/food-silo.png'
       },
       {
         answer: 'Potato Plant',
