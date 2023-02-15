@@ -82,7 +82,7 @@ class ARComponent extends React.PureComponent {
                 <ARMarker
                   params={{ smooth: true }}
                   type={"pattern"}
-                  patternUrl={"data/patterns/patt.hiro"}
+                  patternUrl={"data/patterns/pattern-plant.patt"}
                   onMarkerFound={this.props.plantFound}
                   onMarkerLost={this.props.plantLost}>
 
@@ -93,7 +93,7 @@ class ARComponent extends React.PureComponent {
                 <ARMarker
                   params={{ smooth: true }}
                   type={"pattern"}
-                  patternUrl={"data/patterns/arjs.patt"}
+                  patternUrl={"data/patterns/pattern-food-silo.patt"}
                   onMarkerFound={this.props.foodSiloFound}
                   onMarkerLost={this.props.foodSiloLost}>
 
@@ -104,7 +104,7 @@ class ARComponent extends React.PureComponent {
                 <ARMarker
                   params={{ smooth: true }}
                   type={"pattern"}
-                  patternUrl={"data/patterns/nh3.patt"}
+                  patternUrl={"data/patterns/pattern-ammonium-silo.patt"}
                   onMarkerFound={this.props.ammoniumSiloFound}
                   onMarkerLost={this.props.ammoniumSiloLost}>
 
@@ -115,7 +115,7 @@ class ARComponent extends React.PureComponent {
                 <ARMarker
                   params={{ smooth: true }}
                   type={"pattern"}
-                  patternUrl={"data/patterns/fixator.patt"}
+                  patternUrl={"data/patterns/pattern-nitrogen-fixator.patt"}
                   onMarkerFound={this.props.fixatorFound}
                   onMarkerLost={this.props.fixatorLost}>
 
