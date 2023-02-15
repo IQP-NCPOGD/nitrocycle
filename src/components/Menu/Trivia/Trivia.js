@@ -1,4 +1,4 @@
-import React, { Text } from 'react';
+import React, { Text, useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { menus, setActiveMenu } from '..';
 import { baseTriviaPunishment, baseTriviaReward, GameStateContext, msToNewTriviaQuestion } from '../../Game';
@@ -51,7 +51,7 @@ const questions = [
     ]
   },
   {
-    question: "Which of the following is could explode if not properly maintained?",
+    question: "Which of the following could explode if not properly maintained?",
     answers: [
       {
         answer: 'Ammonium Silo',
@@ -95,7 +95,7 @@ const questions = [
     ]
   },
   {
-    question: "Which of the following is can be eaten by humans and used to increase food security in developing countries?",
+    question: "Which of the following can be eaten by humans and used to increase food security in developing countries?",
     answers: [
       {
         answer: '(De)Nitrification',
@@ -128,7 +128,46 @@ const checkAnswer = (correct, value) => {
     value.setTriviaCombo(0);
     value.setCurrentQuestion(-2);
   }
+  value.setTriviaTimestamp(new Date().getTime() + msToNewTriviaQuestion);
   setTimeout(() => value.setCurrentQuestion(Math.floor(Math.random() * questions.length)), msToNewTriviaQuestion);
+}
+
+const Timer = (props) => {
+
+  const calculateMinutes = (timeLeft) => {
+    let minutes = Math.max(Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60)), 0);
+    return minutes < 9 ? "0" + minutes : minutes;
+  }
+
+  const calculateSeconds = (timeLeft) => {
+    let seconds = Math.max(Math.floor((timeLeft % (1000 * 60)) / 1000), 0);
+    return seconds < 9 ? "0" + seconds : seconds;
+  }
+
+  const getTimeLeft = () => {
+    let now = new Date().getTime();
+    return props.value.triviaTimestamp - now;
+  }
+
+  const initialTimeLeft = getTimeLeft();
+
+  const [minutes, setMinutes] = useState(calculateMinutes(initialTimeLeft));
+  const [seconds, setSeconds] = useState(calculateSeconds(initialTimeLeft));
+
+  useEffect(() => {
+    clearInterval(props.value.triviaInterval);
+    props.value.setTriviaInterval(setInterval(() => {
+      let timeLeft = getTimeLeft();
+
+      setMinutes(calculateMinutes(timeLeft));
+      setSeconds(calculateSeconds(timeLeft));
+
+  }, 1000));
+  }, [])
+
+  return(
+    <h3>{minutes}:{seconds}</h3>
+  )
 }
 
 const TriviaQuestion = (props) => {
@@ -149,6 +188,7 @@ const TriviaQuestion = (props) => {
               <h2>Incorrect -{baseTriviaPunishment} Food</h2>
             }
             <p>Come back in a minute for another question and chance to win food!</p>
+            <Timer value={value}/>
             </>
           );
 

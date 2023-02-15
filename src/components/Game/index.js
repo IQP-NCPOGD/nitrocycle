@@ -365,8 +365,10 @@ export function Game(props) {
     const [fixatorVisible, setFixatorVisible] = useState(defaultTileVisibility);
 
     // Trivia
-    const [currentQuestion, setCurrentQuestion] = useState(1);
+    const [currentQuestion, setCurrentQuestion] = useState(0);
     const [triviaCombo, setTriviaCombo] = useState(0);
+    const [triviaTimestamp, setTriviaTimestamp] = useState(0);
+    const [triviaInterval, setTriviaInterval] = useState(undefined);
 
     useEffect(() => {
         /*
@@ -456,6 +458,8 @@ export function Game(props) {
         statsExtended, setStatsExtended,
         currentQuestion, setCurrentQuestion,
         triviaCombo, setTriviaCombo,
+        triviaTimestamp, setTriviaTimestamp,
+        triviaInterval, setTriviaInterval,
     }
 
     const ARprops = {
