@@ -9,7 +9,7 @@ export const ModelContext = React.createContext();
 export const GameStateContext = React.createContext();
 
 const collectionMultiplier = 1;
-const defaultTileVisibility = true;
+const defaultTileVisibility = false;
 
 export const plantsPerPlot = 16;
 export const costPerPlant = 25;
