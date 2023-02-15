@@ -11,19 +11,19 @@ const questions = [
     answers: [
       {
         answer: 'Food',
-        src: '/data/images/plant.png'
+        src: 'data/images/plant.png'
       },
       {
         answer: 'Ammonium',
-        src: '/data/images/ammonium_chemical.png'
+        src: 'data/images/ammonium_chemical.png'
       },
       {
         answer: 'Nitrogen',
-        src: '/data/images/nitrogen.png'
+        src: 'data/images/nitrogen.png'
       },
       {
         answer: 'Nitrogen Runoff',
-        src: '/data/images/nitrogen-runoff.png',
+        src: 'data/images/nitrogen-runoff.png',
         correct: true
       }
     ]
@@ -33,19 +33,19 @@ const questions = [
     answers: [
       {
         answer: 'Potato Plant',
-        src: '/data/images/plant.png'
+        src: 'data/images/plant.png'
       },
       {
         answer: 'Nitrogen Cycle',
-        src: '/data/images/nitrogen-cycle.png'
+        src: 'data/images/nitrogen-cycle.png'
       },
       {
         answer: 'Nitrogen Fixation',
-        src: '/data/images/nitrogen-fixation.png'
+        src: 'data/images/nitrogen-fixation.png'
       },
       {
         answer: '(De)Nitrification',
-        src: '/data/images/denitrification-nitrification.png',
+        src: 'data/images/denitrification-nitrification.png',
         correct: true
       }
     ]
@@ -55,20 +55,20 @@ const questions = [
     answers: [
       {
         answer: 'Ammonium Silo',
-        src: '/data/images/ammonium-silo.png',
+        src: 'data/images/ammonium-silo.png',
         correct: true
       },
       {
         answer: 'Food Silo',
-        src: '/data/images/food-Silo.png'
+        src: 'data/images/food-Silo.png'
       },
       {
         answer: 'Potato Plant',
-        src: '/data/images/plant.png'
+        src: 'data/images/plant.png'
       },
       {
         answer: 'Food',
-        src: '/data/images/potato.png'
+        src: 'data/images/potato.png'
       }
     ]
   },
@@ -77,20 +77,20 @@ const questions = [
     answers: [
       {
         answer: '(De)Nitrification',
-        src: '/data/images/denitrification-nitrification.png',
+        src: 'data/images/denitrification-nitrification.png',
       },
       {
         answer: 'Nitrogen Cycle',
-        src: '/data/images/nitrogen-cycle.png',
+        src: 'data/images/nitrogen-cycle.png',
         correct: true
       },
       {
         answer: 'Nitrogen Runoff',
-        src: '/data/images/nitrogen-runoff.png'
+        src: 'data/images/nitrogen-runoff.png'
       },
       {
         answer: 'Food Silo',
-        src: '/data/images/food-Silo.png'
+        src: 'data/images/food-Silo.png'
       }
     ]
   },
@@ -99,19 +99,19 @@ const questions = [
     answers: [
       {
         answer: '(De)Nitrification',
-        src: '/data/images/denitrification-nitrification.png',
+        src: 'data/images/denitrification-nitrification.png',
       },
       {
         answer: 'Ammonium',
-        src: '/data/images/ammonium_chemical.png'
+        src: 'data/images/ammonium_chemical.png'
       },
       {
         answer: 'Nitrogen Runoff',
-        src: '/data/images/nitrogen-runoff.png'
+        src: 'data/images/nitrogen-runoff.png'
       },
       {
         answer: 'Food',
-        src: '/data/images/potato.png',
+        src: 'data/images/potato.png',
         correct: true
       }
     ]

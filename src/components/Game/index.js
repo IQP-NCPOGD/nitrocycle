@@ -54,26 +54,26 @@ const foodStorageMultiplier = 3;
 export const plantTypeEnum = {
     wilt: {
         name: "Wilt",
-        imgURL: "/data/images/wilt.png",
+        imgURL: "data/images/wilt.png",
         foodproduction: 5,
         upgradeCost: 6,
         nroProduced: 2,
     },
     sprout: {
         name: "Sprout",
-        imgURL: "/data/images/sprout.png",
+        imgURL: "data/images/sprout.png",
         foodproduction: 15,
     },
     plant: {
         name: "Plant",
-        imgURL: "/data/images/plant.png",
+        imgURL: "data/images/plant.png",
         foodproduction: 30,
         upgradeCost: 2,
         nroProduced: 1,
     },
     bloom: {
         name: "Bloom",
-        imgURL: "/data/images/bloom.png",
+        imgURL: "data/images/bloom.png",
         foodproduction: 50,
     },
 }
@@ -82,35 +82,35 @@ export const foodSiloTypeEnum = {
     1: {
         level: 1,
         name: "Silo (Lvl 1)",
-        imgURL: "/data/images/food-silo.png",
+        imgURL: "data/images/food-silo.png",
         foodstorage: 200*foodStorageMultiplier,
         upgradeCost: 100,
     },
     2: {
         level: 2,
         name: "Silo (Lvl 2)",
-        imgURL: "/data/images/food-silo.png",
+        imgURL: "data/images/food-silo.png",
         foodstorage: 400*foodStorageMultiplier,
         upgradeCost: 200,
     },
     3: {
         level: 3,
         name: "Silo (Lvl 3)",
-        imgURL: "/data/images/food-silo.png",
+        imgURL: "data/images/food-silo.png",
         foodstorage: 600*foodStorageMultiplier,
         upgradeCost: 400,
     },
     4: {
         level: 4,
         name: "Silo (Lvl 4)",
-        imgURL: "/data/images/food-silo.png",
+        imgURL: "data/images/food-silo.png",
         foodstorage: 800*foodStorageMultiplier,
         upgradeCost: 800,
     },
     5: {
         level: 5,
         name: "Silo (Lvl 5)",
-        imgURL: "/data/images/food-silo.png",
+        imgURL: "data/images/food-silo.png",
         foodstorage: 1000*foodStorageMultiplier,
         upgradeCost: 1600,
     },
@@ -119,12 +119,12 @@ export const foodSiloTypeEnum = {
 export const ammoniumSiloTypeEnum = {
     safe: {
         name: "Ammonium Silo",
-        imgURL: "/data/images/ammonium-silo.png",
+        imgURL: "data/images/ammonium-silo.png",
         ammoniumstorage: 10,
     },
     risk: {
         name: "Ammonium Silo (NEEDS MAINTENANCE)",
-        imgURL: "/data/images/ammonium-silo.png",
+        imgURL: "data/images/ammonium-silo.png",
         ammoniumstorage: 10,
         maintenanceCost: 50,
     }
@@ -133,7 +133,7 @@ export const ammoniumSiloTypeEnum = {
 export const fixatorTypeEnum = {
     normal: {
         name: "Nitrogen Fixator",
-        imgURL: "/data/images/nitrogen-fixator.png",
+        imgURL: "data/images/nitrogen-fixator.png",
         ammoniumproduction: 1,
     }
 }

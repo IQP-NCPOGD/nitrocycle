@@ -8,15 +8,15 @@ const pages = [
       tab: [
         {
          page: 'Food',
-         src: '/data/images/potato.png'
+         src: 'data/images/potato.png'
         },
         {
           page: 'Ammonium',
-          src: '/data/images/ammonium_chemical.png'
+          src: 'data/images/ammonium_chemical.png'
         },
         {
           page: 'Nitrogen Runoff',
-          src: '/data/images/nitrogen-runoff.png'
+          src: 'data/images/nitrogen-runoff.png'
         }
       ]
     }, 
@@ -24,19 +24,19 @@ const pages = [
       tab: [
         {
           page: 'Potato Plant',
-          src: '/data/images/plant.png'
+          src: 'data/images/plant.png'
         },
         {
           page: 'Food Silo',
-          src: '/data/images/food-silo.png'
+          src: 'data/images/food-silo.png'
         },
         {
           page: 'Ammonium Silo',
-          src: '/data/images/ammonium-silo.png'
+          src: 'data/images/ammonium-silo.png'
         },
         {
           page: 'Nitrogen Fixator',
-          src: '/data/images/nitrogen-fixator.png'
+          src: 'data/images/nitrogen-fixator.png'
         }
       ]
     },
@@ -44,15 +44,15 @@ const pages = [
         tab: [
           {
             page: 'Nitrogen Cycle',
-            src: '/data/images/nitrogen-cycle.png'
+            src: 'data/images/nitrogen-cycle.png'
           },
           {
             page: 'Nitrogen Fixation',
-            src: '/data/images/nitrogen-fixation.png'
+            src: 'data/images/nitrogen-fixation.png'
           },
           {
             page: '(De)Nitrification',
-            src: '/data/images/denitrification-nitrification.png'
+            src: 'data/images/denitrification-nitrification.png'
           }
         ]
       }
