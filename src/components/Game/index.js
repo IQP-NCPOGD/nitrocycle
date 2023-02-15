@@ -8,6 +8,9 @@ import './styles.css'
 export const ModelContext = React.createContext();
 export const GameStateContext = React.createContext();
 
+const collectionMultiplier = 1;
+const defaultTileVisibility = true;
+
 export const plantsPerPlot = 16;
 export const costPerPlant = 25;
 export const costPerAmmonium = 100;
@@ -30,46 +33,48 @@ export const ammoniumMerchantLevel = 1;
 export const ammoniumSiloLevel = 1;
 export const nitrogenFixatorLevel = 2;
 
-export const baseTriviaReward = 1000;
-export const baseTriviaPunishment = 500;
-export const msToNewTriviaQuestion = 10000;
+export const baseTriviaReward = 100;
+export const baseTriviaPunishment = 50;
+export const msToNewTriviaQuestion = 60000;
 
-const defaultFoodStorage = 200000;
-const defaultAmmoniumStorage = 10;
+const defaultFoodStorage = 50;
+const defaultAmmoniumStorage = 0;
 
-const msToDisplayMenu = 2000;
+const msToDisplayMenu = 4000;
 
-const msToPlant = 10000;
-const msToWilt = 5000;
-const msToRemoval = 5000;
+const msToPlant = 60000;
+const msToWilt = 180000;
+const msToRemoval = 120000;
 
-const msToMaintainAmmoniumSilo = 5000;
-const msToExplode = 10000;
+const msToMaintainAmmoniumSilo = 300000;
+const msToExplode = 60000;
+
+const foodStorageMultiplier = 3;
 
 export const plantTypeEnum = {
     wilt: {
         name: "Wilt",
         imgURL: "/data/images/wilt.png",
-        foodproduction: 2,
+        foodproduction: 5,
         upgradeCost: 6,
         nroProduced: 2,
     },
     sprout: {
         name: "Sprout",
         imgURL: "/data/images/sprout.png",
-        foodproduction: 5,
+        foodproduction: 15,
     },
     plant: {
         name: "Plant",
         imgURL: "/data/images/plant.png",
-        foodproduction: 10,
+        foodproduction: 30,
         upgradeCost: 2,
         nroProduced: 1,
     },
     bloom: {
         name: "Bloom",
         imgURL: "/data/images/bloom.png",
-        foodproduction: 15,
+        foodproduction: 50,
     },
 }
 
@@ -78,36 +83,36 @@ export const foodSiloTypeEnum = {
         level: 1,
         name: "Silo (Lvl 1)",
         imgURL: "/data/images/food-silo.png",
-        foodstorage: 200,
-        upgradeCost: 30,
+        foodstorage: 200*foodStorageMultiplier,
+        upgradeCost: 100,
     },
     2: {
         level: 2,
         name: "Silo (Lvl 2)",
         imgURL: "/data/images/food-silo.png",
-        foodstorage: 400,
-        upgradeCost: 30,
+        foodstorage: 400*foodStorageMultiplier,
+        upgradeCost: 200,
     },
     3: {
         level: 3,
         name: "Silo (Lvl 3)",
         imgURL: "/data/images/food-silo.png",
-        foodstorage: 600,
-        upgradeCost: 30,
+        foodstorage: 600*foodStorageMultiplier,
+        upgradeCost: 400,
     },
     4: {
         level: 4,
         name: "Silo (Lvl 4)",
         imgURL: "/data/images/food-silo.png",
-        foodstorage: 800,
-        upgradeCost: 30,
+        foodstorage: 800*foodStorageMultiplier,
+        upgradeCost: 800,
     },
     5: {
         level: 5,
         name: "Silo (Lvl 5)",
         imgURL: "/data/images/food-silo.png",
-        foodstorage: 1000,
-        upgradeCost: 30,
+        foodstorage: 1000*foodStorageMultiplier,
+        upgradeCost: 1600,
     },
 }
 
@@ -318,11 +323,11 @@ export function Game(props) {
 
     const [foodSecurityLevel, setFoodSecurityLevel] = useState(0);
 
-    const [food, setFood] = useState(200000);
+    const [food, setFood] = useState(25);
     const [maxFood, setMaxFood] = useState(defaultFoodStorage);
     const [ammonium, setAmmonium] = useState(0);
     const [maxAmmonium, setMaxAmmonium] = useState(defaultAmmoniumStorage);
-    const [nitrogenRunoff, setNitrogenRunoff] = useState(0);
+    const [nitrogenRunoff, setNitrogenRunoff] = useState(14);
     const [maxNitrogenRunoff, setMaxNitrogenRunoff] = useState(foodSecurityLevelMaxNRO[0]);
 
     const [plantState, setPlantState] = useState({});
@@ -354,10 +359,10 @@ export function Game(props) {
 
     // Tile Visibility
 
-    const [plantVisible, setPlantVisible] = useState(true);
-    const [foodSiloVisible, setFoodSiloVisible] = useState(true);
-    const [ammoniumSiloVisible, setAmmoniumSiloVisible] = useState(true);
-    const [fixatorVisible, setFixatorVisible] = useState(true);
+    const [plantVisible, setPlantVisible] = useState(defaultTileVisibility);
+    const [foodSiloVisible, setFoodSiloVisible] = useState(defaultTileVisibility);
+    const [ammoniumSiloVisible, setAmmoniumSiloVisible] = useState(defaultTileVisibility);
+    const [fixatorVisible, setFixatorVisible] = useState(defaultTileVisibility);
 
     // Trivia
     const [currentQuestion, setCurrentQuestion] = useState(1);
@@ -384,14 +389,14 @@ export function Game(props) {
         }, 1000);
     }, []);
 
-    // update food production when plants change
+    // update food production when plants change ( rate per second )
     useEffect(() => {
-        foodRateRef.current = calculateFoodPerMinute(plantState);
+        foodRateRef.current = (calculateFoodPerMinute(plantState))/60 * collectionMultiplier;
     }, [plantState])
 
-    // update ammonium production when fixators change
+    // update ammonium production when fixators change ( rate per second )
     useEffect(() => {
-        ammoniumRateRef.current = calculateAmmoniumPerMinute(fixatorState);
+        ammoniumRateRef.current = (calculateAmmoniumPerMinute(fixatorState))/60 * collectionMultiplier;
     }, [fixatorState])
 
     // update max food storage when food silos change
