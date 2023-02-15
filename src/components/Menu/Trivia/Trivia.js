@@ -103,7 +103,7 @@ const questions = [
       },
       {
         answer: 'Ammonium',
-        src: '/data/images/ammonium-chemical.png'
+        src: '/data/images/ammonium_chemical.png'
       },
       {
         answer: 'Nitrogen Runoff',
