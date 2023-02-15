@@ -327,7 +327,7 @@ export function Game(props) {
     const [maxFood, setMaxFood] = useState(defaultFoodStorage);
     const [ammonium, setAmmonium] = useState(0);
     const [maxAmmonium, setMaxAmmonium] = useState(defaultAmmoniumStorage);
-    const [nitrogenRunoff, setNitrogenRunoff] = useState(14);
+    const [nitrogenRunoff, setNitrogenRunoff] = useState(0);
     const [maxNitrogenRunoff, setMaxNitrogenRunoff] = useState(foodSecurityLevelMaxNRO[0]);
 
     const [plantState, setPlantState] = useState({});
