@@ -3,3 +3,6 @@ Created by Charlie Anderson, Philip Bui, Hasan Gandor, Tri Vien Le, Ethan Pollac
 
 Development Documents:
 https://tinyurl.com/wpi-iqp-nitrocycle-documents
+
+QR Codes:
+https://tinyurl.com/IQP-nitrocycle-QRCodes
