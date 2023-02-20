@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect, useRef } from "react"
 import ARComponent from "../ARComponent"
 import GUIComponent from "../GUIComponent"
 import MenuHandler, { setActiveMenu } from "../Menu"
+import Tutorial from "../Tutorial"
 
 import './styles.css'
 
@@ -490,7 +491,9 @@ export function Game(props) {
                 <MenuHandler />
             </GameStateContext.Provider>
 
-
+            <GameStateContext.Provider value={{ ...currentState }}>
+                <Tutorial />
+            </GameStateContext.Provider>
         </>
     );
 }

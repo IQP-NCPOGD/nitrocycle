@@ -1,9 +1,11 @@
 
 
-  img {
-    max-width: 50px;
-    max-height: 50px;
-  }
+  
+  
+.menu img {
+  max-width: 50px;
+  max-height: 50px;
+}
   
   * {box-sizing: border-box}
 
