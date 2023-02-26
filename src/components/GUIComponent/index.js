@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { calculateAmmoniumEmergency } from "../Game";
+import { calculateAmmoniumEmergency, unreadPagesExist } from "../Game";
 
 import { setActiveMenu, getActiveMenu, menus } from '../Menu';
 
@@ -64,6 +64,7 @@ export default function GUIComponent(props) {
 
             <div className="node-buttons bottom-left warning-button">
                 {calculateAmmoniumEmergency(props.ammoniumSiloState) ? <img src="data/images/exclamation.png" onClick={() => window.alert("Your Ammonium Silos need maintenance immediately")}></img> : ""}
+                {unreadPagesExist(props.unlockedPages) ? <img src="data/images/exclamation.png" style={{backgroundColor: "green"}} onClick={() => window.alert("You have unread pages in your farmers log")}></img> : ""}
             </div>
 
         </div>

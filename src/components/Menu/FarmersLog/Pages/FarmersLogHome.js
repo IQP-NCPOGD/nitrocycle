@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { GameStateContext, markPageAs, newPage, readPage } from '../../../Game';
 
 import '../farmers-log-styles.css';
 
@@ -58,18 +59,39 @@ const pages = [
       }
   ];
   
-  const FarmersLogPages = (props) => {
-    const page = pages[props.pagesIndex];
-    return (<div className='page home'>
-      {
-        page.tab.map(page => 
-        (<button  onClick={props.update(page.page)}>
-          <h5>{page.page}</h5>
-          <img src={page.src}/>
-        </button>))
-      } 
-    </div>);
-  }
+const FarmersLogPages = (props) => {
+  const page = pages[props.pagesIndex];
+  return (
+    <GameStateContext.Consumer>
+      {value => {
+
+        return <div className='page home'>
+          {
+            page.tab.map((page) => {
+              let pageStatus = value.unlockedPages[page.page];
+              let newUnlock = pageStatus === newPage;
+
+              return pageStatus ?
+
+                <button onClick={() => {
+                  markPageAs(value.setUnlockedPages, page.page, readPage);
+                  (props.update(page.page))();
+                }}>
+                  <h5>{page.page}</h5>
+                  <img src={page.src} />
+                  {newUnlock ? <span className='new-badge'>NEW</span> : undefined}
+                </button> 
+                :
+                undefined
+            }
+            )
+          }
+        </div>
+      }
+      }
+    </GameStateContext.Consumer>
+  );
+}
 
 function FarmersLogHome(props) {
     const [selectedIndex, setSelectedIndex] = useState(0);

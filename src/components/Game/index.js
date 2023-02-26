@@ -38,6 +38,9 @@ export const baseTriviaReward = 100;
 export const baseTriviaPunishment = 50;
 export const msToNewTriviaQuestion = 60000;
 
+export const readPage = 1;
+export const newPage = 2;
+
 const defaultFoodStorage = 50;
 const defaultAmmoniumStorage = 0;
 
@@ -301,6 +304,16 @@ export const calculateAmmoniumEmergency = (ammoniumSiloState) => {
     return Object.values(ammoniumSiloState).filter((ammoniumSilo) => ammoniumSilo.state === ammoniumSiloTypeEnum.risk).length > 0
 }
 
+export const markPageAs = (setUnlockedPages, pageTitle, pageStatus) => {
+    setUnlockedPages((old) => {
+        return {...old, [pageTitle]: pageStatus}
+    });
+}
+
+export const unreadPagesExist = (unlockedPages) => {
+    return Object.values(unlockedPages).filter((pageStatus) => pageStatus === newPage).length > 0;
+}
+
 const generateValidator = (currentRef, maxRef, setState) => {
     return (cb) => {
         let nextVal = cb(currentRef.current);
@@ -364,6 +377,14 @@ export function Game(props) {
     const [foodSiloVisible, setFoodSiloVisible] = useState(defaultTileVisibility);
     const [ammoniumSiloVisible, setAmmoniumSiloVisible] = useState(defaultTileVisibility);
     const [fixatorVisible, setFixatorVisible] = useState(defaultTileVisibility);
+
+    // Farmers Log
+    const [unlockedPages, setUnlockedPages] = useState({
+        "Food": readPage,
+        "Potato Plant": readPage,
+        "Food Silo": newPage,
+        "(De)Nitrification": newPage,
+    });
 
     // Trivia
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -461,6 +482,7 @@ export function Game(props) {
         triviaCombo, setTriviaCombo,
         triviaTimestamp, setTriviaTimestamp,
         triviaInterval, setTriviaInterval,
+        unlockedPages, setUnlockedPages,
     }
 
     const ARprops = {

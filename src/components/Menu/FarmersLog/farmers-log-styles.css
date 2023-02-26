@@ -72,6 +72,7 @@ ul {
   justify-content: center;
 
   overflow: hidden;
+  position: relative;
 }
 
 .page button h5 {
@@ -87,6 +88,16 @@ ul {
   height: 100%;
 }
 
-
-
+.new-badge {
+  background-color: #fa3e3e;
+  border-radius: 2px;
+  color: white;
+ 
+  padding: 1px 3px;
+  font-size: 10px;
+  
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 
