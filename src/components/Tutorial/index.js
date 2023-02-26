@@ -30,7 +30,7 @@ const stages = [
 export default function Tutorial(props) { 
 	let [ stage, setStage ] = useState(0);
 
-	return <div className="tutorial" onClick={() => setStage(stage++)}>
+	return <div className="tutorial" onClick={() => setStage(stage++)} style={{zIndex: ((stage < stages.length) ? 100 : -10)}}>
 		{ (stage < stages.length) ? stages[stage] : undefined }
 	</div>;
 }
