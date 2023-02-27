@@ -123,7 +123,7 @@ export default function Tutorial(props) {
 		setStage(0);
 	}
 
-	return <div className="tutorial" onClick={() => setStage(stage++)} style={{zIndex: ((stage < scene.length) ? 100 : -10)}}>
+	return <div className="tutorial" onClick={() => setStage((old) => old+1)} style={{zIndex: ((stage < scene.length) ? 100 : -10)}}>
 		{ (stage < scene.length) ? scene[stage] : undefined }
 	</div>;
 }
