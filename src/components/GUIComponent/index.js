@@ -65,6 +65,7 @@ export default function GUIComponent(props) {
             <div className="node-buttons bottom-left warning-button">
                 {calculateAmmoniumEmergency(props.ammoniumSiloState) ? <img src="data/images/exclamation.png" onClick={() => window.alert("Your Ammonium Silos need maintenance immediately")}></img> : ""}
                 {unreadPagesExist(props.unlockedPages) ? <img src="data/images/notification.png" style={{backgroundColor: "#50C878", padding: "0.5em"}} onClick={() => window.alert("You have unread pages in your farmers log")}></img> : ""}
+                {props.currentQuestion >= 0 ? <img src="data/images/lightbulb.png" style={{backgroundColor: "#FDDA0D"}} onClick={() => window.alert("You have a trivia question available!")}></img> : ""}
             </div>
 
         </div>
