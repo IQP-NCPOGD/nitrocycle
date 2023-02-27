@@ -58,7 +58,7 @@ export default function Shop(props) {
     }
 
     const purchaseAmmoniumDisabled = (value) => {
-        return value.food < 100 || value.ammonium >= value.maxAmmonium
+        return value.food < costPerAmmonium || value.ammonium >= value.maxAmmonium
     }
 
     return (
@@ -77,11 +77,16 @@ export default function Shop(props) {
                     value.foodSecurityLevel < ammoniumMerchantLevel ?
                     <button disabled>Food Security Level {ammoniumMerchantLevel} Required</button>
                     :
+                    (
+                        value.maxAmmonium === 0 ?
+                        <button disabled>Ammonium Silo Required</button>
+                        :
                         <button
                             className='styled-button'
                             onClick={() => purchaseAmmonium(value)}
                             disabled={purchaseAmmoniumDisabled(value)}
                         >Purchase 1 Ammonium ({costPerAmmonium} food)</button>
+                    )
                     }
                 </GameStateContext.Consumer>
             </div>
