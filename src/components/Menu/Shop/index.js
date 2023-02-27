@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { menus, setActiveMenu } from '..';
 
 import { costPerAmmonium, foodSecurityLevelCosts, GameStateContext, ammoniumMerchantLevel, foodSecurityLevelMaxNRO, markPageAsNew } from '../../Game';
+import { scenes, setCurrentScene } from '../../Tutorial';
 
 import '../menu.css';
 
@@ -19,15 +20,25 @@ const getFSLButton = (level, value) => {
             onClick={() => {
 
                 if(value.setFoodValidated((old) => old - upgradeCost)) {
-                    if(level === 1) markPageAsNew("Nitrogen Cycle");
-                    if(level === 2) markPageAsNew("(De)Nitrification");
-                    if(level === 3) markPageAsNew("Nitrogen Fixation");
+                    if(level === 1) {
+                        markPageAsNew("Nitrogen Cycle");
+                        setCurrentScene(scenes.levelOne);
+                    }
+                    if(level === 2) {
+                        markPageAsNew("(De)Nitrification");
+                        setCurrentScene(scenes.levelTwo);
+                    }
+                    if(level === 3) {
+                        markPageAsNew("Nitrogen Fixation");
+                        setCurrentScene(scenes.levelThree);
+                    }
 
                     value.setFoodSecurityLevel(level);
                     value.setMaxNitrogenRunoff(foodSecurityLevelMaxNRO[level]);
                     if(level === 4) {
                         startConfetti();
-                        setTimeout(() => stopConfetti(), 10000);
+                        setTimeout(() => stopConfetti(), 20000);
+                        setCurrentScene(scenes.levelFour);
                     }
                 }
                 

@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect, useRef } from "react"
 import ARComponent from "../ARComponent"
 import GUIComponent from "../GUIComponent"
 import MenuHandler, { setActiveMenu } from "../Menu"
-import Tutorial from "../Tutorial"
+import Tutorial, { scenes, setCurrentScene } from "../Tutorial"
 
 import './styles.css'
 
@@ -146,7 +146,11 @@ export const fixatorTypeEnum = {
 
 let currentPlantId = 0;
 export const createPlant = (setPlantState) => {
-    markPageAsNew("Potato Plant");
+    if(currentPlantId === 0) {
+        markPageAsNew("Potato Plant");
+        setCurrentScene(scenes.firstPlant);
+    }
+    if(currentPlantId === 2) setCurrentScene(scenes.thirdPlant);
     let createdPlant = {
         id: currentPlantId,
         timeoutID: null,
@@ -192,7 +196,10 @@ export const fertilizePlant = (plantID, setPlantState) => {
 
 let currentFoodSiloId = 0;
 export const createFoodSilo = (setFoodSiloState) => {
-    markPageAsNew("Food Silo");
+    if(currentFoodSiloId === 0) {
+        markPageAsNew("Food Silo");
+        setCurrentScene(scenes.firstFoodSilo);
+    }
     let createdFoodSilo = {
         id: currentFoodSiloId,
         timeoutID: null,
@@ -218,7 +225,10 @@ export const upgradeFoodSilo = (foodSiloID, setFoodSiloState) => {
 
 let currentAmmoniumSiloId = 0;
 export const createAmmoniumSilo = (setAmmoniumSiloState, setNitrogenRunoffValidated) => {
-    markPageAsNew("Ammonium Silo");
+    if(currentAmmoniumSiloId === 0) {
+        markPageAsNew("Ammonium Silo");
+        setCurrentScene(scenes.firstAmmoniumSilo);
+    }
     let createdAmmoniumSilo = {
         id: currentAmmoniumSiloId,
         timeoutID: null,
@@ -275,7 +285,10 @@ export const maintainAmmoniumSilo = (ammoniumSiloID, setAmmoniumSiloState, setNi
 
 let currentFixatorId = 0;
 export const createFixator = (setFixatorState) => {
-    markPageAsNew("Nitrogen Fixator");
+    if(currentFixatorId === 0) {
+        markPageAsNew("Nitrogen Fixator");
+        setCurrentScene(scenes.firstNitrogenFixator);
+    }
     let createdFixator = {
         id: currentFixatorId,
         timeoutID: null,
