@@ -13,7 +13,7 @@ export function HansDialogue(props) {
 	return <div className="dialogue">
 		<p > {props.dialogue} </p>
 		<div>
-			<img className="hans" src="/data/images/hansAmmonium.png" />
+			<img className="hans" src="data/images/hansAmmonium.png" />
 			<p>Hans Ammonium</p>
 		</div>
 	</div>;
@@ -21,7 +21,7 @@ export function HansDialogue(props) {
 export function JohnDialogue(props) {
 	return <div className="dialogue">
 		<div>
-			<img className="john" src="/data/images/johnFarmer.png" />
+			<img className="john" src="data/images/johnFarmer.png" />
 			<p>John Farmer</p>
 		</div>
 		<p > {props.dialogue} </p>
