@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { GameStateContext, markPageAs, newPage, readPage } from '../../../Game';
+import { GameStateContext, markPageAsRead, newPage } from '../../../Game';
 
 import '../farmers-log-styles.css';
 
@@ -74,9 +74,10 @@ const FarmersLogPages = (props) => {
               return pageStatus ?
 
                 <button onClick={() => {
-                  markPageAs(value.setUnlockedPages, page.page, readPage);
+                  markPageAsRead(page.page);
                   (props.update(page.page))();
-                }}>
+                }}
+                key={page.page}>
                   <h5>{page.page}</h5>
                   <img src={page.src} />
                   {newUnlock ? <span className='new-badge'>NEW</span> : undefined}

@@ -55,6 +55,8 @@ const msToExplode = 60000;
 
 const foodStorageMultiplier = 3;
 
+let setUnlockedPages = undefined;
+
 export const plantTypeEnum = {
     wilt: {
         name: "Wilt",
@@ -144,6 +146,7 @@ export const fixatorTypeEnum = {
 
 let currentPlantId = 0;
 export const createPlant = (setPlantState) => {
+    markPageAsNew("Potato Plant");
     let createdPlant = {
         id: currentPlantId,
         timeoutID: null,
@@ -189,6 +192,7 @@ export const fertilizePlant = (plantID, setPlantState) => {
 
 let currentFoodSiloId = 0;
 export const createFoodSilo = (setFoodSiloState) => {
+    markPageAsNew("Food Silo");
     let createdFoodSilo = {
         id: currentFoodSiloId,
         timeoutID: null,
@@ -214,6 +218,7 @@ export const upgradeFoodSilo = (foodSiloID, setFoodSiloState) => {
 
 let currentAmmoniumSiloId = 0;
 export const createAmmoniumSilo = (setAmmoniumSiloState, setNitrogenRunoffValidated) => {
+    markPageAsNew("Ammonium Silo");
     let createdAmmoniumSilo = {
         id: currentAmmoniumSiloId,
         timeoutID: null,
@@ -270,6 +275,7 @@ export const maintainAmmoniumSilo = (ammoniumSiloID, setAmmoniumSiloState, setNi
 
 let currentFixatorId = 0;
 export const createFixator = (setFixatorState) => {
+    markPageAsNew("Nitrogen Fixator");
     let createdFixator = {
         id: currentFixatorId,
         timeoutID: null,
@@ -304,9 +310,16 @@ export const calculateAmmoniumEmergency = (ammoniumSiloState) => {
     return Object.values(ammoniumSiloState).filter((ammoniumSilo) => ammoniumSilo.state === ammoniumSiloTypeEnum.risk).length > 0
 }
 
-export const markPageAs = (setUnlockedPages, pageTitle, pageStatus) => {
+export const markPageAsRead = (pageTitle) => {
     setUnlockedPages((old) => {
-        return {...old, [pageTitle]: pageStatus}
+        return {...old, [pageTitle]: readPage}
+    });
+}
+
+export const markPageAsNew = (pageTitle) => {
+    setUnlockedPages((old) => {
+        if(old[pageTitle] === readPage) return {...old};
+        return {...old, [pageTitle]: newPage}
     });
 }
 
@@ -314,7 +327,7 @@ export const unreadPagesExist = (unlockedPages) => {
     return Object.values(unlockedPages).filter((pageStatus) => pageStatus === newPage).length > 0;
 }
 
-const generateValidator = (currentRef, maxRef, setState) => {
+const generateValidator = (currentRef, maxRef, setState, pageTitleOptional) => {
     return (cb) => {
         let nextVal = cb(currentRef.current);
         if (nextVal > maxRef.current) {
@@ -323,6 +336,7 @@ const generateValidator = (currentRef, maxRef, setState) => {
         } else if (nextVal < 0) {
             return false;
         } else {
+            if(nextVal > 0) markPageAsNew(pageTitleOptional);
             setState(cb);
             return true;
         }
@@ -332,6 +346,10 @@ const generateValidator = (currentRef, maxRef, setState) => {
 export function Game(props) {
 
     // ---------- STATE ----------
+
+    // Farmers Log
+    const [unlockedPages, sup] = useState({});
+    setUnlockedPages = sup;
 
     // Game Data
 
@@ -367,9 +385,9 @@ export function Game(props) {
 
     // Validators
 
-    const setFoodValidated = generateValidator(foodRef, maxFoodRef, setFood);
-    const setAmmoniumValidated = generateValidator(ammoniumRef, maxAmmoniumRef, setAmmonium);
-    const setNitrogenRunoffValidated = generateValidator(nitrogenRunoffRef, maxNitrogenRunoffRef, setNitrogenRunoff);
+    const setFoodValidated = generateValidator(foodRef, maxFoodRef, setFood, "Food");
+    const setAmmoniumValidated = generateValidator(ammoniumRef, maxAmmoniumRef, setAmmonium, "Ammonium");
+    const setNitrogenRunoffValidated = generateValidator(nitrogenRunoffRef, maxNitrogenRunoffRef, setNitrogenRunoff, "Nitrogen Runoff");
 
     // Tile Visibility
 
@@ -377,14 +395,6 @@ export function Game(props) {
     const [foodSiloVisible, setFoodSiloVisible] = useState(defaultTileVisibility);
     const [ammoniumSiloVisible, setAmmoniumSiloVisible] = useState(defaultTileVisibility);
     const [fixatorVisible, setFixatorVisible] = useState(defaultTileVisibility);
-
-    // Farmers Log
-    const [unlockedPages, setUnlockedPages] = useState({
-        "Food": readPage,
-        "Potato Plant": readPage,
-        "Food Silo": newPage,
-        "(De)Nitrification": newPage,
-    });
 
     // Trivia
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -416,6 +426,7 @@ export function Game(props) {
     // update food production when plants change ( rate per second )
     useEffect(() => {
         foodRateRef.current = (calculateFoodPerMinute(plantState))/60;
+        if(foodRateRef.current > 0) markPageAsNew("Food");
     }, [plantState])
 
     // update ammonium production when fixators change ( rate per second )
