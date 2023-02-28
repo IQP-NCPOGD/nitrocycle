@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect, useRef } from "react"
 import ARComponent from "../ARComponent"
 import GUIComponent from "../GUIComponent"
 import MenuHandler, { setActiveMenu } from "../Menu"
+import Tutorial, { scenes, setCurrentScene } from "../Tutorial"
 
 import './styles.css'
 
@@ -37,6 +38,9 @@ export const baseTriviaReward = 100;
 export const baseTriviaPunishment = 50;
 export const msToNewTriviaQuestion = 60000;
 
+export const readPage = 1;
+export const newPage = 2;
+
 const defaultFoodStorage = 50;
 const defaultAmmoniumStorage = 0;
 
@@ -50,6 +54,8 @@ const msToMaintainAmmoniumSilo = 300000;
 const msToExplode = 60000;
 
 const foodStorageMultiplier = 3;
+
+let setUnlockedPages = undefined;
 
 export const plantTypeEnum = {
     wilt: {
@@ -140,6 +146,11 @@ export const fixatorTypeEnum = {
 
 let currentPlantId = 0;
 export const createPlant = (setPlantState) => {
+    if(currentPlantId === 0) {
+        markPageAsNew("Potato Plant");
+        setCurrentScene(scenes.firstPlant);
+    }
+    if(currentPlantId === 2) setCurrentScene(scenes.thirdPlant);
     let createdPlant = {
         id: currentPlantId,
         timeoutID: null,
@@ -185,6 +196,10 @@ export const fertilizePlant = (plantID, setPlantState) => {
 
 let currentFoodSiloId = 0;
 export const createFoodSilo = (setFoodSiloState) => {
+    if(currentFoodSiloId === 0) {
+        markPageAsNew("Food Silo");
+        setCurrentScene(scenes.firstFoodSilo);
+    }
     let createdFoodSilo = {
         id: currentFoodSiloId,
         timeoutID: null,
@@ -210,6 +225,10 @@ export const upgradeFoodSilo = (foodSiloID, setFoodSiloState) => {
 
 let currentAmmoniumSiloId = 0;
 export const createAmmoniumSilo = (setAmmoniumSiloState, setNitrogenRunoffValidated) => {
+    if(currentAmmoniumSiloId === 0) {
+        markPageAsNew("Ammonium Silo");
+        setCurrentScene(scenes.firstAmmoniumSilo);
+    }
     let createdAmmoniumSilo = {
         id: currentAmmoniumSiloId,
         timeoutID: null,
@@ -266,6 +285,10 @@ export const maintainAmmoniumSilo = (ammoniumSiloID, setAmmoniumSiloState, setNi
 
 let currentFixatorId = 0;
 export const createFixator = (setFixatorState) => {
+    if(currentFixatorId === 0) {
+        markPageAsNew("Nitrogen Fixator");
+        setCurrentScene(scenes.firstNitrogenFixator);
+    }
     let createdFixator = {
         id: currentFixatorId,
         timeoutID: null,
@@ -300,7 +323,24 @@ export const calculateAmmoniumEmergency = (ammoniumSiloState) => {
     return Object.values(ammoniumSiloState).filter((ammoniumSilo) => ammoniumSilo.state === ammoniumSiloTypeEnum.risk).length > 0
 }
 
-const generateValidator = (currentRef, maxRef, setState) => {
+export const markPageAsRead = (pageTitle) => {
+    setUnlockedPages((old) => {
+        return {...old, [pageTitle]: readPage}
+    });
+}
+
+export const markPageAsNew = (pageTitle) => {
+    setUnlockedPages((old) => {
+        if(old[pageTitle] === readPage) return {...old};
+        return {...old, [pageTitle]: newPage}
+    });
+}
+
+export const unreadPagesExist = (unlockedPages) => {
+    return Object.values(unlockedPages).filter((pageStatus) => pageStatus === newPage).length > 0;
+}
+
+const generateValidator = (currentRef, maxRef, setState, pageTitleOptional) => {
     return (cb) => {
         let nextVal = cb(currentRef.current);
         if (nextVal > maxRef.current) {
@@ -309,6 +349,7 @@ const generateValidator = (currentRef, maxRef, setState) => {
         } else if (nextVal < 0) {
             return false;
         } else {
+            if(nextVal > 0) markPageAsNew(pageTitleOptional);
             setState(cb);
             return true;
         }
@@ -318,6 +359,10 @@ const generateValidator = (currentRef, maxRef, setState) => {
 export function Game(props) {
 
     // ---------- STATE ----------
+
+    // Farmers Log
+    const [unlockedPages, sup] = useState({});
+    setUnlockedPages = sup;
 
     // Game Data
 
@@ -353,9 +398,9 @@ export function Game(props) {
 
     // Validators
 
-    const setFoodValidated = generateValidator(foodRef, maxFoodRef, setFood);
-    const setAmmoniumValidated = generateValidator(ammoniumRef, maxAmmoniumRef, setAmmonium);
-    const setNitrogenRunoffValidated = generateValidator(nitrogenRunoffRef, maxNitrogenRunoffRef, setNitrogenRunoff);
+    const setFoodValidated = generateValidator(foodRef, maxFoodRef, setFood, "Food");
+    const setAmmoniumValidated = generateValidator(ammoniumRef, maxAmmoniumRef, setAmmonium, "Ammonium");
+    const setNitrogenRunoffValidated = generateValidator(nitrogenRunoffRef, maxNitrogenRunoffRef, setNitrogenRunoff, "Nitrogen Runoff");
 
     // Tile Visibility
 
@@ -394,6 +439,7 @@ export function Game(props) {
     // update food production when plants change ( rate per second )
     useEffect(() => {
         foodRateRef.current = (calculateFoodPerMinute(plantState))/60;
+        if(foodRateRef.current > 0) markPageAsNew("Food");
     }, [plantState])
 
     // update ammonium production when fixators change ( rate per second )
@@ -460,6 +506,7 @@ export function Game(props) {
         triviaCombo, setTriviaCombo,
         triviaTimestamp, setTriviaTimestamp,
         triviaInterval, setTriviaInterval,
+        unlockedPages, setUnlockedPages,
     }
 
     const ARprops = {
@@ -490,7 +537,9 @@ export function Game(props) {
                 <MenuHandler />
             </GameStateContext.Provider>
 
-
+            <GameStateContext.Provider value={{ ...currentState }}>
+                <Tutorial />
+            </GameStateContext.Provider>
         </>
     );
 }

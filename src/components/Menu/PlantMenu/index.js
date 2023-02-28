@@ -1,8 +1,10 @@
 import React, { useState, Text } from 'react';
 import { menus, setActiveMenu } from '..';
 import { calculateFoodPerMinute, costPerPlant, createPlant, fertilizePlant, GameStateContext, plantsPerPlot, plantTypeEnum } from '../../Game';
+import { scenes, setCurrentScene } from '../../Tutorial';
 
 import '../menu.css';
+let firstFertilize = true;
 export default function PlantMenu(props) {
   
 
@@ -19,7 +21,9 @@ export default function PlantMenu(props) {
 
     const fertilizePlantClicked = (plant, value) => {
         if(fertilizePlantDisabled(plant, value)) return;
-        value.setAmmoniumValidated((old) => old - plant.state.upgradeCost);
+        value.setAmmoniumValidated((old) => old - (plant.state.upgradeCost ?? 0));
+        if(firstFertilize) setCurrentScene(scenes.firstFertilize);
+        firstFertilize = false;
         if(!value.setNitrogenRunoffValidated( (old) => old + plant.state.nroProduced )) setActiveMenu(menus.gameOverMenu)
         fertilizePlant(plant.id, value.setPlantState)
     }

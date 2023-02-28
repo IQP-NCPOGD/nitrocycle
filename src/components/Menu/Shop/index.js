@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { menus, setActiveMenu } from '..';
 
-import { costPerAmmonium, foodSecurityLevelCosts, GameStateContext, ammoniumMerchantLevel, foodSecurityLevelMaxNRO } from '../../Game';
+import { costPerAmmonium, foodSecurityLevelCosts, GameStateContext, ammoniumMerchantLevel, foodSecurityLevelMaxNRO, markPageAsNew } from '../../Game';
+import { scenes, setCurrentScene } from '../../Tutorial';
 
 import '../menu.css';
 
@@ -19,11 +20,25 @@ const getFSLButton = (level, value) => {
             onClick={() => {
 
                 if(value.setFoodValidated((old) => old - upgradeCost)) {
+                    if(level === 1) {
+                        markPageAsNew("Nitrogen Cycle");
+                        setCurrentScene(scenes.levelOne);
+                    }
+                    if(level === 2) {
+                        markPageAsNew("(De)Nitrification");
+                        setCurrentScene(scenes.levelTwo);
+                    }
+                    if(level === 3) {
+                        markPageAsNew("Nitrogen Fixation");
+                        setCurrentScene(scenes.levelThree);
+                    }
+
                     value.setFoodSecurityLevel(level);
                     value.setMaxNitrogenRunoff(foodSecurityLevelMaxNRO[level]);
                     if(level === 4) {
                         startConfetti();
-                        setTimeout(() => stopConfetti(), 10000);
+                        setTimeout(() => stopConfetti(), 20000);
+                        setCurrentScene(scenes.levelFour);
                     }
                 }
                 
@@ -54,7 +69,7 @@ export default function Shop(props) {
     }
 
     const purchaseAmmoniumDisabled = (value) => {
-        return value.food < 100 || value.ammonium >= value.maxAmmonium
+        return value.food < costPerAmmonium || value.ammonium >= value.maxAmmonium
     }
 
     return (
@@ -73,11 +88,16 @@ export default function Shop(props) {
                     value.foodSecurityLevel < ammoniumMerchantLevel ?
                     <button disabled>Food Security Level {ammoniumMerchantLevel} Required</button>
                     :
+                    (
+                        value.maxAmmonium === 0 ?
+                        <button disabled>Ammonium Silo Required</button>
+                        :
                         <button
                             className='styled-button'
                             onClick={() => purchaseAmmonium(value)}
                             disabled={purchaseAmmoniumDisabled(value)}
                         >Purchase 1 Ammonium ({costPerAmmonium} food)</button>
+                    )
                     }
                 </GameStateContext.Consumer>
             </div>

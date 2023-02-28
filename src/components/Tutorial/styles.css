@@ -1,0 +1,47 @@
+
+.tutorial {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background-color: #0000007f;
+
+  z-index: 100;
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.tutorial .dialogue {
+  flex: 0 1 auto;
+
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: flex-start;
+
+  padding: 1rem;
+  gap: 1rem;
+
+  background-color: #A98467;
+}
+
+.tutorial img {
+  flex: 1 1 auto;
+
+  max-width: 10rem;
+
+  background-color: #F0EAD22F;
+
+  border-radius: 1rem;
+  padding: 1rem;
+  
+}
+
+.tutorial p {
+  flex: 3 1 auto;
+}
