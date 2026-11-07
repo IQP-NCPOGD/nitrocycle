@@ -23,7 +23,7 @@ The nitrogen cycle is taught as a loop of arrows, and the part that matters for 
 
 - **Four AR tiles.** Each printed pattern marker is a tile. When the camera finds a marker its menu button appears, and it hides four seconds after the marker is lost.
 - **Resources.** Food and ammonium tick every second from the plants and fixators you own. Nitrogen runoff has a hard cap that rises with each food security level.
-- **Plants.** A plant costs 25 food, grows from sprout to plant to wilt, and produces more at each stage until it is removed. Fertilizing a plant or a wilt with ammonium turns it into a bloom that yields 50, and adds runoff. A plot holds up to sixteen plants.
+- **Plants.** A plant costs 25 food, grows from sprout to plant to wilt, produces most as a plant and least as a wilt, and is removed after the wilt stage. Fertilizing a plant or a wilt with ammonium turns it into a bloom that yields 50, and adds runoff. A plot holds up to sixteen plants.
 - **Silos.** Food silos raise storage through five levels. Ammonium silos store the ammonium that fixators make and need maintenance every five minutes, or they explode and dump runoff.
 - **Fixators.** A nitrogen fixator makes ammonium on its own and adds a little runoff when built.
 - **Levels.** Food security levels cost 100, 500, 2,000 and 10,000 food and raise the runoff cap to 10, 15, 20 and 25. Level four ends the game with confetti.
@@ -33,7 +33,7 @@ The nitrogen cycle is taught as a loop of arrows, and the part that matters for 
 
 ## How it is built
 
-React 18 renders the whole game as DOM overlays on top of an AR canvas. `@artcom/react-three-arjs` wraps AR.js inside `@react-three/fiber`, so each marker is an `ARMarker` with a `pattern` URL under `data/patterns/` and the 3D plant, silo and fixator models under `data/models/` are glTF files loaded with three.js. The HUD, menus, tutorial, shop, trivia and Farmer's Log are plain React components, which is why the camera is only needed to reach a tile's menu. Webpack bundles `src/index.js` to `dist/`, copies `data/` and the AR.js camera calibration file beside it, and serves over HTTPS in development because `getUserMedia` needs a secure context on phones.
+React 18 renders the whole game as DOM overlays on top of an AR canvas. `@artcom/react-three-arjs` wraps AR.js inside `@react-three/fiber`, so each marker is an `ARMarker` with a `patternUrl` under `data/patterns/` and the 3D plant, silo and fixator models under `data/models/` are glTF files loaded with three.js. The HUD, menus, tutorial, shop, trivia and Farmer's Log are plain React components, which is why the camera is only needed to reach a tile's menu. Webpack bundles `src/index.js` to `dist/`, copies `data/` and the AR.js camera calibration file beside it, and serves over HTTPS in development because `getUserMedia` needs a secure context on phones.
 
 ## Install and run
 
